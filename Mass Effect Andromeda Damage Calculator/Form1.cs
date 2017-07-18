@@ -311,7 +311,30 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
     /// <summary>
     /// /Enemy database
     /// </summary>
+    struct EnemyStats
+    {
+        public EnemyStats(string enemyNameI,float maxHealthI, float maxShieldsI, float maxArmorI, float baseWeak1I, float baseWeak2I, int difficultyI, int factionI)
+        {
+            enemyName = enemyNameI; 
+            maxHealth = maxHealthI;
+            maxShields = maxShieldsI;
+            maxArmor = maxArmorI;
+            baseWeak1 = baseWeak1I;
+            baseWeak2 = baseWeak2I;
+            difficulty = difficultyI;
+            faction = factionI;
+            }
 
+       public string enemyName { get; }
+       public float maxHealth { get; }
+       public float maxShields { get; }
+       public float maxArmor { get; }
+       public float baseWeak1 { get; }
+       public float baseWeak2 { get; }
+       public int difficulty { get; }  // 1 bronze; 2 silver ; 3 gold ; 4 platinum
+       public int faction { get; } // 1 outlaw 2 kett 3 remnant
+
+    }
 
 
     public partial class Form1 : Form
@@ -340,8 +363,8 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
         private playingCharacter[] playingCharactersArray = new playingCharacter[constNumberChars]
              {
                   new playingCharacter("Human Soldier", 500f, 250f, 400f, 1f, 1f, 0f, "" ,
-                     "Frag Grenade", "frag grenade description", false, "BaseDam=1000", "1", "2", "Dam=0.3", "4a", "Dam=0.4", "5a_fluff", "BaseDOTDam=100;BaseDOTDur=6", "vsArmor=0.8","vsShields=1",
-                     "Turbocharge", "turbocharge description", true, "Duration=8;Recharge=0.2", "WD=0.1;ROF=0.2;MAG=0.2", "Recharge=0.1", "WD=0.1", "Recharge=0.2", "Duration=0.5", "WD=0.15", "5b_fluff", "ROF=0.2;MAG=0.2","MAG=0.8",
+                     "Frag Grenade", "frag grenade description", false, "BaseDam=1000", "1", "2", "Dam=0.3", "4a", "Dam=0.4", "5a", "BaseDOTDam=100;BaseDOTDur=6", "vsArmor=0.8","vsShields=1",
+                     "Turbocharge", "turbocharge description", true, "Duration=8;Recharge=0.2", "WD=0.1;ROF=0.2;MAG=0.2", "Recharge=0.1", "WD=0.1", "Recharge=0.2", "Duration=0.5", "WD=0.15", "5b", "ROF=0.2;MAG=0.2","MAG=0.8",
                      "Concussive Shot", "concussive shot description", false, "BaseDam=440;Recharge=10;Detonator=1", "1", "2", "Dam=0.35", "Recharge=0.3", "Repeat", "5a","Dam=0.5", "vsArmor=1.25", "vsShields=1",
                      "Munitions Training", "munitions training description", false, "", "WD=0.05", "PD=0.2", "WD=0.05;MD=0.2", "WD=0.08", "PD=0.2;MD=0.2", "TWD=0.2;TMD=0.3;EnableTCheck", "Reload=0.15;MAG=0.25", "TDebuff=0.24;EnableTCheck", "Weak=0.2",
                      "Combat Fitness", "combat fitness description", false, "", "Shields=0.1;Health=0.1", "MD=0.3", "Shields=0.15;Health=0.15", "Shields=0.25;Health=0.25", "MD=0.5", "TDR=0.5;EnableTCheck", "TDR=1;EnableTCheck", "TDR=2;EnableTCheck","TMD=0.65;EnableTCheck"),
@@ -377,8 +400,8 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                      "Combat Fitness", "combat fitness description", false, "", "Shields=0.1;Health=0.1", "MD=0.3", "Shields=0.15;Health=0.15", "Shields=0.25;Health=0.25", "MD=0.5", "TDR=0.5;EnableTCheck", "TDR=1;EnableTCheck", "TDR=2;EnableTCheck","TMD=0.65;EnableTCheck"),
                     new playingCharacter("Turian Soldier", 500f, 275f, 400f, 1f, 1f, 0f , "" ,
                      "Fortify", "fortification description", true, "Recharge=5", "DR=0.4", "Recharge=0.3", "DR=0.1", "DR=0.2", "4b", "5a", "MD=0.3", "TDR=0.5;EnableTCheck","BaseDamage=400;vsShields=0.6;Recharge=-0.5",
-                     "Turbocharge", "turbocharge description", true,"Duration=8;Recharge=0.2", "WD=0.1;ROF=0.2;MAG=0.2", "Recharge=0.1", "WD=0.1", "Recharge=0.2", "Duration=0.5", "WD=0.15", "5b_fluff", "ROF=0.2;MAG=0.2","MAG=0.8",
-                     "Frag Grenade", "frag grenade description", false, "Duration=8;Recharge=0.2", "WD=0.1;ROF=0.2;MAG=0.2", "Recharge=0.1", "WD=0.1", "Recharge=0.2", "Duration=0.5", "WD=0.15", "5b_fluff", "ROF=0.2;MAG=0.2","MAG=0.8",
+                     "Turbocharge", "turbocharge description", true,"Duration=8;Recharge=0.2", "WD=0.1;ROF=0.2;MAG=0.2", "Recharge=0.1", "WD=0.1", "Recharge=0.2", "Duration=0.5", "WD=0.15", "5b", "ROF=0.2;MAG=0.2","MAG=0.8",
+                     "Frag Grenade", "frag grenade description", false, "BaseDam=1000", "1", "2", "Dam=0.3", "4a", "Dam=0.4", "5a", "BaseDOTDam=100;BaseDOTDur=6", "vsArmor=0.8","vsShields=1",
                      "Munitions Training", "munitions training description", false, "", "WD=0.05", "PD=0.2", "WD=0.05;MD=0.2", "WD=0.08", "MD=0.2", "TWD=0.2;TMD=0.3;EnableTCheck", "Reload=0.15;MAG=0.25", "TDebuff=0.24;EnableTCheck", "Weak=0.2",
                      "Combat Fitness", "combat fitness description", false, "", "Shields=0.1;Health=0.1", "MD=0.3", "Shields=0.15;Health=0.15", "Shields=0.25;Health=0.25", "MD=0.5", "TDR=0.5;EnableTCheck", "TDR=1;EnableTCheck", "TDR=2;EnableTCheck","TMD=0.65;EnableTCheck"),
                     new playingCharacter("Krogan Vanguard", 600f, 150f, 740f, 1f, 1f, 0f , "" ,
@@ -419,7 +442,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                      "Rage", "rage description", true, "Duration=15", "RMD=0.25;RDR=0.15", "MD=0.15", "Shields=0.2;Health=0.2", "Shields=0.2;Health=0.2;RDR=0.15", "MD=0.25;RMD=0.065", "TDR=0.5;EnableTCheck", "TMD=0.65;EnableTCheck", "MD=0.25;RageDuration=0.5" , "AllyDR=0.3;Shields=0.2;Health=0.2"),
                    new playingCharacter("Turian Havok Trooper", 500f, 350f, 400f, 1f, 1f, 0f , "" ,
                      "Incinerate", "incinerate description", false, "BaseDam=350;BaseDOTDam=45;BaseDOTDur=6;Recharge=12;FirePrimer=HA", "vsArmor=0.6", "Recharge=0.15", "DOTDam=0.35;IDam=0.35", "4a", "DOTDam=0.5;DOTDuration=0.5", "IDam=0.6", "vsArmor=0.65", "Detonator=1","6b",
-                     "Turbocharge", "turbocharge description", true, "Duration=8;Recharge=0.2", "WD=0.1;ROF=0.2;MAG=0.2", "Recharge=0.1", "WD=0.1", "Recharge=0.2", "Duration=0.5", "WD=0.15", "5b_fluff", "ROF=0.2;MAG=0.2","MAG=0.8",
+                     "Turbocharge", "turbocharge description", true, "Duration=8;Recharge=0.2", "WD=0.1;ROF=0.2;MAG=0.2", "Recharge=0.1", "WD=0.1", "Recharge=0.2", "Duration=0.5", "WD=0.15", "5b", "ROF=0.2;MAG=0.2","MAG=0.8",
                      "Flak Cannon", "Flak description", false, "BaseDamage=250;SBase=85", "SvsArmor=-0.3", "2", "Dam=0.4", "Dam=0.5", "4b", "vsArmor=0.75", "5b", "NrSrapnel=0.5","BaseDOTDam=100",
                      "Munitions Training", "munitions training description", false, "", "WD=0.05", "PD=0.2", "WD=0.05;MD=0.2", "WD=0.08", "PD=0.2;MD=0.2", "TWD=0.2;TMD=0.3;EnableTCheck", "Reload=0.15;MAG=0.25", "TDebuff=0.24;EnableTCheck", "Weak=0.2",
                      "Aerial Assault", "aerial assault description", false, "", "Shields=0.1;Health=0.1", "TDR=100;EnableTCheck", "Shields=0.15;Health=0.15", "4a", "Shields=0.25;Health=0.25", "TDR=100;EnableTCheck", "MD=0.6", "TDR=100;EnableTCheck", "Shields=0.25;Health=0.25;TMD=0.65;EnableTCheck"),
@@ -652,6 +675,50 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
           // Hyper Shields
          };
 
+         // 1 bronze; 2 silver ; 3 gold ; 4 platinum
+        // 1 outlaw 2 kett 3 remnant
+        const int constNrEnemies = 38;
+        private EnemyStats[] myEnemyStatsArray = new EnemyStats[constNrEnemies]
+            {
+                new EnemyStats("Chosen",783.75f,0,0,1.4f,0,1,2),
+                new EnemyStats("Chosen",1520f,0,0,1.4f,0,2,2),
+                new EnemyStats("Chosen",2256.25f,0,0,1.4f,0,3,2),
+                new EnemyStats("Chosen",3206.25f,0,0,1.4f,0,4,2),
+                new EnemyStats("Wraith",825,0,0,1,0,1,2),
+                new EnemyStats("Wraith",1600,0,0,1,0,2,2),
+                new EnemyStats("Wraith",2375,0,0,1,0,3,2),
+                new EnemyStats("Wraith",3375,0,0,1,0,4,2),
+                new EnemyStats("Hat-less Wraith",825,0,0,1.15f,0,1,2),
+                new EnemyStats("Hat-less Wraith",1600,0,0,1.15f,0,2,2),
+                new EnemyStats("Hat-less Wraith",2375,0,0,1.15f,0,3,2),
+                new EnemyStats("Hat-less Wraith",3375,0,0,1.15f,0,4,2),
+                new EnemyStats("Destined",825,412.5f,0,1.4f,0,1,2),
+                new EnemyStats("Destined",1600,800,0,1.4f,0,2,2),
+                new EnemyStats("Destined",2375,1187.5f,0,1.4f,0,3,2),
+                new EnemyStats("Destined",3375,1687.5f,0,1.4f,0,4,2),
+                new EnemyStats("Destined Boss",3796.875f,1898.4375f,0,1.4f,0,4,2),
+                new EnemyStats("Anoited",825,660,0,1.4f,0,1,2),
+                new EnemyStats("Anoited",1600,1280,0,1.4f,0,2,2),
+                new EnemyStats("Anoited",2375,1900,0,1.4f,0,3,2),
+                new EnemyStats("Anoited",3375,2700,0,1.4f,0,4,2),
+                new EnemyStats("Anoited Boss",3796.875f,3037.5f,0,1.4f,0,4,2),
+                new EnemyStats("Ascendant",4950,0,0,1.4f,0,1,2),
+                new EnemyStats("Ascendant",9600,0,0,1.4f,0,2,2),
+                new EnemyStats("Ascendant",14150,0,0,1.4f,0,3,2),
+                new EnemyStats("Ascendant",20250,0,0,1.4f,0,4,2),
+                new EnemyStats("Ascendant Orb",5362.5f,0,0,4.6f,0,1,2),
+                new EnemyStats("Ascendant Orb",10400,0,0,4.6f,0,2,2),
+                new EnemyStats("Ascendant Orb",15437.5f,0,0,4.6f,0,3,2),
+                new EnemyStats("Ascendant Orb",21937.5f,0,0,4.6f,0,4,2),
+                new EnemyStats("Ascendant Boss",25312.5f,0,0,1.4f,0,4,2),
+                new EnemyStats("Ascendant Boss Orb",27421.875f,0,0,4.6f,0,4,2),
+                new EnemyStats("Fiend",0,0,12375,1.6f,1.15f,1,2),
+                new EnemyStats("Fiend",0,0,24000,1.6f,1.15f,2,2),
+                new EnemyStats("Fiend",0,0,35625,1.6f,1.15f,3,2),
+                new EnemyStats("Fiend",0,0,50625,1.6f,1.15f,4,2),
+                new EnemyStats("Fiend Boss",0,0,63281.25f,1.6f,1.15f,4,2),
+                new EnemyStats("Behemoth",0,0,67500,1.6f,1.15f,4,2)
+            };
 
         /*
 
@@ -734,9 +801,12 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
             comboBoxSelectApex1.SelectedIndex = 0;
             comboBoxSelectApex2.SelectedIndex = 0;
 
+               
+
             comboBoxSelectVeteranLevel.SelectedIndex = 0;
             comboBoxSelectDifficulty.SelectedIndex = 2;
 
+            
             comboBoxBonusHealth.SelectedIndex = 0;
             comboBoxBonusShields.SelectedIndex = 0;
             comboBoxBonusPRS.SelectedIndex = 0;
@@ -1363,23 +1433,23 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
             /////////////
             // gear variables
             float gearSRWD, gearSGWD, gearPWD, gearARWD, gearBPD, gearTPD, gearCPD, gearPRS, gearShields, gearMD, gearWeak;
-            gearSRWD= gearSGWD= gearPWD= gearARWD=  gearBPD= gearTPD= gearCPD= gearPRS= gearShields= gearMD = gearWeak=0;
+            gearSRWD = gearSGWD = gearPWD = gearARWD = gearBPD = gearTPD = gearCPD = gearPRS = gearShields = gearMD = gearWeak = 0;
 
             //add-on1 variables
             //add-on2 variables
             float addon1ARWD, addon1SRWD, addon1PWD, addon1SGWD, addon1MD, addon1MAG, addon1RELOAD, addon1PenMul, addon1Weak, addon1ROF;
             float addon2ARWD, addon2SRWD, addon2PWD, addon2SGWD, addon2MD, addon2MAG, addon2RELOAD, addon2PenMul, addon2Weak, addon2ROF;
-            addon1ARWD = addon1SRWD = addon1PWD = addon1SGWD = addon1MD = addon2ARWD = addon2SRWD = addon2PWD = addon2SGWD = addon2MD = addon1Weak= addon2Weak = addon1ROF = addon2ROF= 0;
-            addon1RELOAD = addon2RELOAD = addon1PenMul = addon2PenMul =addon1MAG = addon2MAG = 0;  // or 1 ??
+            addon1ARWD = addon1SRWD = addon1PWD = addon1SGWD = addon1MD = addon2ARWD = addon2SRWD = addon2PWD = addon2SGWD = addon2MD = addon1Weak = addon2Weak = addon1ROF = addon2ROF = 0;
+            addon1RELOAD = addon2RELOAD = addon1PenMul = addon2PenMul = addon1MAG = addon2MAG = 0;  // or 1 ??
 
             //booster1 variables
             //booster2 variables
 
             float booster1ARWD, booster1SRWD, booster1PWD, booster1SGWD, booster1MD, booster1Weak, booster1Shields, booster1PRS, booster1BPD, booster1TPD, booster1CPD;
-             booster1ARWD = booster1SRWD= booster1PWD= booster1SGWD= booster1MD= booster1Weak= booster1Shields= booster1PRS= booster1BPD= booster1TPD= booster1CPD = 0;
-           
+            booster1ARWD = booster1SRWD = booster1PWD = booster1SGWD = booster1MD = booster1Weak = booster1Shields = booster1PRS = booster1BPD = booster1TPD = booster1CPD = 0;
+
             float booster2ARWD, booster2SRWD, booster2PWD, booster2SGWD, booster2MD, booster2Weak, booster2Shields, booster2PRS, booster2BPD, booster2TPD, booster2CPD;
-             booster2ARWD = booster2SRWD = booster2PWD = booster2SGWD = booster2MD = booster2Weak = booster2Shields = booster2PRS = booster2BPD = booster2TPD = booster2CPD = 0;
+            booster2ARWD = booster2SRWD = booster2PWD = booster2SGWD = booster2MD = booster2Weak = booster2Shields = booster2PRS = booster2BPD = booster2TPD = booster2CPD = 0;
 
             string boosterAmmoType; boosterAmmoType = "none"; float boosterDisruptorVsShields; boosterDisruptorVsShields = 1;
 
@@ -1390,427 +1460,427 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
             float apex1ARWD, apex1SRWD, apex1PWD, apex1SGWD, apex1MD, apex1Weak, apex1WeakL, apex1BPD, apex1CPD, apex1TPD, apex1Shields, apex1Health, apex1Combo, apex1MAG;
             float apex2ARWD, apex2SRWD, apex2PWD, apex2SGWD, apex2MD, apex2Weak, apex2WeakL, apex2BPD, apex2CPD, apex2TPD, apex2Shields, apex2Health, apex2Combo, apex2MAG;
 
-            apex1ARWD= apex1SRWD= apex1PWD= apex1SGWD= apex1MD= apex1Weak= apex1WeakL= apex1BPD= apex1CPD= apex1TPD= apex1Shields= apex1Health= apex1Combo = apex2ARWD= 
-                apex2SRWD= apex2PWD= apex2SGWD= apex2MD= apex2Weak= apex2WeakL= apex2BPD= apex2CPD= apex2TPD= apex2Shields= apex2Health= apex2Combo = apex1MAG = apex2MAG= 0;
+            apex1ARWD = apex1SRWD = apex1PWD = apex1SGWD = apex1MD = apex1Weak = apex1WeakL = apex1BPD = apex1CPD = apex1TPD = apex1Shields = apex1Health = apex1Combo = apex2ARWD =
+                apex2SRWD = apex2PWD = apex2SGWD = apex2MD = apex2Weak = apex2WeakL = apex2BPD = apex2CPD = apex2TPD = apex2Shields = apex2Health = apex2Combo = apex1MAG = apex2MAG = 0;
 
             //Skill variables (gazzilons :( )  
             //skill1 
-            float skill1WDSum, skill1ROFSum, skill1MAGSum, skill1PDSum, skill1MDSum, skill1ShieldsSum, skill1DRSum, skill1DebuffSum, skill1ArmorDebuffSum, skill1PRS, skill1ConHealth, skill1PRPSum, skill1PenMulSum; 
+            float skill1WDSum, skill1ROFSum, skill1MAGSum, skill1PDSum, skill1MDSum, skill1ShieldsSum, skill1DRSum, skill1DebuffSum, skill1ArmorDebuffSum, skill1PRS, skill1ConHealth, skill1PRPSum, skill1PenMulSum;
 
-            skill1WDSum = skill1ROFSum = skill1MAGSum = skill1PDSum = skill1MDSum = skill1ShieldsSum = skill1DRSum = skill1DebuffSum = skill1ArmorDebuffSum = skill1PRS = skill1ConHealth = skill1PRPSum = skill1PenMulSum= 0;
-         
+            skill1WDSum = skill1ROFSum = skill1MAGSum = skill1PDSum = skill1MDSum = skill1ShieldsSum = skill1DRSum = skill1DebuffSum = skill1ArmorDebuffSum = skill1PRS = skill1ConHealth = skill1PRPSum = skill1PenMulSum = 0;
+
             //skill2
             float skill2WDSum, skill2ROFSum, skill2MAGSum, skill2PDSum, skill2MDSum, skill2ShieldsSum, skill2DRSum, skill2DebuffSum, skill2ArmorDebuffSum, skill2PRS, skill2ConHealth, skill2PRPSum, skill2PenMulSum;
 
-            skill2WDSum = skill2ROFSum = skill2MAGSum = skill2PDSum = skill2MDSum = skill2ShieldsSum = skill2DRSum = skill2DebuffSum = skill2ArmorDebuffSum = skill2PRS = skill2ConHealth= skill2PRPSum = skill2PenMulSum = 0;
+            skill2WDSum = skill2ROFSum = skill2MAGSum = skill2PDSum = skill2MDSum = skill2ShieldsSum = skill2DRSum = skill2DebuffSum = skill2ArmorDebuffSum = skill2PRS = skill2ConHealth = skill2PRPSum = skill2PenMulSum = 0;
 
             //skill3
             float skill3WDSum, skill3ROFSum, skill3MAGSum, skill3PDSum, skill3MDSum, skill3ShieldsSum, skill3DRSum, skill3DebuffSum, skill3ArmorDebuffSum, skill3PRS, skill3ConHealth, skill3PRPSum, skill3PenMulSum;
 
-            skill3WDSum = skill3ROFSum = skill3MAGSum = skill3PDSum = skill3MDSum = skill3ShieldsSum = skill3DRSum = skill3DebuffSum = skill3ArmorDebuffSum = skill3PRS = skill3ConHealth = skill3PRPSum = skill3PenMulSum = 0; 
-            
-            //skill4 "passive"
-            float skill4WDSum, skill4MAGSum, skill4PDSum, skill4BPD, skill4MDSum, skill4Reload, skill4Weak, skill4DRSum, skill4DebuffSum, skill4Combo, skill4PRS , skill4ConHealth, skill4ConDam, skill4PEffectDur, skill4vsShields, skill4vsArmor, skill4PRTR;
+            skill3WDSum = skill3ROFSum = skill3MAGSum = skill3PDSum = skill3MDSum = skill3ShieldsSum = skill3DRSum = skill3DebuffSum = skill3ArmorDebuffSum = skill3PRS = skill3ConHealth = skill3PRPSum = skill3PenMulSum = 0;
 
-            skill4WDSum = skill4MAGSum = skill4PDSum = skill4BPD = skill4MDSum = skill4Reload = skill4Weak = skill4DRSum = skill4DebuffSum = skill4Combo = skill4PRS = skill4ConHealth = skill4ConDam =skill4PEffectDur= skill4vsShields= skill4vsArmor = skill4PRTR = 0;
+            //skill4 "passive"
+            float skill4WDSum, skill4MAGSum, skill4PDSum, skill4BPD, skill4MDSum, skill4Reload, skill4Weak, skill4DRSum, skill4DebuffSum, skill4Combo, skill4PRS, skill4ConHealth, skill4ConDam, skill4PEffectDur, skill4vsShields, skill4vsArmor, skill4PRTR;
+
+            skill4WDSum = skill4MAGSum = skill4PDSum = skill4BPD = skill4MDSum = skill4Reload = skill4Weak = skill4DRSum = skill4DebuffSum = skill4Combo = skill4PRS = skill4ConHealth = skill4ConDam = skill4PEffectDur = skill4vsShields = skill4vsArmor = skill4PRTR = 0;
 
             //skill5 "fitness, "
-             float skill5WDSum, skill5MDSum, skill5ShieldsSum, skill5HealthSum, skill5DRSum, skill5ConHealth, skill5ConDam, skill5PEffectDur, skill5SupportSum, skill5Reload, skill5PRS;
+            float skill5WDSum, skill5MDSum, skill5ShieldsSum, skill5HealthSum, skill5DRSum, skill5ConHealth, skill5ConDam, skill5PEffectDur, skill5SupportSum, skill5Reload, skill5PRS;
 
-            skill5WDSum = skill5MDSum = skill5ShieldsSum = skill5HealthSum = skill5DRSum = skill5ConHealth = skill5ConDam= skill5PEffectDur = skill5SupportSum = skill5Reload = skill5PRS = 0;
+            skill5WDSum = skill5MDSum = skill5ShieldsSum = skill5HealthSum = skill5DRSum = skill5ConHealth = skill5ConDam = skill5PEffectDur = skill5SupportSum = skill5Reload = skill5PRS = 0;
 
             // "No need to PARSE GEAR" - use switch instead ignoring the string data
 
-            if (comboBoxSelectGear.SelectedIndex  > 0)  // missaligned indexes between MygearArray and gear Combobox because of the "none" option
-    switch (myGearArray[comboBoxSelectGear.SelectedIndex-1].gearName)
-{ 
-    case "none":
-         break;
-    case "Commando Package":
-    gearSRWD= gearSGWD= gearPWD =gearARWD = 0.1f; gearBPD = 0.2f;
-            break;
-    case "Expert Package":
-     gearPWD = 0.15f; gearPRS = 0.15f;
-        break;
-    case "Guerilla Upgrade":
-            gearSRWD = gearPWD = 0.15f; 
-        break;
-    case "Juggernaut Shield":
-            gearShields = 0.2f; gearMD = 0.15f;
-         break;
-    case "Martial Biotic AMP":
-           gearBPD = 0.2f; gearMD = 0.15f;
-         break;
-    case "Shock Trooper Upgrade":
-             gearSGWD = 0.15f;
-           break;
-    case "Stronghold Package":
-            gearShields = 0.2f;
-            break;
-     case "Warfighter Package":
-            gearSRWD = gearSGWD = gearPWD = gearARWD = 0.1f; gearCPD = 0.2f;
-            break;
-     case "Adaptive War AMP":
-            gearBPD = 0.3f;
-            break;
-     case "Assault Rifle AMP":
-            gearARWD = 0.2f;
-            break;
-     case "Engineering Kit":
-            gearTPD = 0.3f;
-            break;
-     case "Enhanced Munitions":
-            gearCPD = 0.3f;
-            break;
-     case "Hydraulic Joints":
-            gearMD = 0.25f;
-            break;
-     case "Mental Focuser":
-            gearBPD = gearTPD = gearCPD = 0.25f;
-            break;
-        case "Pistol / SMG AMP":
-            gearPWD = 0.2f;
-            break;
-        case "Shield Enhacer":
-            gearShields = 0.3f;
-            break;
-        case "Vulnerability VI":
-            gearWeak = 0.4f;
-            break;
+            if (comboBoxSelectGear.SelectedIndex > 0)  // missaligned indexes between MygearArray and gear Combobox because of the "none" option
+                switch (myGearArray[comboBoxSelectGear.SelectedIndex - 1].gearName)
+                {
+                    case "none":
+                        break;
+                    case "Commando Package":
+                        gearSRWD = gearSGWD = gearPWD = gearARWD = 0.1f; gearBPD = 0.2f;
+                        break;
+                    case "Expert Package":
+                        gearPWD = 0.15f; gearPRS = 0.15f;
+                        break;
+                    case "Guerilla Upgrade":
+                        gearSRWD = gearPWD = 0.15f;
+                        break;
+                    case "Juggernaut Shield":
+                        gearShields = 0.2f; gearMD = 0.15f;
+                        break;
+                    case "Martial Biotic AMP":
+                        gearBPD = 0.2f; gearMD = 0.15f;
+                        break;
+                    case "Shock Trooper Upgrade":
+                        gearSGWD = 0.15f;
+                        break;
+                    case "Stronghold Package":
+                        gearShields = 0.2f;
+                        break;
+                    case "Warfighter Package":
+                        gearSRWD = gearSGWD = gearPWD = gearARWD = 0.1f; gearCPD = 0.2f;
+                        break;
+                    case "Adaptive War AMP":
+                        gearBPD = 0.3f;
+                        break;
+                    case "Assault Rifle AMP":
+                        gearARWD = 0.2f;
+                        break;
+                    case "Engineering Kit":
+                        gearTPD = 0.3f;
+                        break;
+                    case "Enhanced Munitions":
+                        gearCPD = 0.3f;
+                        break;
+                    case "Hydraulic Joints":
+                        gearMD = 0.25f;
+                        break;
+                    case "Mental Focuser":
+                        gearBPD = gearTPD = gearCPD = 0.25f;
+                        break;
+                    case "Pistol / SMG AMP":
+                        gearPWD = 0.2f;
+                        break;
+                    case "Shield Enhacer":
+                        gearShields = 0.3f;
+                        break;
+                    case "Vulnerability VI":
+                        gearWeak = 0.4f;
+                        break;
 
-    }
-
-
-// temp PRint all gear variable somewhere to VERIFY
-textBoxDebug.Text = "Debug: ";
-if (gearSRWD != 0) textBoxDebug.Text += "gearSRWD = " + gearSRWD.ToString() + " ";
-if (gearSGWD != 0) textBoxDebug.Text += "gearSGWD = " + gearSGWD.ToString() + " ";
-if (gearPWD != 0) textBoxDebug.Text += "gearPWD = " + gearPWD.ToString() + " ";
-if (gearARWD != 0) textBoxDebug.Text += "gearARWD = " + gearARWD.ToString() + " ";
-if (gearBPD != 0) textBoxDebug.Text += "gearBPD = " + gearBPD.ToString() + " ";
-if (gearTPD != 0) textBoxDebug.Text += "gearTPD = " + gearTPD.ToString() + " ";
-if (gearCPD != 0) textBoxDebug.Text += "gearCPD = " + gearCPD.ToString() + " ";
-if (gearPRS != 0) textBoxDebug.Text += "gearPRS = " + gearPRS.ToString() + " ";
-if (gearShields != 0) textBoxDebug.Text += "gearShields = " + gearShields.ToString() + " ";
-if (gearMD != 0) textBoxDebug.Text += "gearMD = " + gearMD.ToString() + " ";
-if (gearWeak != 0) textBoxDebug.Text += "gearWeak = " + gearWeak.ToString() + " ";
+                }
 
 
-
-//textBoxDebug.Text += comboBoxSelectAddOn1.Text.Split('*')[0];
-
-int AddonIndex; AddonIndex = 0;
-do
-{
-   if (myAddOnArray[AddonIndex].AddOnName.Equals(comboBoxSelectAddOn1.Text.Split('*')[0])) break;
-    AddonIndex++;
-} while (AddonIndex < constNrAddOns);
+            // temp PRint all gear variable somewhere to VERIFY
+            textBoxDebug.Text = "Debug: ";
+            if (gearSRWD != 0) textBoxDebug.Text += "gearSRWD = " + gearSRWD.ToString() + " ";
+            if (gearSGWD != 0) textBoxDebug.Text += "gearSGWD = " + gearSGWD.ToString() + " ";
+            if (gearPWD != 0) textBoxDebug.Text += "gearPWD = " + gearPWD.ToString() + " ";
+            if (gearARWD != 0) textBoxDebug.Text += "gearARWD = " + gearARWD.ToString() + " ";
+            if (gearBPD != 0) textBoxDebug.Text += "gearBPD = " + gearBPD.ToString() + " ";
+            if (gearTPD != 0) textBoxDebug.Text += "gearTPD = " + gearTPD.ToString() + " ";
+            if (gearCPD != 0) textBoxDebug.Text += "gearCPD = " + gearCPD.ToString() + " ";
+            if (gearPRS != 0) textBoxDebug.Text += "gearPRS = " + gearPRS.ToString() + " ";
+            if (gearShields != 0) textBoxDebug.Text += "gearShields = " + gearShields.ToString() + " ";
+            if (gearMD != 0) textBoxDebug.Text += "gearMD = " + gearMD.ToString() + " ";
+            if (gearWeak != 0) textBoxDebug.Text += "gearWeak = " + gearWeak.ToString() + " ";
 
 
 
- if (AddonIndex < constNrAddOns)    switch (myAddOnArray[AddonIndex].AddOnName)
-                    {
-        case "AR Barrel X":
-            addon1ARWD = 0.21f;
-            break;
-        case "AR Short Barrel X":
-            addon1ARWD = 0.25f;
-            break;
-        case "AR Long Barrel X":
-            addon1ARWD = 0.25f; addon1MAG = -0.18f;
-            break;
-        case "AR Magazine X":
-            addon1MAG = 0.5f;
-            break;
-        case "AR Light Magazine X":
-            addon1MAG = 0.7f;
-            break;
-        case "AR Heavy Magazine X":
-            addon1MAG = 0.7f;
-            break;
-        case "AR Light Stock X":
-            addon1RELOAD= -0.1f;
-            break;
-        case "AR Receiver X":
-            addon1PenMul = 0.58f;
-            break;
-        case "AR Quick Receiver X":
-            addon1PenMul = 0.75f; addon1Weak = -0.13f;
-            break;
-        case "AR Calibrated Receiver X":
-            addon1PenMul = 0.75f; addon1MAG = -0.18f;
-            break;
-        case "AR Tactical Scope X":
-            addon1ROF = -0.1f;
-            break;
-        case "Pistol Barrel X":
-            addon1PWD = 0.21f;
-            break;
-        case "Pistol Short Barrel X":
-            addon1PWD = 0.25f;
-            break;
-        case "Pistol Long Barrel X":
-            addon1PWD = 0.25f;
-            break;
-        case "Pistol Magazine X":
-            addon1MAG = 0.71f;
-            break;
-        case "Pistol Light Magazine X":
-            addon1MAG = 0.101f;addon1RELOAD = -0.1f;
-            break;
-        case "Pistol Heavy Magazine X":
-            addon1MAG = 0.101f;
-            break;
-        case "Pistol Melee X":
-            addon1MD = 0.29f;
-            break;
-        case "Pistol Light Melee X":
-            addon1MD = 0.35f;
-            break;
-        case "Pistol Heavy Melee X":
-            addon1MD = 0.35f;
-            break;
-        case "Pistol Receiver X":
-            addon1PenMul = 0.58f;
-            break;
-        case "Pistol Quick Receiver X":
-            addon1PenMul = 0.75f; addon1Weak = -0.13f;
-            break;
-        case "Pistol Calibrated Receiver X":
-            addon1PenMul = 0.75f; addon1MAG = -0.25f;
-            break;
-        case "Pistol Tatical Scope X":
-            addon1ROF = -0.1f;
-            break;
-        case "Shotgun Barrel X":
-            addon1SGWD = 0.17f;
-            break;
-        case "Shotgun Short Barrel X":
-            addon1SGWD = 0.2f;
-            break;
-        case "Shotgun Long Barrel X":
-            addon1SGWD = 0.2f;
-            break;
-        case "Shotgun Asymmetric Spare Clip X":
-            addon1MD = -0.1f;
-            break;
-        case "Shotgun Melee X":
-            addon1MD = 0.33f;
-            break;
-        case "Shotgun Light Melee X":
-            addon1MD = 0.4f; addon1MAG = -0.25f;
-            break;
-        case "Shotgun Heavy Melee X":
-            addon1MD = 0.4f;
-            break;
-        case "Shotgun Receiver X":
-            addon1PenMul = 0.58f;
-            break;
-        case "Shotgun Quick Receiver X":
-            addon1PenMul = 0.75f; addon1Weak = -0.1f;
-            break;
-        case "Shotgun Calibrated Receiver X":
-            addon1PenMul = 0.75f; addon1MAG = -0.25f;
-            break;
-        case "Shotgun Light Choke X":
-            addon1RELOAD = -0.1f; 
-            break;
-        case "Shotgun Heavy Choke X":
-            addon1ROF = -0.1f;
-            break;
-        case "SR Barrel X":
-            addon1SRWD = 0.21f;
-            break;
-        case "SR Reinforced Barrel X":
-            addon1SRWD = 0.25f;
-            break;
-        case "SR Vented Barrel X":
-            addon1SRWD = 0.25f; addon1ROF = -0.1f;
-            break;
-        case "SR Laticed Materials X":
-            addon1MAG = -0.18f;
-            break;
-        case "SR Receiver X":
-            addon1PenMul = 0.7f;
-            break;
-        case "SR Quick Receiver X":
-            addon1PenMul = 0.9f; addon1Weak = -0.13f;
-            break;
-        case "SR Calibrated Receiver X":
-            addon1PenMul = 0.9f; addon1MAG = -0.18f;
-            break;
+            //textBoxDebug.Text += comboBoxSelectAddOn1.Text.Split('*')[0];
 
-    }
+            int AddonIndex; AddonIndex = 0;
+            do
+            {
+                if (myAddOnArray[AddonIndex].AddOnName.Equals(comboBoxSelectAddOn1.Text.Split('*')[0])) break;
+                AddonIndex++;
+            } while (AddonIndex < constNrAddOns);
 
 
 
-AddonIndex = 0;
-do
-{
-    if (myAddOnArray[AddonIndex].AddOnName.Equals(comboBoxSelectAddOn2.Text.Split('*')[0])) break;
-    AddonIndex++;
-} while (AddonIndex < constNrAddOns);
+            if (AddonIndex < constNrAddOns) switch (myAddOnArray[AddonIndex].AddOnName)
+                {
+                    case "AR Barrel X":
+                        addon1ARWD = 0.21f;
+                        break;
+                    case "AR Short Barrel X":
+                        addon1ARWD = 0.25f;
+                        break;
+                    case "AR Long Barrel X":
+                        addon1ARWD = 0.25f; addon1MAG = -0.18f;
+                        break;
+                    case "AR Magazine X":
+                        addon1MAG = 0.5f;
+                        break;
+                    case "AR Light Magazine X":
+                        addon1MAG = 0.7f;
+                        break;
+                    case "AR Heavy Magazine X":
+                        addon1MAG = 0.7f;
+                        break;
+                    case "AR Light Stock X":
+                        addon1RELOAD = -0.1f;
+                        break;
+                    case "AR Receiver X":
+                        addon1PenMul = 0.58f;
+                        break;
+                    case "AR Quick Receiver X":
+                        addon1PenMul = 0.75f; addon1Weak = -0.13f;
+                        break;
+                    case "AR Calibrated Receiver X":
+                        addon1PenMul = 0.75f; addon1MAG = -0.18f;
+                        break;
+                    case "AR Tactical Scope X":
+                        addon1ROF = -0.1f;
+                        break;
+                    case "Pistol Barrel X":
+                        addon1PWD = 0.21f;
+                        break;
+                    case "Pistol Short Barrel X":
+                        addon1PWD = 0.25f;
+                        break;
+                    case "Pistol Long Barrel X":
+                        addon1PWD = 0.25f;
+                        break;
+                    case "Pistol Magazine X":
+                        addon1MAG = 0.71f;
+                        break;
+                    case "Pistol Light Magazine X":
+                        addon1MAG = 0.101f; addon1RELOAD = -0.1f;
+                        break;
+                    case "Pistol Heavy Magazine X":
+                        addon1MAG = 0.101f;
+                        break;
+                    case "Pistol Melee X":
+                        addon1MD = 0.29f;
+                        break;
+                    case "Pistol Light Melee X":
+                        addon1MD = 0.35f;
+                        break;
+                    case "Pistol Heavy Melee X":
+                        addon1MD = 0.35f;
+                        break;
+                    case "Pistol Receiver X":
+                        addon1PenMul = 0.58f;
+                        break;
+                    case "Pistol Quick Receiver X":
+                        addon1PenMul = 0.75f; addon1Weak = -0.13f;
+                        break;
+                    case "Pistol Calibrated Receiver X":
+                        addon1PenMul = 0.75f; addon1MAG = -0.25f;
+                        break;
+                    case "Pistol Tatical Scope X":
+                        addon1ROF = -0.1f;
+                        break;
+                    case "Shotgun Barrel X":
+                        addon1SGWD = 0.17f;
+                        break;
+                    case "Shotgun Short Barrel X":
+                        addon1SGWD = 0.2f;
+                        break;
+                    case "Shotgun Long Barrel X":
+                        addon1SGWD = 0.2f;
+                        break;
+                    case "Shotgun Asymmetric Spare Clip X":
+                        addon1MD = -0.1f;
+                        break;
+                    case "Shotgun Melee X":
+                        addon1MD = 0.33f;
+                        break;
+                    case "Shotgun Light Melee X":
+                        addon1MD = 0.4f; addon1MAG = -0.25f;
+                        break;
+                    case "Shotgun Heavy Melee X":
+                        addon1MD = 0.4f;
+                        break;
+                    case "Shotgun Receiver X":
+                        addon1PenMul = 0.58f;
+                        break;
+                    case "Shotgun Quick Receiver X":
+                        addon1PenMul = 0.75f; addon1Weak = -0.1f;
+                        break;
+                    case "Shotgun Calibrated Receiver X":
+                        addon1PenMul = 0.75f; addon1MAG = -0.25f;
+                        break;
+                    case "Shotgun Light Choke X":
+                        addon1RELOAD = -0.1f;
+                        break;
+                    case "Shotgun Heavy Choke X":
+                        addon1ROF = -0.1f;
+                        break;
+                    case "SR Barrel X":
+                        addon1SRWD = 0.21f;
+                        break;
+                    case "SR Reinforced Barrel X":
+                        addon1SRWD = 0.25f;
+                        break;
+                    case "SR Vented Barrel X":
+                        addon1SRWD = 0.25f; addon1ROF = -0.1f;
+                        break;
+                    case "SR Laticed Materials X":
+                        addon1MAG = -0.18f;
+                        break;
+                    case "SR Receiver X":
+                        addon1PenMul = 0.7f;
+                        break;
+                    case "SR Quick Receiver X":
+                        addon1PenMul = 0.9f; addon1Weak = -0.13f;
+                        break;
+                    case "SR Calibrated Receiver X":
+                        addon1PenMul = 0.9f; addon1MAG = -0.18f;
+                        break;
+
+                }
 
 
 
-if (AddonIndex < constNrAddOns) switch (myAddOnArray[AddonIndex].AddOnName)
-    {
-        case "AR Barrel X":
-            addon2ARWD = 0.21f;
-            break;
-        case "AR Short Barrel X":
-            addon2ARWD = 0.25f;
-            break;
-        case "AR Long Barrel X":
-            addon2ARWD = 0.25f; addon2MAG = -0.18f;
-            break;
-        case "AR Magazine X":
-            addon2MAG = 0.5f;
-            break;
-        case "AR Light Magazine X":
-            addon2MAG = 0.7f;
-            break;
-        case "AR Heavy Magazine X":
-            addon2MAG = 0.7f;
-            break;
-        case "AR Light Stock X":
-            addon2RELOAD = -0.1f;
-            break;
-        case "AR Receiver X":
-            addon2PenMul = 0.58f;
-            break;
-        case "AR Quick Receiver X":
-            addon2PenMul = 0.75f; addon2Weak = -0.13f;
-            break;
-        case "AR Calibrated Receiver X":
-            addon2PenMul = 0.75f; addon2MAG = -0.18f;
-            break;
-        case "AR Tactical Scope X":
-            addon2ROF = -0.1f;
-            break;
-        case "Pistol Barrel X":
-            addon2PWD = 0.21f;
-            break;
-        case "Pistol Short Barrel X":
-            addon2PWD = 0.25f;
-            break;
-        case "Pistol Long Barrel X":
-            addon2PWD = 0.25f;
-            break;
-        case "Pistol Magazine X":
-            addon2MAG = 0.71f;
-            break;
-        case "Pistol Light Magazine X":
-            addon2MAG = 0.101f; addon2RELOAD = -0.1f;
-            break;
-        case "Pistol Heavy Magazine X":
-            addon2MAG = 0.101f;
-            break;
-        case "Pistol Melee X":
-            addon2MD = 0.29f;
-            break;
-        case "Pistol Light Melee X":
-            addon2MD = 0.35f;
-            break;
-        case "Pistol Heavy Melee X":
-            addon2MD = 0.35f;
-            break;
-        case "Pistol Receiver X":
-            addon2PenMul = 0.58f;
-            break;
-        case "Pistol Quick Receiver X":
-            addon2PenMul = 0.75f; addon2Weak = -0.13f;
-            break;
-        case "Pistol Calibrated Receiver X":
-            addon2PenMul = 0.75f; addon2MAG = -0.25f;
-            break;
-        case "Pistol Tatical Scope X":
-            addon2ROF = -0.1f;
-            break;
-        case "Shotgun Barrel X":
-            addon2SGWD = 0.17f;
-            break;
-        case "Shotgun Short Barrel X":
-            addon2SGWD = 0.2f;
-            break;
-        case "Shotgun Long Barrel X":
-            addon2SGWD = 0.2f;
-            break;
-        case "Shotgun Asymmetric Spare Clip X":
-            addon2MD = -0.1f;
-            break;
-        case "Shotgun Melee X":
-            addon2MD = 0.33f;
-            break;
-        case "Shotgun Light Melee X":
-            addon2MD = 0.4f; addon2MAG = -0.25f;
-            break;
-        case "Shotgun Heavy Melee X":
-            addon2MD = 0.4f;
-            break;
-        case "Shotgun Receiver X":
-            addon2PenMul = 0.58f;
-            break;
-        case "Shotgun Quick Receiver X":
-            addon2PenMul = 0.75f; addon2Weak = -0.1f;
-            break;
-        case "Shotgun Calibrated Receiver X":
-            addon2PenMul = 0.75f; addon2MAG = -0.25f;
-            break;
-        case "Shotgun Light Choke X":
-            addon2RELOAD = -0.1f;
-            break;
-        case "Shotgun Heavy Choke X":
-            addon2ROF = -0.1f;
-            break;
-        case "SR Barrel X":
-            addon2SRWD = 0.21f;
-            break;
-        case "SR Reinforced Barrel X":
-            addon2SRWD = 0.25f;
-            break;
-        case "SR Vented Barrel X":
-            addon2SRWD = 0.25f; addon2ROF = -0.1f;
-            break;
-        case "SR Laticed Materials X":
-            addon2MAG = -0.18f;
-            break;
-        case "SR Receiver X":
-            addon2PenMul = 0.7f;
-            break;
-        case "SR Quick Receiver X":
-            addon2PenMul = 0.9f; addon2Weak = -0.13f;
-            break;
-        case "SR Calibrated Receiver X":
-            addon2PenMul = 0.9f; addon2MAG = -0.18f;
-            break;
-
-    }
+            AddonIndex = 0;
+            do
+            {
+                if (myAddOnArray[AddonIndex].AddOnName.Equals(comboBoxSelectAddOn2.Text.Split('*')[0])) break;
+                AddonIndex++;
+            } while (AddonIndex < constNrAddOns);
 
 
 
-// temp PRint all gear variable somewhere to VERIFY
-if (addon1ARWD != 0) textBoxDebug.Text += "addon1ARWD = " + addon1ARWD.ToString() + " ";
-if (addon1MAG != 0) textBoxDebug.Text += "addon1MAG = " + addon1MAG.ToString() + " ";
-if (addon1PWD != 0) textBoxDebug.Text += "addon1PWD = " + addon1PWD.ToString() + " ";
-if (addon1MD != 0) textBoxDebug.Text += "addon1MD = " + addon1MD.ToString() + " ";
-if (addon1SRWD != 0) textBoxDebug.Text += "addon1SRWD = " + addon1SRWD.ToString() + " ";
-if (addon1SGWD != 0) textBoxDebug.Text += "addon1SGWD = " + addon1SGWD.ToString() + " ";
-if (addon1RELOAD != 0) textBoxDebug.Text += "addon1RELOAD = " + addon1RELOAD.ToString() + " ";
-if (addon1PenMul != 0) textBoxDebug.Text += "addon1PenMul = " + addon1PenMul.ToString() + " ";
-if (addon1Weak != 0) textBoxDebug.Text += "addon1Weak = " + addon1Weak.ToString() + " ";
-if (addon1ROF != 0) textBoxDebug.Text += "addon1ROF = " + addon1ROF.ToString() + " ";
+            if (AddonIndex < constNrAddOns) switch (myAddOnArray[AddonIndex].AddOnName)
+                {
+                    case "AR Barrel X":
+                        addon2ARWD = 0.21f;
+                        break;
+                    case "AR Short Barrel X":
+                        addon2ARWD = 0.25f;
+                        break;
+                    case "AR Long Barrel X":
+                        addon2ARWD = 0.25f; addon2MAG = -0.18f;
+                        break;
+                    case "AR Magazine X":
+                        addon2MAG = 0.5f;
+                        break;
+                    case "AR Light Magazine X":
+                        addon2MAG = 0.7f;
+                        break;
+                    case "AR Heavy Magazine X":
+                        addon2MAG = 0.7f;
+                        break;
+                    case "AR Light Stock X":
+                        addon2RELOAD = -0.1f;
+                        break;
+                    case "AR Receiver X":
+                        addon2PenMul = 0.58f;
+                        break;
+                    case "AR Quick Receiver X":
+                        addon2PenMul = 0.75f; addon2Weak = -0.13f;
+                        break;
+                    case "AR Calibrated Receiver X":
+                        addon2PenMul = 0.75f; addon2MAG = -0.18f;
+                        break;
+                    case "AR Tactical Scope X":
+                        addon2ROF = -0.1f;
+                        break;
+                    case "Pistol Barrel X":
+                        addon2PWD = 0.21f;
+                        break;
+                    case "Pistol Short Barrel X":
+                        addon2PWD = 0.25f;
+                        break;
+                    case "Pistol Long Barrel X":
+                        addon2PWD = 0.25f;
+                        break;
+                    case "Pistol Magazine X":
+                        addon2MAG = 0.71f;
+                        break;
+                    case "Pistol Light Magazine X":
+                        addon2MAG = 0.101f; addon2RELOAD = -0.1f;
+                        break;
+                    case "Pistol Heavy Magazine X":
+                        addon2MAG = 0.101f;
+                        break;
+                    case "Pistol Melee X":
+                        addon2MD = 0.29f;
+                        break;
+                    case "Pistol Light Melee X":
+                        addon2MD = 0.35f;
+                        break;
+                    case "Pistol Heavy Melee X":
+                        addon2MD = 0.35f;
+                        break;
+                    case "Pistol Receiver X":
+                        addon2PenMul = 0.58f;
+                        break;
+                    case "Pistol Quick Receiver X":
+                        addon2PenMul = 0.75f; addon2Weak = -0.13f;
+                        break;
+                    case "Pistol Calibrated Receiver X":
+                        addon2PenMul = 0.75f; addon2MAG = -0.25f;
+                        break;
+                    case "Pistol Tatical Scope X":
+                        addon2ROF = -0.1f;
+                        break;
+                    case "Shotgun Barrel X":
+                        addon2SGWD = 0.17f;
+                        break;
+                    case "Shotgun Short Barrel X":
+                        addon2SGWD = 0.2f;
+                        break;
+                    case "Shotgun Long Barrel X":
+                        addon2SGWD = 0.2f;
+                        break;
+                    case "Shotgun Asymmetric Spare Clip X":
+                        addon2MD = -0.1f;
+                        break;
+                    case "Shotgun Melee X":
+                        addon2MD = 0.33f;
+                        break;
+                    case "Shotgun Light Melee X":
+                        addon2MD = 0.4f; addon2MAG = -0.25f;
+                        break;
+                    case "Shotgun Heavy Melee X":
+                        addon2MD = 0.4f;
+                        break;
+                    case "Shotgun Receiver X":
+                        addon2PenMul = 0.58f;
+                        break;
+                    case "Shotgun Quick Receiver X":
+                        addon2PenMul = 0.75f; addon2Weak = -0.1f;
+                        break;
+                    case "Shotgun Calibrated Receiver X":
+                        addon2PenMul = 0.75f; addon2MAG = -0.25f;
+                        break;
+                    case "Shotgun Light Choke X":
+                        addon2RELOAD = -0.1f;
+                        break;
+                    case "Shotgun Heavy Choke X":
+                        addon2ROF = -0.1f;
+                        break;
+                    case "SR Barrel X":
+                        addon2SRWD = 0.21f;
+                        break;
+                    case "SR Reinforced Barrel X":
+                        addon2SRWD = 0.25f;
+                        break;
+                    case "SR Vented Barrel X":
+                        addon2SRWD = 0.25f; addon2ROF = -0.1f;
+                        break;
+                    case "SR Laticed Materials X":
+                        addon2MAG = -0.18f;
+                        break;
+                    case "SR Receiver X":
+                        addon2PenMul = 0.7f;
+                        break;
+                    case "SR Quick Receiver X":
+                        addon2PenMul = 0.9f; addon2Weak = -0.13f;
+                        break;
+                    case "SR Calibrated Receiver X":
+                        addon2PenMul = 0.9f; addon2MAG = -0.18f;
+                        break;
 
-if (addon2ARWD != 0) textBoxDebug.Text += "addon2ARWD = " + addon2ARWD.ToString() + " ";
-if (addon2MAG != 0) textBoxDebug.Text += "addon2MAG = " + addon2MAG.ToString() + " ";
-if (addon2PWD != 0) textBoxDebug.Text += "addon2PWD = " + addon2PWD.ToString() + " ";
-if (addon2MD != 0) textBoxDebug.Text += "addon2MD = " + addon2MD.ToString() + " ";
-if (addon2SRWD != 0) textBoxDebug.Text += "addon2SRWD = " + addon2SRWD.ToString() + " ";
-if (addon2SGWD != 0) textBoxDebug.Text += "addon2SGWD = " + addon2SGWD.ToString() + " ";
-if (addon2RELOAD != 0) textBoxDebug.Text += "addon2RELOAD = " + addon2RELOAD.ToString() + " ";
-if (addon2PenMul != 0) textBoxDebug.Text += "addon2PenMul = " + addon2PenMul.ToString() + " ";
-if (addon2Weak != 0) textBoxDebug.Text += "addon2Weak = " + addon2Weak.ToString() + " ";
-if (addon2ROF != 0) textBoxDebug.Text += "addon2ROF = " + addon2ROF.ToString() + " ";
+                }
+
+
+
+            // temp PRint all gear variable somewhere to VERIFY
+            if (addon1ARWD != 0) textBoxDebug.Text += "addon1ARWD = " + addon1ARWD.ToString() + " ";
+            if (addon1MAG != 0) textBoxDebug.Text += "addon1MAG = " + addon1MAG.ToString() + " ";
+            if (addon1PWD != 0) textBoxDebug.Text += "addon1PWD = " + addon1PWD.ToString() + " ";
+            if (addon1MD != 0) textBoxDebug.Text += "addon1MD = " + addon1MD.ToString() + " ";
+            if (addon1SRWD != 0) textBoxDebug.Text += "addon1SRWD = " + addon1SRWD.ToString() + " ";
+            if (addon1SGWD != 0) textBoxDebug.Text += "addon1SGWD = " + addon1SGWD.ToString() + " ";
+            if (addon1RELOAD != 0) textBoxDebug.Text += "addon1RELOAD = " + addon1RELOAD.ToString() + " ";
+            if (addon1PenMul != 0) textBoxDebug.Text += "addon1PenMul = " + addon1PenMul.ToString() + " ";
+            if (addon1Weak != 0) textBoxDebug.Text += "addon1Weak = " + addon1Weak.ToString() + " ";
+            if (addon1ROF != 0) textBoxDebug.Text += "addon1ROF = " + addon1ROF.ToString() + " ";
+
+            if (addon2ARWD != 0) textBoxDebug.Text += "addon2ARWD = " + addon2ARWD.ToString() + " ";
+            if (addon2MAG != 0) textBoxDebug.Text += "addon2MAG = " + addon2MAG.ToString() + " ";
+            if (addon2PWD != 0) textBoxDebug.Text += "addon2PWD = " + addon2PWD.ToString() + " ";
+            if (addon2MD != 0) textBoxDebug.Text += "addon2MD = " + addon2MD.ToString() + " ";
+            if (addon2SRWD != 0) textBoxDebug.Text += "addon2SRWD = " + addon2SRWD.ToString() + " ";
+            if (addon2SGWD != 0) textBoxDebug.Text += "addon2SGWD = " + addon2SGWD.ToString() + " ";
+            if (addon2RELOAD != 0) textBoxDebug.Text += "addon2RELOAD = " + addon2RELOAD.ToString() + " ";
+            if (addon2PenMul != 0) textBoxDebug.Text += "addon2PenMul = " + addon2PenMul.ToString() + " ";
+            if (addon2Weak != 0) textBoxDebug.Text += "addon2Weak = " + addon2Weak.ToString() + " ";
+            if (addon2ROF != 0) textBoxDebug.Text += "addon2ROF = " + addon2ROF.ToString() + " ";
 
 
             int BoosterIndex; BoosterIndex = 0;
@@ -1912,7 +1982,7 @@ if (addon2ROF != 0) textBoxDebug.Text += "addon2ROF = " + addon2ROF.ToString() +
                         booster1MD = 0.15f;
                         break;
                     case "Targeting VI I":
-                        booster1Weak= 0.15f;
+                        booster1Weak = 0.15f;
                         break;
                     case "Strenght Enhancer II":
                         booster1MD = 0.3f;
@@ -2006,7 +2076,7 @@ if (addon2ROF != 0) textBoxDebug.Text += "addon2ROF = " + addon2ROF.ToString() +
                         break;
                 }
 
-          BoosterIndex = 0;
+            BoosterIndex = 0;
             do
             {
                 if (myBoosterArray[BoosterIndex].BoosterName.Equals(comboBoxSelectBooster2.Text.Split('*')[0])) break;
@@ -2253,7 +2323,7 @@ if (addon2ROF != 0) textBoxDebug.Text += "addon2ROF = " + addon2ROF.ToString() +
                         apex1ARWD = 0.5f; apex1SRWD = -0.5f; apex1PWD = -0.5f; apex1SGWD = -0.5f;
                         break;
                     case "Weakened Assault Team":
-                        apex1Health = -0.25f; apex1Shields = -0.25f; 
+                        apex1Health = -0.25f; apex1Shields = -0.25f;
                         break;
                     case "Hand-to-Hand":
                         apex1MD = 1; apex1ARWD = -0.25f; apex1SRWD = -0.25f; apex1PWD = -0.25f; apex1SGWD = -0.25f; apex1BPD = -0.25f; apex1TPD = -0.25f; apex1CPD = -0.25f;
@@ -2265,16 +2335,16 @@ if (addon2ROF != 0) textBoxDebug.Text += "addon2ROF = " + addon2ROF.ToString() +
                         apex1ARWD = -0.25f; apex1SRWD = -0.25f; apex1PWD = -0.25f; apex1SGWD = -0.25f; apex1MAG = -0.25f;
                         break;
                     case "Go for the eyes":
-                         apex1ARWD = -0.5f; apex1SRWD = -0.5f; apex1PWD = -0.5f; apex1SGWD = -0.5f; apex1Weak = 6; apex1WeakL = 6;
+                        apex1ARWD = -0.5f; apex1SRWD = -0.5f; apex1PWD = -0.5f; apex1SGWD = -0.5f; apex1Weak = 6; apex1WeakL = 6;
                         break;
                     case "Combotastic":
                         apex1Combo = 1;
                         break;
                     case "Glass Jaw":
-                          break;
+                        break;
                 }
 
-          ApexIndex = 0;
+            ApexIndex = 0;
             do
             {
                 if (myAPEXModsArray[ApexIndex].APEXModName.Equals(comboBoxSelectApex2.Text.Split('*')[0])) break;
@@ -2354,17 +2424,17 @@ if (addon2ROF != 0) textBoxDebug.Text += "addon2ROF = " + addon2ROF.ToString() +
             if (apex2Combo != 0) textBoxDebug.Text += "apex2Combo = " + apex2Combo.ToString() + " ";
 
 
-            string[] PassiveActiveSkillList = { "Rage", "Biotic Ascension"};
+            string[] PassiveActiveSkillList = { "Rage", "Biotic Ascension" };
             //skill1 
 
             if ((checkBoxOnOffSkill1.Checked) || (PassiveActiveSkillList.Contains(labelSkill1Name.Text)))
             {
-              //  textBoxDebug.Text += " Processing skill 1";
+                //  textBoxDebug.Text += " Processing skill 1";
 
                 // REPEAT FOR comboBoxSkill1_1.Text to comboBoxSkill1_6.Text
 
-                  foreach (string s in comboBoxSkill1_1.Text.Split(';'))
-                     {
+                foreach (string s in comboBoxSkill1_1.Text.Split(';'))
+                {
                     //   if (s.Contains("fluff")) textBoxDebug.Text += "found FLUFFY";
 
 
@@ -2384,11 +2454,11 @@ if (addon2ROF != 0) textBoxDebug.Text += "addon2ROF = " + addon2ROF.ToString() +
                     if ((s.StartsWith("TDebuff=")) && (checkBoxSkill1_1.Checked)) skill1DebuffSum += float.Parse(s.Substring(8, s.Length - 8));
                     if ((s.StartsWith("TArmorDebuff=")) && (checkBoxSkill1_1.Checked)) skill1ArmorDebuffSum += float.Parse(s.Substring(13, s.Length - 13));
                     //if ((s.StartsWith("TPRS=")) && (checkBoxSkill1_1.Checked)) skill1PRS += float.Parse(s.Substring(5, s.Length - 5));
-                     if (s.StartsWith("ConHealth=")) skill1ConHealth += float.Parse(s.Substring(10, s.Length - 10));
+                    if (s.StartsWith("ConHealth=")) skill1ConHealth += float.Parse(s.Substring(10, s.Length - 10));
                     if (s.StartsWith("PRP=")) skill1PRPSum += float.Parse(s.Substring(4, s.Length - 4));
                     if (s.StartsWith("PEN=")) skill1PenMulSum += float.Parse(s.Substring(4, s.Length - 4));
-                   // if (s.StartsWith("ArmorDebuff=")) skill1ArmorDebuffSum += float.Parse(s.Substring(12, s.Length - 12));
-                } 
+                    // if (s.StartsWith("ArmorDebuff=")) skill1ArmorDebuffSum += float.Parse(s.Substring(12, s.Length - 12));
+                }
 
 
                 foreach (string s in comboBoxSkill1_2.Text.Split(';'))
@@ -2404,7 +2474,7 @@ if (addon2ROF != 0) textBoxDebug.Text += "addon2ROF = " + addon2ROF.ToString() +
                     if ((s.StartsWith("TMD=")) && (checkBoxSkill1_2.Checked)) skill1MDSum += float.Parse(s.Substring(4, s.Length - 4));
 
                     //    if ((s.StartsWith("TShields=")) && (checkBoxSkill1_2.Checked)) skill1ShieldsSum += float.Parse(s.Substring(9, s.Length - 9));
-                   
+
                     if (s.StartsWith("DR=")) skill1DRSum += float.Parse(s.Substring(3, s.Length - 3));
                     if ((s.StartsWith("TDR=")) && (checkBoxSkill1_2.Checked)) skill1DRSum += float.Parse(s.Substring(4, s.Length - 4));
                     if ((s.StartsWith("TDebuff=")) && (checkBoxSkill1_2.Checked)) skill1DebuffSum += float.Parse(s.Substring(8, s.Length - 8));
@@ -2413,7 +2483,7 @@ if (addon2ROF != 0) textBoxDebug.Text += "addon2ROF = " + addon2ROF.ToString() +
                     if (s.StartsWith("ConHealth=")) skill1ConHealth += float.Parse(s.Substring(10, s.Length - 10));
                     if (s.StartsWith("PRP=")) skill1PRPSum += float.Parse(s.Substring(4, s.Length - 4));
                     if (s.StartsWith("PEN=")) skill1PenMulSum += float.Parse(s.Substring(4, s.Length - 4));
-                 //   if (s.StartsWith("ArmorDebuff=")) skill1ArmorDebuffSum += float.Parse(s.Substring(12, s.Length - 12));
+                    //   if (s.StartsWith("ArmorDebuff=")) skill1ArmorDebuffSum += float.Parse(s.Substring(12, s.Length - 12));
 
                 }
 
@@ -2430,7 +2500,7 @@ if (addon2ROF != 0) textBoxDebug.Text += "addon2ROF = " + addon2ROF.ToString() +
                     if (s.StartsWith("MD=")) skill1MDSum += float.Parse(s.Substring(3, s.Length - 3));
                     if ((s.StartsWith("TMD=")) && (checkBoxSkill1_3.Checked)) skill1MDSum += float.Parse(s.Substring(4, s.Length - 4));
                     //    if ((s.StartsWith("TShields=")) && (checkBoxSkill1_3.Checked)) skill1ShieldsSum += float.Parse(s.Substring(9, s.Length - 9));
-                   
+
                     if (s.StartsWith("DR=")) skill1DRSum += float.Parse(s.Substring(3, s.Length - 3));
                     if ((s.StartsWith("TDR=")) && (checkBoxSkill1_3.Checked)) skill1DRSum += float.Parse(s.Substring(4, s.Length - 4));
                     if ((s.StartsWith("TDebuff=")) && (checkBoxSkill1_3.Checked)) skill1DebuffSum += float.Parse(s.Substring(8, s.Length - 8));
@@ -2439,7 +2509,7 @@ if (addon2ROF != 0) textBoxDebug.Text += "addon2ROF = " + addon2ROF.ToString() +
                     if (s.StartsWith("ConHealth=")) skill1ConHealth += float.Parse(s.Substring(10, s.Length - 10));
                     if (s.StartsWith("PRP=")) skill1PRPSum += float.Parse(s.Substring(4, s.Length - 4));
                     if (s.StartsWith("PEN=")) skill1PenMulSum += float.Parse(s.Substring(4, s.Length - 4));
-                   // if (s.StartsWith("ArmorDebuff=")) skill1ArmorDebuffSum += float.Parse(s.Substring(12, s.Length - 12));
+                    // if (s.StartsWith("ArmorDebuff=")) skill1ArmorDebuffSum += float.Parse(s.Substring(12, s.Length - 12));
 
                 }
 
@@ -2456,7 +2526,7 @@ if (addon2ROF != 0) textBoxDebug.Text += "addon2ROF = " + addon2ROF.ToString() +
                     if (s.StartsWith("MD=")) skill1MDSum += float.Parse(s.Substring(3, s.Length - 3));
                     if ((s.StartsWith("TMD=")) && (checkBoxSkill1_4.Checked)) skill1MDSum += float.Parse(s.Substring(4, s.Length - 4));
                     //     if ((s.StartsWith("TShields=")) && (checkBoxSkill1_4.Checked)) skill1ShieldsSum += float.Parse(s.Substring(9, s.Length - 9));
-                    
+
                     if (s.StartsWith("DR=")) skill1DRSum += float.Parse(s.Substring(3, s.Length - 3));
                     if ((s.StartsWith("TDR=")) && (checkBoxSkill1_4.Checked)) skill1DRSum += float.Parse(s.Substring(4, s.Length - 4));
                     if ((s.StartsWith("TDebuff=")) && (checkBoxSkill1_4.Checked)) skill1DebuffSum += float.Parse(s.Substring(8, s.Length - 8));
@@ -2465,7 +2535,7 @@ if (addon2ROF != 0) textBoxDebug.Text += "addon2ROF = " + addon2ROF.ToString() +
                     if (s.StartsWith("ConHealth=")) skill1ConHealth += float.Parse(s.Substring(10, s.Length - 10));
                     if (s.StartsWith("PRP=")) skill1PRPSum += float.Parse(s.Substring(4, s.Length - 4));
                     if (s.StartsWith("PEN=")) skill1PenMulSum += float.Parse(s.Substring(4, s.Length - 4));
-                   // if (s.StartsWith("ArmorDebuff=")) skill1ArmorDebuffSum += float.Parse(s.Substring(12, s.Length - 12));
+                    // if (s.StartsWith("ArmorDebuff=")) skill1ArmorDebuffSum += float.Parse(s.Substring(12, s.Length - 12));
 
                 }
 
@@ -2481,7 +2551,7 @@ if (addon2ROF != 0) textBoxDebug.Text += "addon2ROF = " + addon2ROF.ToString() +
                     if (s.StartsWith("MD=")) skill1MDSum += float.Parse(s.Substring(3, s.Length - 3));
                     if ((s.StartsWith("TMD=")) && (checkBoxSkill1_5.Checked)) skill1MDSum += float.Parse(s.Substring(4, s.Length - 4));
                     //    if ((s.StartsWith("TShields=")) && (checkBoxSkill1_5.Checked)) skill1ShieldsSum += float.Parse(s.Substring(9, s.Length - 9));
-                    
+
                     if (s.StartsWith("DR=")) skill1DRSum += float.Parse(s.Substring(3, s.Length - 3));
                     if ((s.StartsWith("TDR=")) && (checkBoxSkill1_5.Checked)) skill1DRSum += float.Parse(s.Substring(4, s.Length - 4));
                     if ((s.StartsWith("TDebuff=")) && (checkBoxSkill1_5.Checked)) skill1DebuffSum += float.Parse(s.Substring(8, s.Length - 8));
@@ -2490,7 +2560,7 @@ if (addon2ROF != 0) textBoxDebug.Text += "addon2ROF = " + addon2ROF.ToString() +
                     if (s.StartsWith("ConHealth=")) skill1ConHealth += float.Parse(s.Substring(10, s.Length - 10));
                     if (s.StartsWith("PRP=")) skill1PRPSum += float.Parse(s.Substring(4, s.Length - 4));
                     if (s.StartsWith("PEN=")) skill1PenMulSum += float.Parse(s.Substring(4, s.Length - 4));
-                 //   if (s.StartsWith("ArmorDebuff=")) skill1ArmorDebuffSum += float.Parse(s.Substring(12, s.Length - 12));
+                    //   if (s.StartsWith("ArmorDebuff=")) skill1ArmorDebuffSum += float.Parse(s.Substring(12, s.Length - 12));
 
                 }
 
@@ -2506,7 +2576,7 @@ if (addon2ROF != 0) textBoxDebug.Text += "addon2ROF = " + addon2ROF.ToString() +
                     if (s.StartsWith("MD=")) skill1MDSum += float.Parse(s.Substring(3, s.Length - 3));
                     if ((s.StartsWith("TMD=")) && (checkBoxSkill1_6.Checked)) skill1MDSum += float.Parse(s.Substring(4, s.Length - 4));
                     if ((s.StartsWith("TShields=")) && (checkBoxSkill1_6.Checked)) skill1ShieldsSum += float.Parse(s.Substring(9, s.Length - 9));
-                    
+
                     if (s.StartsWith("DR=")) skill1DRSum += float.Parse(s.Substring(3, s.Length - 3));
                     if ((s.StartsWith("TDR=")) && (checkBoxSkill1_6.Checked)) skill1DRSum += float.Parse(s.Substring(4, s.Length - 4));
                     if ((s.StartsWith("TDebuff=")) && (checkBoxSkill1_6.Checked)) skill1DebuffSum += float.Parse(s.Substring(8, s.Length - 8));
@@ -2523,9 +2593,9 @@ if (addon2ROF != 0) textBoxDebug.Text += "addon2ROF = " + addon2ROF.ToString() +
 
             }
             //skill2 
-            if ((checkBoxOnOffSkill2.Checked) || (PassiveActiveSkillList.Contains(labelSkill2Name.Text))) 
+            if ((checkBoxOnOffSkill2.Checked) || (PassiveActiveSkillList.Contains(labelSkill2Name.Text)))
             {
-               // textBoxDebug.Text += " Processing skill 2";
+                // textBoxDebug.Text += " Processing skill 2";
 
                 foreach (string s in comboBoxSkill2_1.Text.Split(';'))
                 {
@@ -2538,7 +2608,7 @@ if (addon2ROF != 0) textBoxDebug.Text += "addon2ROF = " + addon2ROF.ToString() +
                     if (s.StartsWith("MD=")) skill2MDSum += float.Parse(s.Substring(3, s.Length - 3));
                     if ((s.StartsWith("TMD=")) && (checkBoxSkill2_1.Checked)) skill2MDSum += float.Parse(s.Substring(4, s.Length - 4));
                     //      if ((s.StartsWith("TShields=")) && (checkBoxSkill2_1.Checked)) skill2ShieldsSum += float.Parse(s.Substring(9, s.Length - 9));
-                   
+
                     if (s.StartsWith("DR=")) skill2DRSum += float.Parse(s.Substring(3, s.Length - 3));
                     if ((s.StartsWith("TDR=")) && (checkBoxSkill2_1.Checked)) skill2DRSum += float.Parse(s.Substring(4, s.Length - 4));
                     if ((s.StartsWith("TDebuff=")) && (checkBoxSkill2_1.Checked)) skill2DebuffSum += float.Parse(s.Substring(8, s.Length - 8));
@@ -2547,7 +2617,7 @@ if (addon2ROF != 0) textBoxDebug.Text += "addon2ROF = " + addon2ROF.ToString() +
                     if (s.StartsWith("ConHealth=")) skill2ConHealth += float.Parse(s.Substring(10, s.Length - 10));
                     if (s.StartsWith("PRP=")) skill2PRPSum += float.Parse(s.Substring(4, s.Length - 4));
                     if (s.StartsWith("PEN=")) skill2PenMulSum += float.Parse(s.Substring(4, s.Length - 4));
-                //    if (s.StartsWith("ArmorDebuff=")) skill2ArmorDebuffSum += float.Parse(s.Substring(12, s.Length - 12));
+                    //    if (s.StartsWith("ArmorDebuff=")) skill2ArmorDebuffSum += float.Parse(s.Substring(12, s.Length - 12));
 
                 }
 
@@ -2563,7 +2633,7 @@ if (addon2ROF != 0) textBoxDebug.Text += "addon2ROF = " + addon2ROF.ToString() +
                     if (s.StartsWith("MD=")) skill2MDSum += float.Parse(s.Substring(3, s.Length - 3));
                     if ((s.StartsWith("TMD=")) && (checkBoxSkill2_2.Checked)) skill2MDSum += float.Parse(s.Substring(4, s.Length - 4));
                     //     if ((s.StartsWith("TShields=")) && (checkBoxSkill2_2.Checked)) skill2ShieldsSum += float.Parse(s.Substring(9, s.Length - 9));
-            
+
                     if (s.StartsWith("DR=")) skill2DRSum += float.Parse(s.Substring(3, s.Length - 3));
                     if ((s.StartsWith("TDR=")) && (checkBoxSkill2_2.Checked)) skill2DRSum += float.Parse(s.Substring(4, s.Length - 4));
                     if ((s.StartsWith("TDebuff=")) && (checkBoxSkill2_2.Checked)) skill2DebuffSum += float.Parse(s.Substring(8, s.Length - 8));
@@ -2572,7 +2642,7 @@ if (addon2ROF != 0) textBoxDebug.Text += "addon2ROF = " + addon2ROF.ToString() +
                     if (s.StartsWith("ConHealth=")) skill2ConHealth += float.Parse(s.Substring(10, s.Length - 10));
                     if (s.StartsWith("PRP=")) skill2PRPSum += float.Parse(s.Substring(4, s.Length - 4));
                     if (s.StartsWith("PEN=")) skill2PenMulSum += float.Parse(s.Substring(4, s.Length - 4));
-                  //  if (s.StartsWith("ArmorDebuff=")) skill2ArmorDebuffSum += float.Parse(s.Substring(12, s.Length - 12));
+                    //  if (s.StartsWith("ArmorDebuff=")) skill2ArmorDebuffSum += float.Parse(s.Substring(12, s.Length - 12));
 
                 }
 
@@ -2588,7 +2658,7 @@ if (addon2ROF != 0) textBoxDebug.Text += "addon2ROF = " + addon2ROF.ToString() +
                     if (s.StartsWith("MD=")) skill2MDSum += float.Parse(s.Substring(3, s.Length - 3));
                     if ((s.StartsWith("TMD=")) && (checkBoxSkill2_3.Checked)) skill2MDSum += float.Parse(s.Substring(4, s.Length - 4));
                     //    if ((s.StartsWith("TShields=")) && (checkBoxSkill2_3.Checked)) skill2ShieldsSum += float.Parse(s.Substring(9, s.Length - 9));
-                   
+
                     if (s.StartsWith("DR=")) skill2DRSum += float.Parse(s.Substring(3, s.Length - 3));
                     if ((s.StartsWith("TDR=")) && (checkBoxSkill2_3.Checked)) skill2DRSum += float.Parse(s.Substring(4, s.Length - 4));
                     if ((s.StartsWith("TDebuff=")) && (checkBoxSkill2_3.Checked)) skill2DebuffSum += float.Parse(s.Substring(8, s.Length - 8));
@@ -2597,7 +2667,7 @@ if (addon2ROF != 0) textBoxDebug.Text += "addon2ROF = " + addon2ROF.ToString() +
                     if (s.StartsWith("ConHealth=")) skill2ConHealth += float.Parse(s.Substring(10, s.Length - 10));
                     if (s.StartsWith("PRP=")) skill2PRPSum += float.Parse(s.Substring(4, s.Length - 4));
                     if (s.StartsWith("PEN=")) skill2PenMulSum += float.Parse(s.Substring(4, s.Length - 4));
-                  //  if (s.StartsWith("ArmorDebuff=")) skill2ArmorDebuffSum += float.Parse(s.Substring(12, s.Length - 12));
+                    //  if (s.StartsWith("ArmorDebuff=")) skill2ArmorDebuffSum += float.Parse(s.Substring(12, s.Length - 12));
 
                 }
 
@@ -2613,7 +2683,7 @@ if (addon2ROF != 0) textBoxDebug.Text += "addon2ROF = " + addon2ROF.ToString() +
                     if (s.StartsWith("MD=")) skill2MDSum += float.Parse(s.Substring(3, s.Length - 3));
                     if ((s.StartsWith("TMD=")) && (checkBoxSkill2_4.Checked)) skill2MDSum += float.Parse(s.Substring(4, s.Length - 4));
                     //    if ((s.StartsWith("TShields=")) && (checkBoxSkill2_4.Checked)) skill2ShieldsSum += float.Parse(s.Substring(9, s.Length - 9));
-                 
+
                     if (s.StartsWith("DR=")) skill2DRSum += float.Parse(s.Substring(3, s.Length - 3));
                     if ((s.StartsWith("TDR=")) && (checkBoxSkill2_4.Checked)) skill2DRSum += float.Parse(s.Substring(4, s.Length - 4));
                     if ((s.StartsWith("TDebuff=")) && (checkBoxSkill2_4.Checked)) skill2DebuffSum += float.Parse(s.Substring(8, s.Length - 8));
@@ -2622,7 +2692,7 @@ if (addon2ROF != 0) textBoxDebug.Text += "addon2ROF = " + addon2ROF.ToString() +
                     if (s.StartsWith("ConHealth=")) skill2ConHealth += float.Parse(s.Substring(10, s.Length - 10));
                     if (s.StartsWith("PRP=")) skill2PRPSum += float.Parse(s.Substring(4, s.Length - 4));
                     if (s.StartsWith("PEN=")) skill2PenMulSum += float.Parse(s.Substring(4, s.Length - 4));
-                //    if (s.StartsWith("ArmorDebuff=")) skill2ArmorDebuffSum += float.Parse(s.Substring(12, s.Length - 12));
+                    //    if (s.StartsWith("ArmorDebuff=")) skill2ArmorDebuffSum += float.Parse(s.Substring(12, s.Length - 12));
 
                 }
 
@@ -2647,7 +2717,7 @@ if (addon2ROF != 0) textBoxDebug.Text += "addon2ROF = " + addon2ROF.ToString() +
                     if (s.StartsWith("ConHealth=")) skill2ConHealth += float.Parse(s.Substring(10, s.Length - 10));
                     if (s.StartsWith("PRP=")) skill2PRPSum += float.Parse(s.Substring(4, s.Length - 4));
                     if (s.StartsWith("PEN=")) skill2PenMulSum += float.Parse(s.Substring(4, s.Length - 4));
-                   // if (s.StartsWith("ArmorDebuff=")) skill2ArmorDebuffSum += float.Parse(s.Substring(12, s.Length - 12));
+                    // if (s.StartsWith("ArmorDebuff=")) skill2ArmorDebuffSum += float.Parse(s.Substring(12, s.Length - 12));
 
                 }
 
@@ -2663,7 +2733,7 @@ if (addon2ROF != 0) textBoxDebug.Text += "addon2ROF = " + addon2ROF.ToString() +
                     if (s.StartsWith("MD=")) skill2MDSum += float.Parse(s.Substring(3, s.Length - 3));
                     if ((s.StartsWith("TMD=")) && (checkBoxSkill2_6.Checked)) skill2MDSum += float.Parse(s.Substring(4, s.Length - 4));
                     if ((s.StartsWith("TShields=")) && (checkBoxSkill2_6.Checked)) skill2ShieldsSum += float.Parse(s.Substring(9, s.Length - 9));
-      
+
                     if (s.StartsWith("DR=")) skill2DRSum += float.Parse(s.Substring(3, s.Length - 3));
                     if ((s.StartsWith("TDR=")) && (checkBoxSkill2_6.Checked)) skill2DRSum += float.Parse(s.Substring(4, s.Length - 4));
                     if ((s.StartsWith("TDebuff=")) && (checkBoxSkill2_6.Checked)) skill2DebuffSum += float.Parse(s.Substring(8, s.Length - 8));
@@ -2680,7 +2750,7 @@ if (addon2ROF != 0) textBoxDebug.Text += "addon2ROF = " + addon2ROF.ToString() +
             //skill3
             if ((checkBoxOnOffSkill3.Checked) || (PassiveActiveSkillList.Contains(labelSkill3Name.Text)))
             {
-               // textBoxDebug.Text += " Processing skill 3";
+                // textBoxDebug.Text += " Processing skill 3";
 
                 foreach (string s in comboBoxSkill3_1.Text.Split(';'))
                 {
@@ -2693,7 +2763,7 @@ if (addon2ROF != 0) textBoxDebug.Text += "addon2ROF = " + addon2ROF.ToString() +
                     if (s.StartsWith("MD=")) skill3MDSum += float.Parse(s.Substring(3, s.Length - 3));
                     if ((s.StartsWith("TMD=")) && (checkBoxSkill3_1.Checked)) skill3MDSum += float.Parse(s.Substring(4, s.Length - 4));
                     //   if ((s.StartsWith("TShields=")) && (checkBoxSkill3_1.Checked)) skill3ShieldsSum += float.Parse(s.Substring(9, s.Length - 9));
-               
+
                     if (s.StartsWith("DR=")) skill3DRSum += float.Parse(s.Substring(3, s.Length - 3));
                     if ((s.StartsWith("TDR=")) && (checkBoxSkill3_1.Checked)) skill3DRSum += float.Parse(s.Substring(4, s.Length - 4));
                     if ((s.StartsWith("TDebuff=")) && (checkBoxSkill3_1.Checked)) skill3DebuffSum += float.Parse(s.Substring(8, s.Length - 8));
@@ -2702,7 +2772,7 @@ if (addon2ROF != 0) textBoxDebug.Text += "addon2ROF = " + addon2ROF.ToString() +
                     if (s.StartsWith("ConHealth=")) skill3ConHealth += float.Parse(s.Substring(10, s.Length - 10));
                     if (s.StartsWith("PRP=")) skill3PRPSum += float.Parse(s.Substring(4, s.Length - 4));
                     if (s.StartsWith("PEN=")) skill3PenMulSum += float.Parse(s.Substring(4, s.Length - 4));
-                   // if (s.StartsWith("ArmorDebuff=")) skill3ArmorDebuffSum += float.Parse(s.Substring(12, s.Length - 12));
+                    // if (s.StartsWith("ArmorDebuff=")) skill3ArmorDebuffSum += float.Parse(s.Substring(12, s.Length - 12));
                 }
 
                 foreach (string s in comboBoxSkill3_2.Text.Split(';'))
@@ -2716,7 +2786,7 @@ if (addon2ROF != 0) textBoxDebug.Text += "addon2ROF = " + addon2ROF.ToString() +
                     if (s.StartsWith("MD=")) skill3MDSum += float.Parse(s.Substring(3, s.Length - 3));
                     if ((s.StartsWith("TMD=")) && (checkBoxSkill3_2.Checked)) skill3MDSum += float.Parse(s.Substring(4, s.Length - 4));
                     //   if ((s.StartsWith("TShields=")) && (checkBoxSkill3_2.Checked)) skill3ShieldsSum += float.Parse(s.Substring(9, s.Length - 9));
-                   
+
                     if (s.StartsWith("DR=")) skill3DRSum += float.Parse(s.Substring(3, s.Length - 3));
                     if ((s.StartsWith("TDR=")) && (checkBoxSkill3_2.Checked)) skill3DRSum += float.Parse(s.Substring(4, s.Length - 4));
                     if ((s.StartsWith("TDebuff=")) && (checkBoxSkill3_2.Checked)) skill3DebuffSum += float.Parse(s.Substring(8, s.Length - 8));
@@ -2741,7 +2811,7 @@ if (addon2ROF != 0) textBoxDebug.Text += "addon2ROF = " + addon2ROF.ToString() +
                     if (s.StartsWith("MD=")) skill3MDSum += float.Parse(s.Substring(3, s.Length - 3));
                     if ((s.StartsWith("TMD=")) && (checkBoxSkill3_3.Checked)) skill3MDSum += float.Parse(s.Substring(4, s.Length - 4));
                     //   if ((s.StartsWith("TShields=")) && (checkBoxSkill3_3.Checked)) skill3ShieldsSum += float.Parse(s.Substring(9, s.Length - 9));
-                 
+
                     if (s.StartsWith("DR=")) skill3DRSum += float.Parse(s.Substring(3, s.Length - 3));
                     if ((s.StartsWith("TDR=")) && (checkBoxSkill3_3.Checked)) skill3DRSum += float.Parse(s.Substring(4, s.Length - 4));
                     if ((s.StartsWith("TDebuff=")) && (checkBoxSkill3_3.Checked)) skill3DebuffSum += float.Parse(s.Substring(8, s.Length - 8));
@@ -2766,7 +2836,7 @@ if (addon2ROF != 0) textBoxDebug.Text += "addon2ROF = " + addon2ROF.ToString() +
                     if (s.StartsWith("MD=")) skill3MDSum += float.Parse(s.Substring(3, s.Length - 3));
                     if ((s.StartsWith("TMD=")) && (checkBoxSkill3_4.Checked)) skill3MDSum += float.Parse(s.Substring(4, s.Length - 4));
                     //   if ((s.StartsWith("TShields=")) && (checkBoxSkill3_4.Checked)) skill3ShieldsSum += float.Parse(s.Substring(9, s.Length - 9));
-                    
+
                     if (s.StartsWith("DR=")) skill3DRSum += float.Parse(s.Substring(3, s.Length - 3));
                     if ((s.StartsWith("TDR=")) && (checkBoxSkill3_4.Checked)) skill3DRSum += float.Parse(s.Substring(4, s.Length - 4));
                     if ((s.StartsWith("TDebuff=")) && (checkBoxSkill3_4.Checked)) skill3DebuffSum += float.Parse(s.Substring(8, s.Length - 8));
@@ -2791,7 +2861,7 @@ if (addon2ROF != 0) textBoxDebug.Text += "addon2ROF = " + addon2ROF.ToString() +
                     if (s.StartsWith("MD=")) skill3MDSum += float.Parse(s.Substring(3, s.Length - 3));
                     if ((s.StartsWith("TMD=")) && (checkBoxSkill3_5.Checked)) skill3MDSum += float.Parse(s.Substring(4, s.Length - 4));
                     //   if ((s.StartsWith("TShields=")) && (checkBoxSkill3_5.Checked)) skill3ShieldsSum += float.Parse(s.Substring(9, s.Length - 9));
-                   
+
                     if (s.StartsWith("DR=")) skill3DRSum += float.Parse(s.Substring(3, s.Length - 3));
                     if ((s.StartsWith("TDR=")) && (checkBoxSkill3_5.Checked)) skill3DRSum += float.Parse(s.Substring(4, s.Length - 4));
                     if ((s.StartsWith("TDebuff=")) && (checkBoxSkill3_5.Checked)) skill3DebuffSum += float.Parse(s.Substring(8, s.Length - 8));
@@ -2816,7 +2886,7 @@ if (addon2ROF != 0) textBoxDebug.Text += "addon2ROF = " + addon2ROF.ToString() +
                     if (s.StartsWith("MD=")) skill3MDSum += float.Parse(s.Substring(3, s.Length - 3));
                     if ((s.StartsWith("TMD=")) && (checkBoxSkill3_6.Checked)) skill3MDSum += float.Parse(s.Substring(4, s.Length - 4));
                     if ((s.StartsWith("TShields=")) && (checkBoxSkill3_6.Checked)) skill3ShieldsSum += float.Parse(s.Substring(9, s.Length - 9));
-                   
+
                     if (s.StartsWith("DR=")) skill3DRSum += float.Parse(s.Substring(3, s.Length - 3));
                     if ((s.StartsWith("TDR=")) && (checkBoxSkill3_6.Checked)) skill3DRSum += float.Parse(s.Substring(4, s.Length - 4));
                     if ((s.StartsWith("TDebuff=")) && (checkBoxSkill3_6.Checked)) skill3DebuffSum += float.Parse(s.Substring(8, s.Length - 8));
@@ -2834,7 +2904,7 @@ if (addon2ROF != 0) textBoxDebug.Text += "addon2ROF = " + addon2ROF.ToString() +
             //skill4 "passive"
             if ((checkBoxOnOffSkill4.Checked) || (PassiveActiveSkillList.Contains(labelSkill4Name.Text)))
             {
-             //   textBoxDebug.Text += " Processing skill 4";
+                //   textBoxDebug.Text += " Processing skill 4";
 
                 foreach (string s in comboBoxSkill4_1.Text.Split(';'))
                 {
@@ -2848,16 +2918,16 @@ if (addon2ROF != 0) textBoxDebug.Text += "addon2ROF = " + addon2ROF.ToString() +
                     if ((s.StartsWith("TMD=")) && (checkBoxSkill4_1.Checked)) skill4MDSum += float.Parse(s.Substring(4, s.Length - 4));
                     if (s.StartsWith("Reload=")) skill4Reload += float.Parse(s.Substring(7, s.Length - 7));
                     if (s.StartsWith("Weak=")) skill4Weak += float.Parse(s.Substring(5, s.Length - 5));
-                 //   if (s.StartsWith("Combo=")) skill4Combo += float.Parse(s.Substring(6, s.Length - 6));
+                    //   if (s.StartsWith("Combo=")) skill4Combo += float.Parse(s.Substring(6, s.Length - 6));
 
                     if (s.StartsWith("DR=")) skill4DRSum += float.Parse(s.Substring(3, s.Length - 3));
                     if ((s.StartsWith("TDR=")) && (checkBoxSkill4_1.Checked)) skill4DRSum += float.Parse(s.Substring(4, s.Length - 4));
                     //    if ((s.StartsWith("TDebuff=")) && (checkBoxSkill4_1.Checked)) skill4DebuffSum += float.Parse(s.Substring(8, s.Length - 8));
-                   // if (s.StartsWith("PRS="))  skill4PRS += float.Parse(s.Substring(4, s.Length - 4));
+                    // if (s.StartsWith("PRS="))  skill4PRS += float.Parse(s.Substring(4, s.Length - 4));
                     if (s.StartsWith("ConHealth=")) skill4ConHealth += float.Parse(s.Substring(10, s.Length - 10));
 
                     if (s.StartsWith("ConDam=")) skill4ConDam += float.Parse(s.Substring(7, s.Length - 7));
-                    if (s.StartsWith("PEffectDur=")) skill4PEffectDur  += float.Parse(s.Substring(11, s.Length - 11));
+                    if (s.StartsWith("PEffectDur=")) skill4PEffectDur += float.Parse(s.Substring(11, s.Length - 11));
                     //       if (s.StartsWith("vsShields=")) skill4vsShields += float.Parse(s.Substring(10, s.Length - 10));
                     //      if (s.StartsWith("vsArmor=")) skill4vsArmor += float.Parse(s.Substring(8, s.Length - 8));
                     if ((s.StartsWith("ADR=")) && (checkBoxOnOffSkill4.Checked)) skill4DRSum += float.Parse(s.Substring(4, s.Length - 4));
@@ -2867,7 +2937,7 @@ if (addon2ROF != 0) textBoxDebug.Text += "addon2ROF = " + addon2ROF.ToString() +
 
                 foreach (string s in comboBoxSkill4_2.Text.Split(';'))
                 {
-                    
+
                     if (s.StartsWith("WD=")) skill4WDSum += float.Parse(s.Substring(3, s.Length - 3));
                     if ((s.StartsWith("TWD=")) && (checkBoxSkill4_2.Checked)) skill4WDSum += float.Parse(s.Substring(4, s.Length - 4));
                     if (s.StartsWith("MAG=")) skill4MAGSum += float.Parse(s.Substring(4, s.Length - 4));
@@ -2877,7 +2947,7 @@ if (addon2ROF != 0) textBoxDebug.Text += "addon2ROF = " + addon2ROF.ToString() +
                     if ((s.StartsWith("TMD=")) && (checkBoxSkill4_2.Checked)) skill4MDSum += float.Parse(s.Substring(4, s.Length - 4));
                     if (s.StartsWith("Reload=")) skill4Reload += float.Parse(s.Substring(7, s.Length - 7));
                     if (s.StartsWith("Weak=")) skill4Weak += float.Parse(s.Substring(5, s.Length - 5));
-                //    if (s.StartsWith("Combo=")) skill4Combo += float.Parse(s.Substring(6, s.Length - 6));
+                    //    if (s.StartsWith("Combo=")) skill4Combo += float.Parse(s.Substring(6, s.Length - 6));
 
                     if (s.StartsWith("DR=")) skill4DRSum += float.Parse(s.Substring(3, s.Length - 3));
                     if ((s.StartsWith("TDR=")) && (checkBoxSkill4_2.Checked)) skill4DRSum += float.Parse(s.Substring(4, s.Length - 4));
@@ -2904,7 +2974,7 @@ if (addon2ROF != 0) textBoxDebug.Text += "addon2ROF = " + addon2ROF.ToString() +
                     if ((s.StartsWith("TMD=")) && (checkBoxSkill4_3.Checked)) skill4MDSum += float.Parse(s.Substring(4, s.Length - 4));
                     if (s.StartsWith("Reload=")) skill4Reload += float.Parse(s.Substring(7, s.Length - 7));
                     if (s.StartsWith("Weak=")) skill4Weak += float.Parse(s.Substring(5, s.Length - 5));
-                   // if (s.StartsWith("Combo=")) skill4Combo += float.Parse(s.Substring(6, s.Length - 6));
+                    // if (s.StartsWith("Combo=")) skill4Combo += float.Parse(s.Substring(6, s.Length - 6));
 
                     if (s.StartsWith("DR=")) skill4DRSum += float.Parse(s.Substring(3, s.Length - 3));
                     if ((s.StartsWith("TDR=")) && (checkBoxSkill4_3.Checked)) skill4DRSum += float.Parse(s.Substring(4, s.Length - 4));
@@ -2936,7 +3006,7 @@ if (addon2ROF != 0) textBoxDebug.Text += "addon2ROF = " + addon2ROF.ToString() +
                     if (s.StartsWith("DR=")) skill4DRSum += float.Parse(s.Substring(3, s.Length - 3));
                     if ((s.StartsWith("TDR=")) && (checkBoxSkill4_4.Checked)) skill4DRSum += float.Parse(s.Substring(4, s.Length - 4));
                     if ((s.StartsWith("TDebuff=")) && (checkBoxSkill4_4.Checked)) skill4DebuffSum += float.Parse(s.Substring(8, s.Length - 8));
-                    if (s.StartsWith("PRS="))  skill4PRS += float.Parse(s.Substring(4, s.Length - 4));
+                    if (s.StartsWith("PRS=")) skill4PRS += float.Parse(s.Substring(4, s.Length - 4));
                     if (s.StartsWith("ConHealth=")) skill4ConHealth += float.Parse(s.Substring(10, s.Length - 10));
                     if (s.StartsWith("ConDam=")) skill4ConDam += float.Parse(s.Substring(7, s.Length - 7));
                     if (s.StartsWith("PEffectDur=")) skill4PEffectDur += float.Parse(s.Substring(11, s.Length - 11));
@@ -2962,7 +3032,7 @@ if (addon2ROF != 0) textBoxDebug.Text += "addon2ROF = " + addon2ROF.ToString() +
                     if (s.StartsWith("DR=")) skill4DRSum += float.Parse(s.Substring(3, s.Length - 3));
                     if ((s.StartsWith("TDR=")) && (checkBoxSkill4_5.Checked)) skill4DRSum += float.Parse(s.Substring(4, s.Length - 4));
                     if ((s.StartsWith("TDebuff=")) && (checkBoxSkill4_5.Checked)) skill4DebuffSum += float.Parse(s.Substring(8, s.Length - 8));
-                    if (s.StartsWith("PRS="))  skill4PRS += float.Parse(s.Substring(4, s.Length - 4));
+                    if (s.StartsWith("PRS=")) skill4PRS += float.Parse(s.Substring(4, s.Length - 4));
                     if (s.StartsWith("ConHealth=")) skill4ConHealth += float.Parse(s.Substring(10, s.Length - 10));
                     if (s.StartsWith("ConDam=")) skill4ConDam += float.Parse(s.Substring(7, s.Length - 7));
                     if (s.StartsWith("PEffectDur=")) skill4PEffectDur += float.Parse(s.Substring(11, s.Length - 11));
@@ -2979,14 +3049,14 @@ if (addon2ROF != 0) textBoxDebug.Text += "addon2ROF = " + addon2ROF.ToString() +
                     if (s.StartsWith("WD=")) skill4WDSum += float.Parse(s.Substring(3, s.Length - 3));
                     if ((s.StartsWith("TWD=")) && (checkBoxSkill4_6.Checked)) skill4WDSum += float.Parse(s.Substring(4, s.Length - 4));
                     if (s.StartsWith("MAG=")) skill4MAGSum += float.Parse(s.Substring(4, s.Length - 4));
-                    if ((s.StartsWith("TBPD=")) && (checkBoxSkill4_6.Checked)) skill4BPD += float.Parse(s.Substring(5, s.Length - 5)); 
+                    if ((s.StartsWith("TBPD=")) && (checkBoxSkill4_6.Checked)) skill4BPD += float.Parse(s.Substring(5, s.Length - 5));
                     if (s.StartsWith("PD=")) skill4PDSum += float.Parse(s.Substring(3, s.Length - 3));
                     if ((s.StartsWith("TPD=")) && (checkBoxSkill4_6.Checked)) skill4PDSum += float.Parse(s.Substring(4, s.Length - 4));
                     if (s.StartsWith("MD=")) skill4MDSum += float.Parse(s.Substring(3, s.Length - 3));
                     if ((s.StartsWith("TMD=")) && (checkBoxSkill4_6.Checked)) skill4MDSum += float.Parse(s.Substring(4, s.Length - 4));
                     if (s.StartsWith("Reload=")) skill4Reload += float.Parse(s.Substring(7, s.Length - 7));
                     if (s.StartsWith("Weak=")) skill4Weak += float.Parse(s.Substring(5, s.Length - 5));
-                 //   if (s.StartsWith("Combo=")) skill4Combo += float.Parse(s.Substring(6, s.Length - 6));
+                    //   if (s.StartsWith("Combo=")) skill4Combo += float.Parse(s.Substring(6, s.Length - 6));
                     if (s.StartsWith("DR=")) skill4DRSum += float.Parse(s.Substring(3, s.Length - 3));
                     if ((s.StartsWith("TDR=")) && (checkBoxSkill4_6.Checked)) skill4DRSum += float.Parse(s.Substring(4, s.Length - 4));
                     if ((s.StartsWith("TDebuff=")) && (checkBoxSkill4_6.Checked)) skill4DebuffSum += float.Parse(s.Substring(8, s.Length - 8));
@@ -3006,7 +3076,7 @@ if (addon2ROF != 0) textBoxDebug.Text += "addon2ROF = " + addon2ROF.ToString() +
             //skill5 "fitness"
             if ((checkBoxOnOffSkill5.Checked) || (PassiveActiveSkillList.Contains(labelSkill5Name.Text)))
             {
-               // textBoxDebug.Text += " Processing skill 5";
+                // textBoxDebug.Text += " Processing skill 5";
 
                 foreach (string s in comboBoxSkill5_1.Text.Split(';'))
                 {
@@ -3021,7 +3091,7 @@ if (addon2ROF != 0) textBoxDebug.Text += "addon2ROF = " + addon2ROF.ToString() +
                     if (s.StartsWith("Health=")) skill5HealthSum += float.Parse(s.Substring(7, s.Length - 7));
                     if (s.StartsWith("Shields=")) skill5ShieldsSum += float.Parse(s.Substring(8, s.Length - 8));
                     if ((s.StartsWith("TShields=")) && (checkBoxSkill5_1.Checked)) skill5ShieldsSum += float.Parse(s.Substring(9, s.Length - 9));
-                    
+
                     if (s.StartsWith("DR=")) skill5DRSum += float.Parse(s.Substring(3, s.Length - 3));
                     if ((s.StartsWith("TDR=")) && (checkBoxSkill5_1.Checked)) skill5DRSum += float.Parse(s.Substring(4, s.Length - 4));
                     if (s.StartsWith("ConHealth=")) skill5ConHealth += float.Parse(s.Substring(10, s.Length - 10));
@@ -3102,7 +3172,7 @@ if (addon2ROF != 0) textBoxDebug.Text += "addon2ROF = " + addon2ROF.ToString() +
                     if (s.StartsWith("Health=")) skill5HealthSum += float.Parse(s.Substring(7, s.Length - 7));
                     if (s.StartsWith("Shields=")) skill5ShieldsSum += float.Parse(s.Substring(8, s.Length - 8));
                     if ((s.StartsWith("TShields=")) && (checkBoxSkill5_4.Checked)) skill5ShieldsSum += float.Parse(s.Substring(9, s.Length - 9));
-                  
+
                     if (s.StartsWith("DR=")) skill5DRSum += float.Parse(s.Substring(3, s.Length - 3));
                     if ((s.StartsWith("TDR=")) && (checkBoxSkill5_4.Checked)) skill5DRSum += float.Parse(s.Substring(4, s.Length - 4));
                     if (s.StartsWith("ConHealth=")) skill5ConHealth += float.Parse(s.Substring(10, s.Length - 10));
@@ -3254,7 +3324,7 @@ if (addon2ROF != 0) textBoxDebug.Text += "addon2ROF = " + addon2ROF.ToString() +
             //////// Char Stats: MaxShields, MaxHealth, Melee and Jump Melee damage ..
             ////////
 
-           textBoxCharacterStats.Text = "";
+            textBoxCharacterStats.Text = "";
 
             // find Selected character Index 
             int SelectedCharIndex;
@@ -3269,7 +3339,7 @@ if (addon2ROF != 0) textBoxDebug.Text += "addon2ROF = " + addon2ROF.ToString() +
             SelectedCharIndex = comboBoxSelectChars.SelectedIndex;
 
 
-           //CURRENT DR
+            //CURRENT DR
             textBoxCharacterStats.Text += "Sum of Damage Reduction Active on character ";
             float SumAdditives; SumAdditives = 0;
             if (skill1DRSum != 0) { SumAdditives += skill1DRSum; textBoxCharacterStats.Text += " '" + playingCharactersArray[SelectedCharIndex].Skill1Name + "' skill " + skill1DRSum.ToString(); }
@@ -3280,20 +3350,20 @@ if (addon2ROF != 0) textBoxDebug.Text += "addon2ROF = " + addon2ROF.ToString() +
 
             textBoxCharacterStats.Text += " = " + SumAdditives.ToString() + " \r\n\r\n"; float ActiveCharDR; ActiveCharDR = SumAdditives;
 
-         // MAX HEALTH
+            // MAX HEALTH
 
             // Need to Calculate the result but also display the terms ..
-            textBoxCharacterStats.Text += "MaxHealth = Base Health " + playingCharactersArray[SelectedCharIndex].BaseCharacterHealth.ToString()  + " * (1 ";
+            textBoxCharacterStats.Text += "MaxHealth = Base Health " + playingCharactersArray[SelectedCharIndex].BaseCharacterHealth.ToString() + " * (1 ";
             SumAdditives = 1;    //Simple formula = base * (1 + sum additives);
 
             // A list of "suspects" health suspects: Bonus, Apex1Health, Apex2Health Skill5HealthSum
 
-            if ( float.Parse(comboBoxBonusHealth.Text) != 0) { SumAdditives += float.Parse(comboBoxBonusHealth.Text)/100;  textBoxCharacterStats.Text += " + Bonus 'Max Health' Stat" + float.Parse(comboBoxBonusHealth.Text) / 100; }
+            if (float.Parse(comboBoxBonusHealth.Text) != 0) { SumAdditives += float.Parse(comboBoxBonusHealth.Text) / 100; textBoxCharacterStats.Text += " + Bonus 'Max Health' Stat" + float.Parse(comboBoxBonusHealth.Text) / 100; }
             if (apex1Health != 0) { SumAdditives += apex1Health; textBoxCharacterStats.Text += " + Apex '" + comboBoxSelectApex1.Text.Split('*')[0] + "' " + apex1Health.ToString(); }
             if (apex2Health != 0) { SumAdditives += apex2Health; textBoxCharacterStats.Text += " + Apex '" + comboBoxSelectApex2.Text.Split('*')[0] + "' " + apex2Health.ToString(); }
             if (skill5HealthSum != 0) { SumAdditives += skill5HealthSum; textBoxCharacterStats.Text += " + Health from '" + playingCharactersArray[SelectedCharIndex].Skill5Name + "' skill" + skill5HealthSum.ToString(); }
 
-            textBoxCharacterStats.Text += " ) = " + (playingCharactersArray[SelectedCharIndex].BaseCharacterHealth * SumAdditives).ToString()  + " EffectiveHealth = " + (playingCharactersArray[SelectedCharIndex].BaseCharacterHealth * SumAdditives * (1 + ActiveCharDR)).ToString() + " \r\n";
+            textBoxCharacterStats.Text += " ) = " + (playingCharactersArray[SelectedCharIndex].BaseCharacterHealth * SumAdditives).ToString() + " EffectiveHealth = " + (playingCharactersArray[SelectedCharIndex].BaseCharacterHealth * SumAdditives * (1 + ActiveCharDR)).ToString() + " \r\n";
 
             // MAX Shields
 
@@ -3319,7 +3389,7 @@ if (addon2ROF != 0) textBoxDebug.Text += "addon2ROF = " + addon2ROF.ToString() +
             // Melee Damage is a bit more involved 
             // BMD * VsDefence * (1 + SumMD) * (1 + SumDebuff)
             const float BaseJumpMeleeDamage = 385;
-            const float JumpMeleeImpactPercent = 0.333f; 
+            const float JumpMeleeImpactPercent = 0.333f;
             const float JumpMeleeAOEPercent = 0.667f;
             const float BasePullHammer = 1200;
 
@@ -3333,10 +3403,10 @@ if (addon2ROF != 0) textBoxDebug.Text += "addon2ROF = " + addon2ROF.ToString() +
             if (skill3DebuffSum != 0) { SumAdditives += skill3DebuffSum; textBoxCharacterStats.Text += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill3Name + "' skill" + skill3DebuffSum.ToString(); }
             if (skill4DebuffSum != 0) { SumAdditives += skill4DebuffSum; textBoxCharacterStats.Text += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4DebuffSum.ToString(); }
 
-          // YOU NEED TO VALIDATE YOU IMPUT TEXTBOXES  
+            // YOU NEED TO VALIDATE YOU IMPUT TEXTBOXES  
             if (float.Parse(textBoxSumSquadDebuffsOnTarget.Text) != 0) { SumAdditives += float.Parse(textBoxSumSquadDebuffsOnTarget.Text); textBoxCharacterStats.Text += " + debuffvsAll from squad" + textBoxSumSquadDebuffsOnTarget.Text; }
 
-           
+
 
             float SumDebuff; SumDebuff = SumAdditives;
             textBoxCharacterStats.Text += " = " + SumDebuff.ToString() + " \r\n";
@@ -3357,29 +3427,189 @@ if (addon2ROF != 0) textBoxDebug.Text += "addon2ROF = " + addon2ROF.ToString() +
             textBoxCharacterStats.Text += "Melee Additive Bonuses: ";
 
             if (playingCharactersArray[SelectedCharIndex].HiddenMeleeDamageBonus != 0) { SumAdditives += playingCharactersArray[SelectedCharIndex].HiddenMeleeDamageBonus; textBoxCharacterStats.Text += "  Hidden Class Melee" + playingCharactersArray[SelectedCharIndex].HiddenMeleeDamageBonus.ToString(); }
-            if (myGunArray[comboBoxSelectWeapon.SelectedIndex].meleeBuiltInBonus !=0) { SumAdditives += myGunArray[comboBoxSelectWeapon.SelectedIndex].meleeBuiltInBonus; textBoxCharacterStats.Text += "  '" + myGunArray[comboBoxSelectWeapon.SelectedIndex].weaponName   + "' built in Melee" + myGunArray[comboBoxSelectWeapon.SelectedIndex].meleeBuiltInBonus.ToString(); }
+            if (myGunArray[comboBoxSelectWeapon.SelectedIndex].meleeBuiltInBonus != 0) { SumAdditives += myGunArray[comboBoxSelectWeapon.SelectedIndex].meleeBuiltInBonus; textBoxCharacterStats.Text += "  '" + myGunArray[comboBoxSelectWeapon.SelectedIndex].weaponName + "' built in Melee" + myGunArray[comboBoxSelectWeapon.SelectedIndex].meleeBuiltInBonus.ToString(); }
             if (gearMD != 0) { SumAdditives += gearMD; textBoxCharacterStats.Text += " gear '" + comboBoxSelectGear.Text.Split('*')[0] + "' " + gearMD.ToString(); }
             if (booster1MD != 0) { SumAdditives += booster1MD; textBoxCharacterStats.Text += " + booster '" + comboBoxSelectBooster1.Text.Split('*')[0] + "' " + booster1MD.ToString(); }
             if (booster2MD != 0) { SumAdditives += booster2MD; textBoxCharacterStats.Text += " + booster '" + comboBoxSelectBooster2.Text.Split('*')[0] + "' " + booster2MD.ToString(); }
             if (apex1MD != 0) { SumAdditives += apex1MD; textBoxCharacterStats.Text += " + Apex '" + comboBoxSelectApex1.Text.Split('*')[0] + "' " + apex1MD.ToString(); }
             if (apex2MD != 0) { SumAdditives += apex2MD; textBoxCharacterStats.Text += " + Apex '" + comboBoxSelectApex2.Text.Split('*')[0] + "' " + apex2MD.ToString(); }
-            if (float.Parse(comboBoxSelectVeteranLevel.Text) != 0) { SumAdditives += float.Parse(comboBoxSelectVeteranLevel.Text)*0.04f; textBoxCharacterStats.Text += " Veteran MD Bonus " + (float.Parse(comboBoxSelectVeteranLevel.Text) * 0.04f).ToString(); }
+            if (float.Parse(comboBoxSelectVeteranLevel.Text) != 0) { SumAdditives += float.Parse(comboBoxSelectVeteranLevel.Text) * 0.04f; textBoxCharacterStats.Text += " Veteran MD Bonus " + (float.Parse(comboBoxSelectVeteranLevel.Text) * 0.04f).ToString(); }
             if (skill1MDSum != 0) { SumAdditives += skill1MDSum; textBoxCharacterStats.Text += " MD from '" + playingCharactersArray[SelectedCharIndex].Skill1Name + "' skill" + skill1MDSum.ToString(); }
             if (skill2MDSum != 0) { SumAdditives += skill2MDSum; textBoxCharacterStats.Text += " MD from '" + playingCharactersArray[SelectedCharIndex].Skill2Name + "' skill" + skill2MDSum.ToString(); }
             if (skill3MDSum != 0) { SumAdditives += skill3MDSum; textBoxCharacterStats.Text += " MD from '" + playingCharactersArray[SelectedCharIndex].Skill3Name + "' skill" + skill3MDSum.ToString(); }
             if (skill4MDSum != 0) { SumAdditives += skill4MDSum; textBoxCharacterStats.Text += " MD from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4MDSum.ToString(); }
             if (skill5MDSum != 0) { SumAdditives += skill5MDSum; textBoxCharacterStats.Text += " MD from '" + playingCharactersArray[SelectedCharIndex].Skill5Name + "' skill" + skill5MDSum.ToString(); }
 
-            textBoxCharacterStats.Text += " = " +SumAdditives.ToString() + "\r\n";
+            textBoxCharacterStats.Text += " = " + SumAdditives.ToString() + "\r\n";
 
             // Melee Damage vs Health ; vs Shields ; vs Armor  =  =  =
             // Jump Melee Impact Damage vs vs Health ; vs Shields ; vs Armor  =  =  =
             // Jump Melee AOE Damage vs vs Health ; vs Shields ; vs Armor  =  =  =
             // if classs.Equals( gladiator) PullMelee vs   vs Health; vs Shields; vs Armor =  =  =
-            textBoxCharacterStats.Text += "Melee Damage vs Health ; vs Shields ; vs Armor " + (playingCharactersArray[SelectedCharIndex].BaseCharacterMeleeDamage * (1 + SumAdditives) * (1+SumDebuff)).ToString() + " ; " + (playingCharactersArray[SelectedCharIndex].BaseCharacterMeleeDamage * (1 + SumAdditives) * (1 + SumDebuff) * playingCharactersArray[SelectedCharIndex].BaseCharacterMeleeVsShields).ToString() + " ; " + (playingCharactersArray[SelectedCharIndex].BaseCharacterMeleeDamage * (1 + SumAdditives) * (1 + SumDebuff + SumArmorDebuff )* playingCharactersArray[SelectedCharIndex].BaseCharacterMeleeVsArmor).ToString() + "\r\n";
+            textBoxCharacterStats.Text += "Melee Damage vs Health ; vs Shields ; vs Armor " + (playingCharactersArray[SelectedCharIndex].BaseCharacterMeleeDamage * (1 + SumAdditives) * (1 + SumDebuff)).ToString() + " ; " + (playingCharactersArray[SelectedCharIndex].BaseCharacterMeleeDamage * (1 + SumAdditives) * (1 + SumDebuff) * playingCharactersArray[SelectedCharIndex].BaseCharacterMeleeVsShields).ToString() + " ; " + (playingCharactersArray[SelectedCharIndex].BaseCharacterMeleeDamage * (1 + SumAdditives) * (1 + SumDebuff + SumArmorDebuff) * playingCharactersArray[SelectedCharIndex].BaseCharacterMeleeVsArmor).ToString() + "\r\n";
             textBoxCharacterStats.Text += "Jump Melee Impact Damage vs Health ; vs Shields ; vs Armor " + (BaseJumpMeleeDamage * JumpMeleeImpactPercent * (1 + SumAdditives) * (1 + SumDebuff)).ToString() + " ; " + (BaseJumpMeleeDamage * JumpMeleeImpactPercent * (1 + SumAdditives) * (1 + SumDebuff) * playingCharactersArray[SelectedCharIndex].BaseCharacterMeleeVsShields).ToString() + " ; " + (BaseJumpMeleeDamage * JumpMeleeImpactPercent * (1 + SumAdditives) * (1 + SumDebuff + SumArmorDebuff) * playingCharactersArray[SelectedCharIndex].BaseCharacterMeleeVsArmor).ToString() + "\r\n";
             textBoxCharacterStats.Text += "Jump Melee AOE Damage vs Health ; vs Shields ; vs Armor " + (BaseJumpMeleeDamage * JumpMeleeAOEPercent * (1 + SumAdditives) * (1 + SumDebuff)).ToString() + " ; " + (BaseJumpMeleeDamage * JumpMeleeAOEPercent * (1 + SumAdditives) * (1 + SumDebuff) * playingCharactersArray[SelectedCharIndex].BaseCharacterMeleeVsShields).ToString() + " ; " + (BaseJumpMeleeDamage * JumpMeleeAOEPercent * (1 + SumAdditives) * (1 + SumDebuff + SumArmorDebuff) * playingCharactersArray[SelectedCharIndex].BaseCharacterMeleeVsArmor).ToString() + "\r\n";
             if (playingCharactersArray[SelectedCharIndex].CharacterName.Equals("Krogan Gladiator")) textBoxCharacterStats.Text += "Pull + Hammer AOE Damage vs Health ; vs Shields ; vs Armor " + (BasePullHammer * (1 + SumAdditives) * (1 + SumDebuff)).ToString() + " ; " + (BasePullHammer * (1 + SumAdditives) * (1 + SumDebuff) * playingCharactersArray[SelectedCharIndex].BaseCharacterMeleeVsShields).ToString() + " ; " + (BasePullHammer * (1 + SumAdditives) * (1 + SumDebuff + SumArmorDebuff) * playingCharactersArray[SelectedCharIndex].BaseCharacterMeleeVsArmor).ToString() + "\r\n";
+
+            // gun STATS?  Magazine damage, DPS, single shot damage ..
+            //
+
+
+            ///Active skills section
+
+            string[] ActiveSkillList = { "", "","" };
+            ActiveSkillList[0] = labelSkill1Name.Text;
+            ActiveSkillList[1] = labelSkill2Name.Text;
+            ActiveSkillList[2] = labelSkill3Name.Text;
+             for (int ASkillIndex=0;ASkillIndex<3;ASkillIndex ++)
+             {
+             // find correct Textbox by name
+            Control[] controls = this.Controls.Find("textBoxASkill" + (ASkillIndex+1).ToString(), true);
+            TextBox txtBox = controls[0] as TextBox;
+            txtBox.Text =  ActiveSkillList[ASkillIndex] + ":\r\n\r\n" ;
+
+               
+
+                switch (ActiveSkillList[ASkillIndex])
+                {
+                    case "Frag Grenade":
+                        //txtBox.Text += "long live the frag";
+                        // "Frag Grenade", "frag grenade description", false, "BaseDam=1000", "1", "2", "Dam=0.3", "4a", "Dam=0.4", "5a", "BaseDOTDam=100;BaseDOTDur=6", "vsArmor=0.8","vsShields=1",
+                        // combo boxes HAVE PLAYER CHOICES 
+                        // Also need to get the right playingCharactersArray[SelectedCharIndex].Skill X CooldownMaxDurationPassiveTempEtc
+                        string TCooldownMaxDurationPassiveTempEtc; TCooldownMaxDurationPassiveTempEtc = "";
+                        if (playingCharactersArray[SelectedCharIndex].Skill1Name.Equals(ActiveSkillList[ASkillIndex])) TCooldownMaxDurationPassiveTempEtc = playingCharactersArray[SelectedCharIndex].Skill1CooldownMaxDurationPassiveTempEtc;
+                        if (playingCharactersArray[SelectedCharIndex].Skill2Name.Equals(ActiveSkillList[ASkillIndex])) TCooldownMaxDurationPassiveTempEtc = playingCharactersArray[SelectedCharIndex].Skill2CooldownMaxDurationPassiveTempEtc;
+                        if (playingCharactersArray[SelectedCharIndex].Skill3Name.Equals(ActiveSkillList[ASkillIndex])) TCooldownMaxDurationPassiveTempEtc = playingCharactersArray[SelectedCharIndex].Skill3CooldownMaxDurationPassiveTempEtc;
+
+                        //  txtBox.Text += TCooldownMaxDurationPassiveTempEtc;
+
+
+
+                        float FragGrenadeBaseDam; FragGrenadeBaseDam = 0;
+                        foreach (string s in TCooldownMaxDurationPassiveTempEtc.Split(';'))
+                        {
+                            //  "BaseDam="
+                            FragGrenadeBaseDam = float.Parse(s.Substring(8, s.Length - 8));
+                          //  txtBox.Text += FragGrenadeBaseDam.ToString() + "\r\n";
+                        }
+
+                            ComboBox comboBox;
+                        //we will need to Find the right comboboxes by name .. 
+                        //  controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_1", true);
+                        //  comboBox = controls[0] as ComboBox;
+                        //  txtBox.Text += comboBox.Text + "\r\n";
+
+                        // controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_2", true);
+                        // comboBox = controls[0] as ComboBox;
+                        // txtBox.Text += comboBox.Text + "\r\n";
+
+
+                        controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_3", true);
+                        comboBox = controls[0] as ComboBox;
+                        //txtBox.Text += comboBox.Text + "\r\n";
+
+                        float FragGrenadeDam1; FragGrenadeDam1 = 0;
+                        foreach (string s in comboBox.Text.Split(';'))
+                        {
+                            // check for Dam
+                            if (s.StartsWith("Dam=")) FragGrenadeDam1 += float.Parse(s.Substring(4, s.Length - 4));
+                                                    
+                        }
+
+
+                        controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_4", true);
+                        comboBox = controls[0] as ComboBox;
+                        //txtBox.Text += comboBox.Text + "\r\n";
+
+                        float FragGrenadeDam2; FragGrenadeDam2 = 0;
+                        foreach (string s in comboBox.Text.Split(';'))
+                        {
+                            // check for Dam
+                            if (s.StartsWith("Dam=")) FragGrenadeDam2 += float.Parse(s.Substring(4, s.Length - 4));
+
+                        }
+
+                        controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_5", true);
+                        comboBox = controls[0] as ComboBox;
+                        //txtBox.Text += comboBox.Text + "\r\n";
+
+                        float FragGrenadeBaseDOTDam, FragGrenadeBaseDOTDur; FragGrenadeBaseDOTDam = FragGrenadeBaseDOTDur = 0;
+
+                        foreach (string s in comboBox.Text.Split(';'))
+                        {
+                            //   "BaseDOTDam=100;BaseDOTDur=6"
+                            if (s.StartsWith("BaseDOTDam=")) FragGrenadeBaseDOTDam += float.Parse(s.Substring(11, s.Length - 11));
+                            if (s.StartsWith("BaseDOTDur=")) FragGrenadeBaseDOTDur += float.Parse(s.Substring(11, s.Length - 11));
+                        }
+
+
+                        controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_6", true);
+                        comboBox = controls[0] as ComboBox;
+                        //  txtBox.Text += comboBox.Text + "\r\n";
+
+                        float FragGrenadevsArmor, FragGrenadevsShields; FragGrenadevsArmor= FragGrenadevsShields = 0;
+                        foreach (string s in comboBox.Text.Split(';'))
+                        {
+                            if (s.StartsWith("vsArmor=")) FragGrenadevsArmor += float.Parse(s.Substring(8, s.Length - 8));
+                            if (s.StartsWith("vsShields")) FragGrenadevsShields += float.Parse(s.Substring(10, s.Length - 10));
+
+                        }
+
+                        txtBox.Text += "Base Impact Damage = " + FragGrenadeBaseDam.ToString() + "\r\n";
+                        if  (FragGrenadeBaseDOTDam!=0)  txtBox.Text += "Base DOT Damage tick = " + (FragGrenadeBaseDOTDam/2).ToString() + "\r\n";
+                        txtBox.Text += "Impact formula: BaseImpactDamage * VsDefence * (1 + SumAdditives) * (1 + SumDebuff)  \r\n";
+                        txtBox.Text += "DOT damage per tick formula: (BaseDOTDPS/2) * VsDefence * (1 + SumAdditives) * (1 + SumDebuff)  \r\n";
+                        // Relevant CPD and PD damage variables  VETERAN/ gearCPD ,booster1CPD; booster2CPD; apex1CPD; apex2CPD, skill1PDSum to skill4PDSum
+
+                        SumAdditives = 0;
+                       
+                         txtBox.Text += "Combat Power Damage Additive Bonuses: ";
+
+                        if (FragGrenadeDam1 != 0) { SumAdditives += FragGrenadeDam1; txtBox.Text += " Damage Evo 3 " + FragGrenadeDam1.ToString(); }
+                        if (FragGrenadeDam2 != 0) { SumAdditives += FragGrenadeDam2; txtBox.Text += " Damage Evo 4a " + FragGrenadeDam2.ToString(); }
+                        if (gearCPD != 0) { SumAdditives += gearCPD;txtBox.Text += " gear '" + comboBoxSelectGear.Text.Split('*')[0] + "' " + gearCPD.ToString(); }
+                        if (booster1CPD != 0) { SumAdditives += booster1CPD;txtBox.Text += " + booster '" + comboBoxSelectBooster1.Text.Split('*')[0] + "' " + booster1CPD.ToString(); }
+                        if (booster2CPD != 0) { SumAdditives += booster2CPD;txtBox.Text += " + booster '" + comboBoxSelectBooster2.Text.Split('*')[0] + "' " + booster2CPD.ToString(); }
+                        if (apex1CPD != 0) { SumAdditives += apex1CPD;txtBox.Text += " + Apex '" + comboBoxSelectApex1.Text.Split('*')[0] + "' " + apex1CPD.ToString(); }
+                        if (apex2CPD != 0) { SumAdditives += apex2CPD;txtBox.Text += " + Apex '" + comboBoxSelectApex2.Text.Split('*')[0] + "' " + apex2CPD.ToString(); }
+                        if (float.Parse(comboBoxSelectVeteranLevel.Text) != 0) { SumAdditives += float.Parse(comboBoxSelectVeteranLevel.Text) * 0.04f;txtBox.Text += " Veteran PD Bonus " + (float.Parse(comboBoxSelectVeteranLevel.Text) * 0.04f).ToString(); }
+                        if (skill1PDSum != 0) { SumAdditives += skill1PDSum;txtBox.Text += " PD from '" + playingCharactersArray[SelectedCharIndex].Skill1Name + "' skill" + skill1PDSum.ToString(); }
+                        if (skill2PDSum != 0) { SumAdditives += skill2PDSum;txtBox.Text += " PD from '" + playingCharactersArray[SelectedCharIndex].Skill2Name + "' skill" + skill2PDSum.ToString(); }
+                        if (skill3PDSum != 0) { SumAdditives += skill3PDSum;txtBox.Text += " PD from '" + playingCharactersArray[SelectedCharIndex].Skill3Name + "' skill" + skill3PDSum.ToString(); }
+                        if (skill4PDSum != 0) { SumAdditives += skill4PDSum;txtBox.Text += " PD from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4PDSum.ToString(); }
+                        if (checkBoxBarricadePD.Checked) { SumAdditives += 0.2f; txtBox.Text += " PD from squad Barricade 0.2 "; }
+                        txtBox.Text += " = " + SumAdditives.ToString() + "\r\n";
+
+                        // Impact damage vsHealth, vsShields, vsArmor 
+                        txtBox.Text += "Impact Damage vs Health ; vs Shields ; vs Armor " + (FragGrenadeBaseDam * (1 + SumAdditives) * (1 + SumDebuff)).ToString() + " ; " + (FragGrenadeBaseDam * (1 + FragGrenadevsShields) * (1 + SumAdditives) * (1 + SumDebuff)).ToString() + " ; " +
+                           (FragGrenadeBaseDam * (1 + FragGrenadevsArmor) * (1 + SumAdditives) * (1 + SumDebuff + SumArmorDebuff )).ToString() + "\r\n";
+
+                        if (FragGrenadeBaseDOTDam != 0)
+                        {
+                            txtBox.Text += "DOT tick damage vs Health ; vs Shields ; vs Armor " + ((FragGrenadeBaseDOTDam / 2) * (1 + SumAdditives) * (1 + SumDebuff)).ToString() + " ; " + ((FragGrenadeBaseDOTDam / 2) * (1 + FragGrenadevsShields) * (1 + SumAdditives) * (1 + SumDebuff)).ToString() + " ; " +
+                          ((FragGrenadeBaseDOTDam / 2) * (1 + FragGrenadevsArmor) * (1 + SumAdditives) * (1 + SumDebuff + SumArmorDebuff)).ToString() + "\r\n";
+
+                            txtBox.Text += "Total DOT tick damage vs Health ; vs Shields ; vs Armor " + ((FragGrenadeBaseDOTDam / 2) * 2 * FragGrenadeBaseDOTDur * (1 + SumAdditives) * (1 + SumDebuff)).ToString() + " ; " + ((FragGrenadeBaseDOTDam / 2) * 2 * FragGrenadeBaseDOTDur * (1 + FragGrenadevsShields) * (1 + SumAdditives) * (1 + SumDebuff)).ToString() + " ; " +
+                         ((FragGrenadeBaseDOTDam / 2) * 2 * FragGrenadeBaseDOTDur * (1 + FragGrenadevsArmor) * (1 + SumAdditives) * (1 + SumDebuff + SumArmorDebuff)).ToString() + "\r\n";
+                        }
+
+                        // if FragGrenadeBaseDOTDam != 0 also show DOT damage per tick and total vsHealth, vsShields, vsArmor 
+
+
+
+                        // cooldown don't care
+                        // duration don't care - Actually THERE IS THE POSIBILITY FOR DOT
+
+                        break;
+
+                }
+            }
+
+
+           
+
+
 
 
         }
@@ -3512,6 +3742,93 @@ if (!selected.Equals("none") && (!comboBoxSelectBooster1.Text.Equals("none")))
         {
 
         }
+
+        private void comboBoxSelectDifficulty_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            ComboBox comboBox = (ComboBox)sender; int selectedIdx = (int)comboBox.SelectedIndex;
+
+
+            comboBoxSelectEnemy.Items.Clear();
+
+            for (int i = 0; i < constNrEnemies; i++)
+             {
+            if (myEnemyStatsArray[i].difficulty-1 == selectedIdx) comboBoxSelectEnemy.Items.Add(myEnemyStatsArray[i].enemyName);
+            
+              }
+              comboBoxSelectEnemy.SelectedIndex = 0;
+        }
+
+        private void comboBoxSelectEnemy_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            ComboBox comboBox = (ComboBox)sender; string selected = (string)comboBox.SelectedItem;
+
+            //  iterate enemy list until enemyname = selected and enemydiff-1 == selectdiff.selected index
+            int EnemyIndex; EnemyIndex = 0;
+
+            do
+            {
+                if ((myEnemyStatsArray[EnemyIndex].enemyName.Equals(selected)) && (myEnemyStatsArray[EnemyIndex].difficulty - 1 == comboBoxSelectDifficulty.SelectedIndex )) break;
+               EnemyIndex++;
+            } while (EnemyIndex  < constNrEnemies);
+
+            textBoxEnemyShields.Text = myEnemyStatsArray[EnemyIndex].maxShields.ToString() ;
+            textBoxEnemyArmor.Text = myEnemyStatsArray[EnemyIndex].maxArmor.ToString();
+            textBoxEnemyHealth.Text = myEnemyStatsArray[EnemyIndex].maxHealth.ToString();
+            textBoxEnemyWeak1.Text= myEnemyStatsArray[EnemyIndex].baseWeak1.ToString();
+            textBoxEnemyWeak2.Text = myEnemyStatsArray[EnemyIndex].baseWeak2.ToString();
+
+        }
+
+        private void textBoxSumSquadDebuffsOnTarget_Leave(object sender, EventArgs e)
+        {
+            TextBox textBox = (TextBox)sender; string selected = (string)textBox.Text;
+            float tempcheck;
+            if (!float.TryParse(selected, out tempcheck)) textBoxSumSquadDebuffsOnTarget.Text = "0"; else { if (tempcheck > 1) tempcheck = 1; if (tempcheck < 0) tempcheck = 0; textBoxSumSquadDebuffsOnTarget.Text = tempcheck.ToString(); }
+        }
+
+        private void labelSumSquadDebuffsOnTarget_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxOverwriteBaseWeaponDamage_Leave(object sender, EventArgs e)
+        {
+            TextBox textBox = (TextBox)sender; string selected = (string)textBox.Text;
+            int tempcheck;
+
+       
+
+            if (!int.TryParse(selected, out tempcheck)) { textBoxOverwriteBaseWeaponDamage.Text = myGunArray[comboBoxSelectWeapon.SelectedIndex].BWD.ToString(); }
+
+         
+            else
+            {
+                float ftempcheck;
+                ftempcheck = (float)tempcheck; // convert from int to float so we can compare
+                if (ftempcheck > 1.25f * myGunArray[comboBoxSelectWeapon.SelectedIndex].BWD) ftempcheck = 1.25f * myGunArray[comboBoxSelectWeapon.SelectedIndex].BWD - 0.02f; if (ftempcheck < 0.75f * myGunArray[comboBoxSelectWeapon.SelectedIndex].BWD) ftempcheck = 0.75f * myGunArray[comboBoxSelectWeapon.SelectedIndex].BWD + 0.02f; textBoxOverwriteBaseWeaponDamage.Text = ftempcheck.ToString(); }
+            }
+
+        private void textBoxOverwriteBaseWeaponMAGSize_Leave(object sender, EventArgs e)
+        {
+            TextBox textBox = (TextBox)sender; string selected = (string)textBox.Text;
+            int tempcheck;
+       
+
+            if (!int.TryParse(selected, out tempcheck)) { textBoxOverwriteBaseWeaponMAGSize.Text = myGunArray[comboBoxSelectWeapon.SelectedIndex].magazineSize.ToString(); }
+
+
+            else
+            {
+               
+                if (tempcheck > (int) (1.25f * myGunArray[comboBoxSelectWeapon.SelectedIndex].magazineSize)) tempcheck = (int)(1.25f * myGunArray[comboBoxSelectWeapon.SelectedIndex].magazineSize) ;
+                if (tempcheck < (int)(0.75f * myGunArray[comboBoxSelectWeapon.SelectedIndex].magazineSize)) tempcheck = (int)(0.75f * myGunArray[comboBoxSelectWeapon.SelectedIndex].magazineSize) ;
+                if (tempcheck == 0) tempcheck = 1;
+                textBoxOverwriteBaseWeaponMAGSize.Text = ((int)tempcheck).ToString();
+            }
+        }
     }
-}
+    }
+
  

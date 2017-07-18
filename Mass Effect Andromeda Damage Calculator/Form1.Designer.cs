@@ -134,34 +134,39 @@
             this.checkBoxElementalTechOnTarget = new System.Windows.Forms.CheckBox();
             this.tabControlCalcualtedResults = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.textBoxDebug = new System.Windows.Forms.TextBox();
+            this.textBoxCharacterStats = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.textBoxASkill1 = new System.Windows.Forms.TextBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.tabPage8 = new System.Windows.Forms.TabPage();
+            this.textBoxDebug = new System.Windows.Forms.TextBox();
             this.buttonReCalculate = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.checkBoxBarricadeWD = new System.Windows.Forms.CheckBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.textBoxOverwriteBaseWeaponDamage = new System.Windows.Forms.TextBox();
+            this.textBoxOverwriteBaseWeaponMAGSize = new System.Windows.Forms.TextBox();
+            this.checkBoxBarricadePD = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.comboBoxBonusHealth = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.comboBoxBonusShields = new System.Windows.Forms.ComboBox();
             this.comboBoxBonusPRS = new System.Windows.Forms.ComboBox();
-            this.tabPage8 = new System.Windows.Forms.TabPage();
-            this.textBoxActiveSkill1 = new System.Windows.Forms.TextBox();
-            this.textBoxASkill1 = new System.Windows.Forms.TextBox();
-            this.textBoxCharacterStats = new System.Windows.Forms.TextBox();
+            this.textBoxASkill2 = new System.Windows.Forms.TextBox();
+            this.textBoxASkill3 = new System.Windows.Forms.TextBox();
+            this.textBoxSelfCombos = new System.Windows.Forms.TextBox();
             this.tabControlCalcualtedResults.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            this.tabPage4.SuspendLayout();
+            this.tabPage5.SuspendLayout();
             this.tabPage8.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -403,6 +408,7 @@
             this.comboBoxSelectDifficulty.Name = "comboBoxSelectDifficulty";
             this.comboBoxSelectDifficulty.Size = new System.Drawing.Size(72, 21);
             this.comboBoxSelectDifficulty.TabIndex = 21;
+            this.comboBoxSelectDifficulty.SelectedIndexChanged += new System.EventHandler(this.comboBoxSelectDifficulty_SelectedIndexChanged);
             // 
             // labelSelectWeapon
             // 
@@ -523,6 +529,7 @@
             this.comboBoxSelectEnemy.Name = "comboBoxSelectEnemy";
             this.comboBoxSelectEnemy.Size = new System.Drawing.Size(124, 21);
             this.comboBoxSelectEnemy.TabIndex = 39;
+            this.comboBoxSelectEnemy.SelectedIndexChanged += new System.EventHandler(this.comboBoxSelectEnemy_SelectedIndexChanged);
             // 
             // textBoxEnemyShields
             // 
@@ -576,9 +583,9 @@
             this.labelEnemyShields.AutoSize = true;
             this.labelEnemyShields.Location = new System.Drawing.Point(1351, 90);
             this.labelEnemyShields.Name = "labelEnemyShields";
-            this.labelEnemyShields.Size = new System.Drawing.Size(48, 13);
+            this.labelEnemyShields.Size = new System.Drawing.Size(68, 13);
             this.labelEnemyShields.TabIndex = 46;
-            this.labelEnemyShields.Text = "EShields";
+            this.labelEnemyShields.Text = "EMaxShields";
             this.labelEnemyShields.Click += new System.EventHandler(this.labelEnemyShields_Click);
             // 
             // labelEnemyArmor
@@ -586,18 +593,18 @@
             this.labelEnemyArmor.AutoSize = true;
             this.labelEnemyArmor.Location = new System.Drawing.Point(1441, 92);
             this.labelEnemyArmor.Name = "labelEnemyArmor";
-            this.labelEnemyArmor.Size = new System.Drawing.Size(41, 13);
+            this.labelEnemyArmor.Size = new System.Drawing.Size(61, 13);
             this.labelEnemyArmor.TabIndex = 47;
-            this.labelEnemyArmor.Text = "EArmor";
+            this.labelEnemyArmor.Text = "EMaxArmor";
             // 
             // labelEnemyHealth
             // 
             this.labelEnemyHealth.AutoSize = true;
             this.labelEnemyHealth.Location = new System.Drawing.Point(1520, 90);
             this.labelEnemyHealth.Name = "labelEnemyHealth";
-            this.labelEnemyHealth.Size = new System.Drawing.Size(45, 13);
+            this.labelEnemyHealth.Size = new System.Drawing.Size(65, 13);
             this.labelEnemyHealth.TabIndex = 48;
-            this.labelEnemyHealth.Text = "EHealth";
+            this.labelEnemyHealth.Text = "EMaxHealth";
             // 
             // labelEnemyWeak1
             // 
@@ -622,9 +629,10 @@
             this.labelSumSquadDebuffsOnTarget.AutoSize = true;
             this.labelSumSquadDebuffsOnTarget.Location = new System.Drawing.Point(1494, 55);
             this.labelSumSquadDebuffsOnTarget.Name = "labelSumSquadDebuffsOnTarget";
-            this.labelSumSquadDebuffsOnTarget.Size = new System.Drawing.Size(96, 13);
+            this.labelSumSquadDebuffsOnTarget.Size = new System.Drawing.Size(120, 13);
             this.labelSumSquadDebuffsOnTarget.TabIndex = 52;
-            this.labelSumSquadDebuffsOnTarget.Text = "SumSquadDebuffs";
+            this.labelSumSquadDebuffsOnTarget.Text = "SumSquadDebuffs[0..1]";
+            this.labelSumSquadDebuffsOnTarget.Click += new System.EventHandler(this.labelSumSquadDebuffsOnTarget_Click);
             // 
             // textBoxSumSquadDebuffsOnTarget
             // 
@@ -633,6 +641,7 @@
             this.textBoxSumSquadDebuffsOnTarget.Size = new System.Drawing.Size(34, 20);
             this.textBoxSumSquadDebuffsOnTarget.TabIndex = 51;
             this.textBoxSumSquadDebuffsOnTarget.Text = "0";
+            this.textBoxSumSquadDebuffsOnTarget.Leave += new System.EventHandler(this.textBoxSumSquadDebuffsOnTarget_Leave);
             // 
             // checkBoxShieldBoostWD
             // 
@@ -1324,19 +1333,18 @@
             this.tabPage1.Text = "CharacterStats";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // textBoxDebug
+            // textBoxCharacterStats
             // 
-            this.textBoxDebug.Location = new System.Drawing.Point(6, 6);
-            this.textBoxDebug.Multiline = true;
-            this.textBoxDebug.Name = "textBoxDebug";
-            this.textBoxDebug.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.textBoxDebug.Size = new System.Drawing.Size(1817, 486);
-            this.textBoxDebug.TabIndex = 118;
+            this.textBoxCharacterStats.Location = new System.Drawing.Point(6, 9);
+            this.textBoxCharacterStats.Multiline = true;
+            this.textBoxCharacterStats.Name = "textBoxCharacterStats";
+            this.textBoxCharacterStats.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.textBoxCharacterStats.Size = new System.Drawing.Size(1817, 486);
+            this.textBoxCharacterStats.TabIndex = 121;
             // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.textBoxASkill1);
-            this.tabPage2.Controls.Add(this.textBoxActiveSkill1);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -1345,8 +1353,18 @@
             this.tabPage2.Text = "ActiveSkill1";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // textBoxASkill1
+            // 
+            this.textBoxASkill1.Location = new System.Drawing.Point(0, 2);
+            this.textBoxASkill1.Multiline = true;
+            this.textBoxASkill1.Name = "textBoxASkill1";
+            this.textBoxASkill1.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.textBoxASkill1.Size = new System.Drawing.Size(1817, 486);
+            this.textBoxASkill1.TabIndex = 120;
+            // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.textBoxASkill2);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Size = new System.Drawing.Size(1829, 495);
@@ -1356,6 +1374,7 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.textBoxASkill3);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Size = new System.Drawing.Size(1829, 495);
@@ -1365,6 +1384,7 @@
             // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.textBoxSelfCombos);
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Size = new System.Drawing.Size(1829, 495);
@@ -1389,6 +1409,26 @@
             this.tabPage7.TabIndex = 6;
             this.tabPage7.Text = "Gun Only TTK simulation weakspots only";
             this.tabPage7.UseVisualStyleBackColor = true;
+            // 
+            // tabPage8
+            // 
+            this.tabPage8.Controls.Add(this.textBoxDebug);
+            this.tabPage8.Location = new System.Drawing.Point(4, 22);
+            this.tabPage8.Name = "tabPage8";
+            this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage8.Size = new System.Drawing.Size(1829, 495);
+            this.tabPage8.TabIndex = 7;
+            this.tabPage8.Text = "\"Console\"";
+            this.tabPage8.UseVisualStyleBackColor = true;
+            // 
+            // textBoxDebug
+            // 
+            this.textBoxDebug.Location = new System.Drawing.Point(6, 6);
+            this.textBoxDebug.Multiline = true;
+            this.textBoxDebug.Name = "textBoxDebug";
+            this.textBoxDebug.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.textBoxDebug.Size = new System.Drawing.Size(1817, 486);
+            this.textBoxDebug.TabIndex = 118;
             // 
             // buttonReCalculate
             // 
@@ -1433,44 +1473,46 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(338, 128);
+            this.checkBox1.Location = new System.Drawing.Point(305, 128);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(272, 17);
             this.checkBox1.TabIndex = 119;
             this.checkBox1.Text = "Overwrite BaseWeapon Damage And BaseMagSize";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
-            // textBox1
+            // textBoxOverwriteBaseWeaponDamage
             // 
-            this.textBox1.Location = new System.Drawing.Point(305, 73);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(55, 20);
-            this.textBox1.TabIndex = 120;
-            this.textBox1.Text = "0";
+            this.textBoxOverwriteBaseWeaponDamage.Location = new System.Drawing.Point(305, 73);
+            this.textBoxOverwriteBaseWeaponDamage.Name = "textBoxOverwriteBaseWeaponDamage";
+            this.textBoxOverwriteBaseWeaponDamage.Size = new System.Drawing.Size(34, 20);
+            this.textBoxOverwriteBaseWeaponDamage.TabIndex = 120;
+            this.textBoxOverwriteBaseWeaponDamage.Text = "0";
+            this.textBoxOverwriteBaseWeaponDamage.Leave += new System.EventHandler(this.textBoxOverwriteBaseWeaponDamage_Leave);
             // 
-            // textBox2
+            // textBoxOverwriteBaseWeaponMAGSize
             // 
-            this.textBox2.Location = new System.Drawing.Point(305, 99);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(55, 20);
-            this.textBox2.TabIndex = 121;
-            this.textBox2.Text = "0";
+            this.textBoxOverwriteBaseWeaponMAGSize.Location = new System.Drawing.Point(305, 99);
+            this.textBoxOverwriteBaseWeaponMAGSize.Name = "textBoxOverwriteBaseWeaponMAGSize";
+            this.textBoxOverwriteBaseWeaponMAGSize.Size = new System.Drawing.Size(34, 20);
+            this.textBoxOverwriteBaseWeaponMAGSize.TabIndex = 121;
+            this.textBoxOverwriteBaseWeaponMAGSize.Text = "0";
+            this.textBoxOverwriteBaseWeaponMAGSize.Leave += new System.EventHandler(this.textBoxOverwriteBaseWeaponMAGSize_Leave);
             // 
-            // checkBox2
+            // checkBoxBarricadePD
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(1550, 29);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(86, 17);
-            this.checkBox2.TabIndex = 122;
-            this.checkBox2.Text = "BarricadePD";
-            this.checkBox2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this.checkBoxBarricadePD.AutoSize = true;
+            this.checkBoxBarricadePD.Location = new System.Drawing.Point(1550, 29);
+            this.checkBoxBarricadePD.Name = "checkBoxBarricadePD";
+            this.checkBoxBarricadePD.Size = new System.Drawing.Size(86, 17);
+            this.checkBoxBarricadePD.TabIndex = 122;
+            this.checkBoxBarricadePD.Text = "BarricadePD";
+            this.checkBoxBarricadePD.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.checkBoxBarricadePD.UseVisualStyleBackColor = true;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(366, 75);
+            this.label2.Location = new System.Drawing.Point(345, 76);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(66, 13);
             this.label2.TabIndex = 123;
@@ -1479,7 +1521,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(366, 101);
+            this.label3.Location = new System.Drawing.Point(345, 101);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(68, 13);
             this.label3.TabIndex = 124;
@@ -1510,11 +1552,11 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(451, 3);
+            this.label5.Location = new System.Drawing.Point(410, 3);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(64, 13);
+            this.label5.Size = new System.Drawing.Size(186, 13);
             this.label5.TabIndex = 126;
-            this.label5.Text = "Bonus Stats";
+            this.label5.Text = "Bonus Stats (Health,Shield,Recharge)";
             // 
             // comboBoxBonusShields
             // 
@@ -1558,43 +1600,32 @@
             this.comboBoxBonusPRS.Size = new System.Drawing.Size(43, 21);
             this.comboBoxBonusPRS.TabIndex = 128;
             // 
-            // tabPage8
+            // textBoxASkill2
             // 
-            this.tabPage8.Controls.Add(this.textBoxDebug);
-            this.tabPage8.Location = new System.Drawing.Point(4, 22);
-            this.tabPage8.Name = "tabPage8";
-            this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage8.Size = new System.Drawing.Size(1829, 495);
-            this.tabPage8.TabIndex = 7;
-            this.tabPage8.Text = "\"Console\"";
-            this.tabPage8.UseVisualStyleBackColor = true;
+            this.textBoxASkill2.Location = new System.Drawing.Point(3, 3);
+            this.textBoxASkill2.Multiline = true;
+            this.textBoxASkill2.Name = "textBoxASkill2";
+            this.textBoxASkill2.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.textBoxASkill2.Size = new System.Drawing.Size(1817, 486);
+            this.textBoxASkill2.TabIndex = 121;
             // 
-            // textBoxActiveSkill1
+            // textBoxASkill3
             // 
-            this.textBoxActiveSkill1.Location = new System.Drawing.Point(6, 3);
-            this.textBoxActiveSkill1.Multiline = true;
-            this.textBoxActiveSkill1.Name = "textBoxActiveSkill1";
-            this.textBoxActiveSkill1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.textBoxActiveSkill1.Size = new System.Drawing.Size(1817, 486);
-            this.textBoxActiveSkill1.TabIndex = 119;
+            this.textBoxASkill3.Location = new System.Drawing.Point(0, 0);
+            this.textBoxASkill3.Multiline = true;
+            this.textBoxASkill3.Name = "textBoxASkill3";
+            this.textBoxASkill3.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.textBoxASkill3.Size = new System.Drawing.Size(1817, 486);
+            this.textBoxASkill3.TabIndex = 122;
             // 
-            // textBoxASkill1
+            // textBoxSelfCombos
             // 
-            this.textBoxASkill1.Location = new System.Drawing.Point(6, 6);
-            this.textBoxASkill1.Multiline = true;
-            this.textBoxASkill1.Name = "textBoxASkill1";
-            this.textBoxASkill1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.textBoxASkill1.Size = new System.Drawing.Size(1817, 486);
-            this.textBoxASkill1.TabIndex = 120;
-            // 
-            // textBoxCharacterStats
-            // 
-            this.textBoxCharacterStats.Location = new System.Drawing.Point(6, 9);
-            this.textBoxCharacterStats.Multiline = true;
-            this.textBoxCharacterStats.Name = "textBoxCharacterStats";
-            this.textBoxCharacterStats.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.textBoxCharacterStats.Size = new System.Drawing.Size(1817, 486);
-            this.textBoxCharacterStats.TabIndex = 121;
+            this.textBoxSelfCombos.Location = new System.Drawing.Point(0, 0);
+            this.textBoxSelfCombos.Multiline = true;
+            this.textBoxSelfCombos.Name = "textBoxSelfCombos";
+            this.textBoxSelfCombos.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.textBoxSelfCombos.Size = new System.Drawing.Size(1817, 486);
+            this.textBoxSelfCombos.TabIndex = 123;
             // 
             // Form1
             // 
@@ -1607,9 +1638,9 @@
             this.Controls.Add(this.comboBoxBonusHealth);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.checkBox2);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.checkBoxBarricadePD);
+            this.Controls.Add(this.textBoxOverwriteBaseWeaponMAGSize);
+            this.Controls.Add(this.textBoxOverwriteBaseWeaponDamage);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.checkBoxBarricadeWD);
             this.Controls.Add(this.label4);
@@ -1728,6 +1759,12 @@
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
+            this.tabPage5.ResumeLayout(false);
+            this.tabPage5.PerformLayout();
             this.tabPage8.ResumeLayout(false);
             this.tabPage8.PerformLayout();
             this.ResumeLayout(false);
@@ -1854,9 +1891,9 @@
         private System.Windows.Forms.TextBox textBoxDebug;
         private System.Windows.Forms.CheckBox checkBoxBarricadeWD;
         private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.TextBox textBoxOverwriteBaseWeaponDamage;
+        private System.Windows.Forms.TextBox textBoxOverwriteBaseWeaponMAGSize;
+        private System.Windows.Forms.CheckBox checkBoxBarricadePD;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox comboBoxBonusHealth;
@@ -1864,9 +1901,11 @@
         private System.Windows.Forms.ComboBox comboBoxBonusShields;
         private System.Windows.Forms.ComboBox comboBoxBonusPRS;
         private System.Windows.Forms.TabPage tabPage8;
-        private System.Windows.Forms.TextBox textBoxActiveSkill1;
         private System.Windows.Forms.TextBox textBoxASkill1;
         private System.Windows.Forms.TextBox textBoxCharacterStats;
+        private System.Windows.Forms.TextBox textBoxASkill2;
+        private System.Windows.Forms.TextBox textBoxSelfCombos;
+        private System.Windows.Forms.TextBox textBoxASkill3;
     }
 }
 
