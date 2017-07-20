@@ -138,8 +138,11 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.textBoxASkill1 = new System.Windows.Forms.TextBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.textBoxASkill2 = new System.Windows.Forms.TextBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.textBoxASkill3 = new System.Windows.Forms.TextBox();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.textBoxSelfCombos = new System.Windows.Forms.TextBox();
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.tabPage7 = new System.Windows.Forms.TabPage();
             this.tabPage8 = new System.Windows.Forms.TabPage();
@@ -158,9 +161,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.comboBoxBonusShields = new System.Windows.Forms.ComboBox();
             this.comboBoxBonusPRS = new System.Windows.Forms.ComboBox();
-            this.textBoxASkill2 = new System.Windows.Forms.TextBox();
-            this.textBoxASkill3 = new System.Windows.Forms.TextBox();
-            this.textBoxSelfCombos = new System.Windows.Forms.TextBox();
             this.tabControlCalcualtedResults.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -1299,7 +1299,7 @@
             // checkBoxElementalTechOnTarget
             // 
             this.checkBoxElementalTechOnTarget.AutoSize = true;
-            this.checkBoxElementalTechOnTarget.Location = new System.Drawing.Point(1730, 109);
+            this.checkBoxElementalTechOnTarget.Location = new System.Drawing.Point(1454, 72);
             this.checkBoxElementalTechOnTarget.Name = "checkBoxElementalTechOnTarget";
             this.checkBoxElementalTechOnTarget.Size = new System.Drawing.Size(100, 17);
             this.checkBoxElementalTechOnTarget.TabIndex = 112;
@@ -1372,6 +1372,15 @@
             this.tabPage3.Text = "ActiveSkill2";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // textBoxASkill2
+            // 
+            this.textBoxASkill2.Location = new System.Drawing.Point(3, 3);
+            this.textBoxASkill2.Multiline = true;
+            this.textBoxASkill2.Name = "textBoxASkill2";
+            this.textBoxASkill2.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.textBoxASkill2.Size = new System.Drawing.Size(1817, 486);
+            this.textBoxASkill2.TabIndex = 121;
+            // 
             // tabPage4
             // 
             this.tabPage4.Controls.Add(this.textBoxASkill3);
@@ -1382,6 +1391,15 @@
             this.tabPage4.Text = "Active Skill3";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // textBoxASkill3
+            // 
+            this.textBoxASkill3.Location = new System.Drawing.Point(0, 0);
+            this.textBoxASkill3.Multiline = true;
+            this.textBoxASkill3.Name = "textBoxASkill3";
+            this.textBoxASkill3.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.textBoxASkill3.Size = new System.Drawing.Size(1817, 486);
+            this.textBoxASkill3.TabIndex = 122;
+            // 
             // tabPage5
             // 
             this.tabPage5.Controls.Add(this.textBoxSelfCombos);
@@ -1391,6 +1409,15 @@
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "Avaiable Self Combo Combinations";
             this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // textBoxSelfCombos
+            // 
+            this.textBoxSelfCombos.Location = new System.Drawing.Point(0, 0);
+            this.textBoxSelfCombos.Multiline = true;
+            this.textBoxSelfCombos.Name = "textBoxSelfCombos";
+            this.textBoxSelfCombos.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.textBoxSelfCombos.Size = new System.Drawing.Size(1817, 486);
+            this.textBoxSelfCombos.TabIndex = 123;
             // 
             // tabPage6
             // 
@@ -1600,33 +1627,6 @@
             this.comboBoxBonusPRS.Size = new System.Drawing.Size(43, 21);
             this.comboBoxBonusPRS.TabIndex = 128;
             // 
-            // textBoxASkill2
-            // 
-            this.textBoxASkill2.Location = new System.Drawing.Point(3, 3);
-            this.textBoxASkill2.Multiline = true;
-            this.textBoxASkill2.Name = "textBoxASkill2";
-            this.textBoxASkill2.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.textBoxASkill2.Size = new System.Drawing.Size(1817, 486);
-            this.textBoxASkill2.TabIndex = 121;
-            // 
-            // textBoxASkill3
-            // 
-            this.textBoxASkill3.Location = new System.Drawing.Point(0, 0);
-            this.textBoxASkill3.Multiline = true;
-            this.textBoxASkill3.Name = "textBoxASkill3";
-            this.textBoxASkill3.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.textBoxASkill3.Size = new System.Drawing.Size(1817, 486);
-            this.textBoxASkill3.TabIndex = 122;
-            // 
-            // textBoxSelfCombos
-            // 
-            this.textBoxSelfCombos.Location = new System.Drawing.Point(0, 0);
-            this.textBoxSelfCombos.Multiline = true;
-            this.textBoxSelfCombos.Name = "textBoxSelfCombos";
-            this.textBoxSelfCombos.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.textBoxSelfCombos.Size = new System.Drawing.Size(1817, 486);
-            this.textBoxSelfCombos.TabIndex = 123;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1752,7 +1752,8 @@
             this.Controls.Add(this.checkBoxOnOffSkill1);
             this.Controls.Add(this.buttonLoadBuild);
             this.Name = "Form1";
-            this.Text = "Build Calculator & Damage Simulator for Mass Effect Andromeda  Multiplayer 1.09 ";
+            this.Text = "The Overly Verbose Build Calculator & Damage Simulator for Mass Effect Andromeda " +
+    " Multiplayer ";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tabControlCalcualtedResults.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
