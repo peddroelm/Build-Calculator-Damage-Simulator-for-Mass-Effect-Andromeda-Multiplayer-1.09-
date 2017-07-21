@@ -5308,7 +5308,9 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                        
                         break;
 
+                    case "Flak Cannon":
 
+                        break;
 
                 }
             }
