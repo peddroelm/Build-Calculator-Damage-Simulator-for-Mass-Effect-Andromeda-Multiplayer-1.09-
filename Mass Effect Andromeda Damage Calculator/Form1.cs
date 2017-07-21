@@ -439,13 +439,13 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                     new playingCharacter("Krogan Mercenary", 700f, 300f, 740f, 0f, 0f, 0.5f , "" ,
                      "Flamethrower", "flamerthrow description", false, "BaseSDam=275;BaseDOTDam=200;BaseDOTDur=5;Recharge=12;FirePrimer=HA", "vsArmor=0.25", "Recharge=0.2", "IDam=0.25;DOTDam=0.25", "IDam=0.25;DOTDam=0.25", "Recharge=0.3", "5a", "DOTDam=0.5;DOTDuration=0.5", "vsArmor=0.8","6b",
                      "Fortify", "fortification description", true, "Recharge=5", "DR=0.4", "Recharge=0.3", "DR=0.1", "DR=0.2", "4b", "5a", "MD=0.3", "TDR=0.5;EnableTCheck","BaseDamage=400;vsShields=0.6;Recharge=-0.5",
-                     "Flak Cannon", "Flak description", false, "BaseDamage=250;SBase=85;Cooldown=1", "SvsArmor=-0.3", "2", "Dam=0.4", "Dam=0.5", "4b", "vsArmor=0.75", "5b", "NrSrapnel=0.5","BaseDOTDam=100",
+                     "Flak Cannon", "Flak description", false, "BaseDamage=250;SBase=85;Cooldown=1", "SvsArmor=-0.3", "2", "Dam=0.4", "Dam=0.5", "4b", "vsArmor=0.75", "5b", "NrSrapnel=0.5","BaseDOTDam=100;BaseDOTDur=8",
                      "Munitions Training", "munitions training description", false, "", "WD=0.05", "PD=0.2", "WD=0.05;MD=0.2", "WD=0.08", "PD=0.2;MD=0.2", "TWD=0.2;TMD=0.3;EnableTCheck", "Reload=0.15;MAG=0.25", "TDebuff=0.24;EnableTCheck", "Weak=0.2",
                      "Rage", "rage description", true, "Duration=15", "RMD=0.25;RDR=0.15", "MD=0.15", "Shields=0.2;Health=0.2", "Shields=0.2;Health=0.2;RDR=0.15", "MD=0.25;RMD=0.065", "TDR=0.5;EnableTCheck", "TMD=0.65;EnableTCheck", "MD=0.25;RageDuration=0.5" , "AllyDR=0.3;Shields=0.2;Health=0.2"),
                    new playingCharacter("Turian Havok Trooper", 500f, 350f, 400f, 0f, 0f, 0f , "" ,
                      "Incinerate", "incinerate description", false, "BaseDam=350;BaseDOTDam=45;BaseDOTDur=6;Recharge=12;FirePrimer=HA", "vsArmor=0.6", "Recharge=0.15", "DOTDam=0.35;IDam=0.35", "4a", "DOTDam=0.5;DOTDuration=0.5", "IDam=0.6", "vsArmor=0.65", "Detonator=1","6b",
                      "Turbocharge", "turbocharge description", true, "Duration=8;Recharge=0.2", "WD=0.1;ROF=0.2;MAG=0.2", "Recharge=0.1", "WD=0.1", "Recharge=0.2", "Duration=0.5", "WD=0.15", "5b", "ROF=0.2;MAG=0.2","MAG=0.8",
-                     "Flak Cannon", "Flak description", false, "BaseDamage=250;SBase=85;Cooldown=1", "SvsArmor=-0.3", "2", "Dam=0.4", "Dam=0.5", "4b", "vsArmor=0.75", "5b", "NrSrapnel=0.5","BaseDOTDam=100",
+                     "Flak Cannon", "Flak description", false, "BaseDamage=250;SBase=85;Cooldown=1", "SvsArmor=-0.3", "2", "Dam=0.4", "Dam=0.5", "4b", "vsArmor=0.75", "5b", "NrSrapnel=0.5","BaseDOTDam=100;BaseDOTDur=8",
                      "Munitions Training", "munitions training description", false, "", "WD=0.05", "PD=0.2", "WD=0.05;MD=0.2", "WD=0.08", "PD=0.2;MD=0.2", "TWD=0.2;TMD=0.3;EnableTCheck", "Reload=0.15;MAG=0.25", "TDebuff=0.24;EnableTCheck", "Weak=0.2",
                      "Aerial Assault", "aerial assault description", false, "", "Shields=0.1;Health=0.1", "TDR=1;EnableTCheck", "Shields=0.15;Health=0.15", "4a", "Shields=0.25;Health=0.25", "TDR=1;EnableTCheck", "MD=0.6", "TDR=1;EnableTCheck", "Shields=0.25;Health=0.25;TMD=0.65;EnableTCheck"),
                    new playingCharacter("Asari Huntress", 475f, 250f, 400f, 0f, 0f, 0f , "" ,
@@ -475,7 +475,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                      new playingCharacter("Batarian Scrapper", 585f, 310f, 750f, 0f, 0f, 0f , "Detonator=0.7" ,
                      "Concussive Shot", "concussive shot description", false, "BaseDam=440;Recharge=10;Detonator=1", "1", "2", "Dam=0.35", "Recharge=0.3", "Repeat", "5a","Dam=0.5", "vsArmor=1.25", "vsShields=1",
                      "Snap Freeze", "Snap Freeze description", false, "BaseDamage=250;ColdDur=0.6;Recharge=12;CryoPrimer=HA", "TArmorDebuff=0.5;EnableTCheck", "Recharge=0.2", "Dam=0.3", "Dam=0.5", "4b", "5a", "TDebuff=0.2;EnableTCheck", "TArmorDebuff=0.65;EnableTCheck","6b",
-                     "Flak Cannon", "Flak description", false, "BaseDamage=250;SBase=85;Cooldown=1", "SvsArmor=-0.3", "2", "Dam=0.4", "Dam=0.5", "4b", "vsArmor=0.75", "5b", "NrSrapnel=0.5","BaseDOTDam=100",
+                     "Flak Cannon", "Flak description", false, "BaseDamage=250;SBase=85;Cooldown=1", "SvsArmor=-0.3", "2", "Dam=0.4", "Dam=0.5", "4b", "vsArmor=0.75", "5b", "NrSrapnel=0.5","BaseDOTDam=100;BaseDOTDur=8",
                      "Munitions Training", "munitions training description", false, "", "WD=0.05", "PD=0.2", "WD=0.05;MD=0.2", "WD=0.08", "PD=0.2;MD=0.2", "TWD=0.2;TMD=0.3;EnableTCheck", "Reload=0.15;MAG=0.25", "TDebuff=0.24;EnableTCheck", "Weak=0.2",
                      "Combat Fitness", "combat fitness description", false, "", "Shields=0.1;Health=0.1", "MD=0.3", "Shields=0.15;Health=0.15", "Shields=0.25;Health=0.25", "MD=0.5", "TDR=0.5;EnableTCheck", "TDR=1;EnableTCheck", "TDR=2;EnableTCheck","TMD=0.65;EnableTCheck"),
                      new playingCharacter("Asari Duelist", 475f, 250f, 740f, 0f, 0f, 0f , "" ,
@@ -5309,7 +5309,465 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                         break;
 
                     case "Flak Cannon":
+                        // "Flak Cannon", "Flak description", false, "BaseDamage=250;SBase=85;Cooldown=1", "SvsArmor=-0.3", "2", "Dam=0.4", "Dam=0.5", "4b", "vsArmor=0.75", "5b", "NrSrapnel=0.5","BaseDOTDam=100",
 
+                        // combo boxes HAVE PLAYER CHOICES 
+                        // Also need to get the right playingCharactersArray[SelectedCharIndex].Skill X CooldownMaxDurationPassiveTempEtc
+                        TCooldownMaxDurationPassiveTempEtc = "";
+                        if (playingCharactersArray[SelectedCharIndex].Skill1Name.Equals(ActiveSkillList[ASkillIndex])) TCooldownMaxDurationPassiveTempEtc = playingCharactersArray[SelectedCharIndex].Skill1CooldownMaxDurationPassiveTempEtc;
+                        if (playingCharactersArray[SelectedCharIndex].Skill2Name.Equals(ActiveSkillList[ASkillIndex])) TCooldownMaxDurationPassiveTempEtc = playingCharactersArray[SelectedCharIndex].Skill2CooldownMaxDurationPassiveTempEtc;
+                        if (playingCharactersArray[SelectedCharIndex].Skill3Name.Equals(ActiveSkillList[ASkillIndex])) TCooldownMaxDurationPassiveTempEtc = playingCharactersArray[SelectedCharIndex].Skill3CooldownMaxDurationPassiveTempEtc;
+
+
+                        
+                        //  txtBox.Text += TCooldownMaxDurationPassiveTempEtc;
+
+                        // cooldown 0 ; animdur = 0.9 
+                        txtBox.Text += "Cooldown = 0 (grenade based - nothing related to cooldown recharge can touch it BUT Animation Duration is ~ 0.? seconds (can't spam 10 grendades per milisecond ..)\r\n";
+                        // duration don't care - Actually THERE IS THE POSIBILITY FOR DOT
+                        txtBox.Text += "Duration irrelevant ..no sustained effect \r\n\r\n";
+                        
+                        float FlakCannonImpactBaseDam, FlakCannonShrapnelBaseDam; FlakCannonImpactBaseDam = FlakCannonShrapnelBaseDam = 0;
+                        // "Flak Cannon", "Flak description", false, "BaseDamage=250;SBase=85;Cooldown=1", "SvsArmor=-0.3", "2", "Dam=0.4", "Dam=0.5", "4b", "vsArmor=0.75", "5b", "NrSrapnel=0.5","BaseDOTDam=100",
+
+                        foreach (string s in TCooldownMaxDurationPassiveTempEtc.Split(';'))
+                        {
+                            //  "BaseDam="
+                            if (s.StartsWith("BaseDamage=")) FlakCannonImpactBaseDam = float.Parse(s.Substring(11, s.Length - 11));
+                            if (s.StartsWith("SBase=")) FlakCannonShrapnelBaseDam = float.Parse(s.Substring(6, s.Length - 6));
+                        }
+
+                        
+
+                                               //we will need to Find the right comboboxes by name .. 
+                          controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_1", true);
+                          comboBox = controls[0] as ComboBox;
+                        // txtBox.Text += comboBox.Text + "\r\n";
+
+                        float FlakCannonFvsArmor; FlakCannonFvsArmor = 0;
+                         foreach (string s in comboBox.Text.Split(';'))
+                         {
+                            // check for Dam
+                            if (s.StartsWith("SvsArmor=")) FlakCannonFvsArmor += float.Parse(s.Substring(9, s.Length - 9));
+
+                           }
+
+                     
+                        // controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_2", true);
+                        // comboBox = controls[0] as ComboBox;
+                        // txtBox.Text += comboBox.Text + "\r\n";
+
+
+                        controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_3", true);
+                        comboBox = controls[0] as ComboBox;
+                        //txtBox.Text += comboBox.Text + "\r\n";
+
+                        float FlakCannonDam1; FlakCannonDam1 = 0;
+                        foreach (string s in comboBox.Text.Split(';'))
+                        {
+                            // check for Dam
+                            if (s.StartsWith("Dam=")) FlakCannonDam1 += float.Parse(s.Substring(4, s.Length - 4));
+
+                        }
+
+
+                        controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_4", true);
+                        comboBox = controls[0] as ComboBox;
+                        //txtBox.Text += comboBox.Text + "\r\n";
+
+                        float FlakCannonDam2; FlakCannonDam2 = 0;
+                        foreach (string s in comboBox.Text.Split(';'))
+                        {
+                            // check for Dam
+                            if (s.StartsWith("Dam=")) FlakCannonDam2 += float.Parse(s.Substring(4, s.Length - 4));
+
+                        }
+
+                     
+                        controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_5", true);
+                        comboBox = controls[0] as ComboBox;
+                        //txtBox.Text += comboBox.Text + "\r\n";
+
+                        float FlakCannonvsArmor, FlakCannonvsShields; FlakCannonvsArmor = FlakCannonvsShields = 0;
+                        foreach (string s in comboBox.Text.Split(';'))
+                        {
+                            
+                            if (s.StartsWith("vsArmor=")) FlakCannonvsArmor += float.Parse(s.Substring(8, s.Length - 8));
+                           
+                        }
+
+
+                        controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_6", true);
+                        comboBox = controls[0] as ComboBox;
+                        //  txtBox.Text += comboBox.Text + "\r\n";
+
+                        float FlakCannonBaseDOTDam, FlakCannonBaseDOTDur, FlakCannonBonusShrapnel; FlakCannonBaseDOTDam = FlakCannonBaseDOTDur = FlakCannonBonusShrapnel = 0;
+                        foreach (string s in comboBox.Text.Split(';'))
+                        {
+                            if (s.StartsWith("BaseDOTDam=")) FlakCannonBaseDOTDam += float.Parse(s.Substring(11, s.Length - 11));
+                            if (s.StartsWith("BaseDOTDur=")) FlakCannonBaseDOTDur += float.Parse(s.Substring(11, s.Length - 11));
+                            if (s.StartsWith("NrSrapnel=")) FlakCannonBonusShrapnel += float.Parse(s.Substring(10, s.Length - 10));
+                         }
+
+                        ///////////////
+                        /////////////// let the splittage begin
+
+
+                        txtBox.Text += "Impact damage formula: BaseImpactDamage * RangePenalty * (1 + SumAdditives) * (1 + SumDebuff + SumArmorDebuff  + SquadDebuff ) * (1 + SumvsDefense)  \r\n";
+                        txtBox.Text += "Srapnel damage formula: BaseSrapnelDamage * RangePenalty * (1 + SumAdditives) * (1 + SumDebuff + SumArmorDebuff  + SquadDebuff ) * (1 + SumvsDefense)  \r\n\r\n";
+                        txtBox.Text += "RangePenalty can be between 0.5 to 1 for Impact [AIM WELL!!] - and less for shrapnel between 0.5 to 0.9 .. will use 0.7 average from now on \r\n";
+                        txtBox.Text += "6b Shredder will outdamage 6a shrapnel for a single cast (DOT will do full damage for even single shrapnel hit/ no range penalty and better vsarmor) BUT YOU CANNOT SPAM DOT WHEN YOU NEED TO KILL A BOSS  \r\n\r\n";
+                        txtBox.Text += "DOT damage per tick formula: (BaseDOTDPS/2) *  (1 + SumAdditives) * (1 + SumDebuff + SumArmorDebuff  + SquadDebuff ) * (1 + SumvsDefense)  \r\n\r\n";
+                        txtBox.Text += "some debuffs, ex Pull's expose cannot be activated vs Armor or Shields - I don't account for that here - but you can tick that debuff off in UI if you want numbers without it and RE-Calculate) \r\n\r\n";
+
+                        tempString1 = "Impact Damage vs Health & Shields = Base Impact Damage " + FlakCannonImpactBaseDam.ToString() + " * ( 1 ";
+                        tempString2 = "Impact Damage vs Armor = Base Impact Damage " + FlakCannonImpactBaseDam.ToString() + " * ( 1 ";
+
+                        tempString3 = "Srapnel Damage vs Health & Shields = Base Srapnel Damage " + FlakCannonShrapnelBaseDam.ToString() + " *  AverageRangePen 0.7 * ( 1 ";
+                        tempString4 = "Srapnel Damage vs Armor = Base Shrapnel Damage " + FlakCannonShrapnelBaseDam.ToString() + " * AverageRangePen 0.7 * ( 1 ";
+
+
+                        if (FlakCannonBaseDOTDam != 0)
+                        {
+                            tempString5 = "DOT damage tick vs Health & Shields = (Base DOT DPS Damage/2) " + (FlakCannonBaseDOTDam / 2).ToString() + " * ( 1 ";
+                            tempString6 = "DOT damage tick vs Armor = (Base DOT DPS Damage/2) " + (FlakCannonBaseDOTDam / 2).ToString() + " * ( 1 ";
+                        }
+
+
+                        // Will need to accumulate the strings and print at the end since I want to print 9 at once .. 
+                        // need sum of debuffs and MAX(skill ArmorDebuff - cryo beam and turret don't stack) first 
+
+                        //ADDITIVEs
+                                           SumAdditives = 0;
+
+
+                        if (FlakCannonDam1 != 0)
+                        {
+                            SumAdditives += FlakCannonDam1;
+                            tempString1 += " + 'Damage Evo 3' " + FlakCannonDam1.ToString();
+                            tempString2 += " + 'Damage Evo 3' " + FlakCannonDam1.ToString();
+                            tempString3 += " + 'Damage Evo 3' " + FlakCannonDam1.ToString();
+                            tempString4 += " + 'Damage Evo 3' " + FlakCannonDam1.ToString();
+                            if (FlakCannonBaseDOTDam != 0)
+                            {
+                                tempString5 += " + 'Damage Evo 3' " + FlakCannonDam1.ToString();
+                                tempString6 += " + 'Damage Evo 3' " + FlakCannonDam1.ToString();
+                            }
+                        }
+
+                        if (FlakCannonDam2 != 0)
+                        {
+                            SumAdditives += FlakCannonDam2;
+                            tempString1 += " + 'Damage Evo 4a' " + FlakCannonDam2.ToString();
+                            tempString2 += " + 'Damage Evo 4a' " + FlakCannonDam2.ToString();
+                            tempString3 += " + 'Damage Evo 4a' " + FlakCannonDam2.ToString();
+                            tempString4 += " + 'Damage Evo 4a' " + FlakCannonDam2.ToString();
+                            if (FlakCannonBaseDOTDam != 0)
+                            {
+                                tempString5 += " + 'Damage Evo 4a' " + FlakCannonDam2.ToString();
+                                tempString6 += " + 'Damage Evo 4a' " + FlakCannonDam2.ToString();
+                            }
+                        }
+
+                        
+                        if (gearCPD != 0)
+                        {
+                            SumAdditives += gearCPD;
+                            tempString1 += " +  gear '" + comboBoxSelectGear.Text.Split('*')[0] + "' " + gearCPD.ToString();
+                            tempString2 += " +  gear '" + comboBoxSelectGear.Text.Split('*')[0] + "' " + gearCPD.ToString();
+                            tempString3 += " +  gear '" + comboBoxSelectGear.Text.Split('*')[0] + "' " + gearCPD.ToString();
+                            tempString4 += " +  gear '" + comboBoxSelectGear.Text.Split('*')[0] + "' " + gearCPD.ToString();
+                            if (FlakCannonBaseDOTDam != 0)
+                            {
+                                tempString5 += " +  gear '" + comboBoxSelectGear.Text.Split('*')[0] + "' " + gearCPD.ToString();
+                                tempString6 += " +  gear '" + comboBoxSelectGear.Text.Split('*')[0] + "' " + gearCPD.ToString();
+                            }
+                        }
+                        if (booster1CPD != 0)
+                        {
+                            SumAdditives += booster1CPD;
+                            tempString1 += " + booster '" + comboBoxSelectBooster1.Text.Split('*')[0] + "' " + booster1CPD.ToString();
+                            tempString2 += " + booster '" + comboBoxSelectBooster1.Text.Split('*')[0] + "' " + booster1CPD.ToString();
+                            tempString3 += " + booster '" + comboBoxSelectBooster1.Text.Split('*')[0] + "' " + booster1CPD.ToString();
+                            tempString4 += " + booster '" + comboBoxSelectBooster1.Text.Split('*')[0] + "' " + booster1CPD.ToString();
+                            if (FlakCannonBaseDOTDam != 0)
+                            {
+                                tempString5 += " + booster '" + comboBoxSelectBooster1.Text.Split('*')[0] + "' " + booster1CPD.ToString();
+                                tempString6 += " + booster '" + comboBoxSelectBooster1.Text.Split('*')[0] + "' " + booster1CPD.ToString();
+                            }
+                        }
+                        if (booster2CPD != 0)
+                        {
+                            SumAdditives += booster2CPD;
+                            tempString1 += " + booster '" + comboBoxSelectBooster2.Text.Split('*')[0] + "' " + booster2CPD.ToString();
+                            tempString2 += " + booster '" + comboBoxSelectBooster2.Text.Split('*')[0] + "' " + booster2CPD.ToString();
+                            tempString3 += " + booster '" + comboBoxSelectBooster2.Text.Split('*')[0] + "' " + booster2CPD.ToString();
+                            tempString4 += " + booster '" + comboBoxSelectBooster2.Text.Split('*')[0] + "' " + booster2CPD.ToString();
+                            if (FlakCannonBaseDOTDam != 0)
+                            {
+                                tempString5 += " + booster '" + comboBoxSelectBooster2.Text.Split('*')[0] + "' " + booster2CPD.ToString();
+                                tempString6 += " + booster '" + comboBoxSelectBooster2.Text.Split('*')[0] + "' " + booster2CPD.ToString();
+                            }
+                        }
+                        if (apex1CPD != 0)
+                        {
+                            SumAdditives += apex1CPD;
+                            tempString1 += " + Apex '" + comboBoxSelectApex1.Text.Split('*')[0] + "' " + apex1CPD.ToString();
+                            tempString2 += " + Apex '" + comboBoxSelectApex1.Text.Split('*')[0] + "' " + apex1CPD.ToString();
+                            tempString3 += " + Apex '" + comboBoxSelectApex1.Text.Split('*')[0] + "' " + apex1CPD.ToString();
+                            tempString4 += " + Apex '" + comboBoxSelectApex1.Text.Split('*')[0] + "' " + apex1CPD.ToString();
+                            if (FlakCannonBaseDOTDam != 0)
+                            {
+                                tempString5 += " + Apex '" + comboBoxSelectApex1.Text.Split('*')[0] + "' " + apex1CPD.ToString();
+                                tempString6 += " + Apex '" + comboBoxSelectApex1.Text.Split('*')[0] + "' " + apex1CPD.ToString();
+                            }
+                        }
+                        if (apex2CPD != 0)
+                        {
+                            SumAdditives += apex2CPD;
+                            tempString1 += " + Apex '" + comboBoxSelectApex2.Text.Split('*')[0] + "' " + apex2CPD.ToString();
+                            tempString2 += " + Apex '" + comboBoxSelectApex2.Text.Split('*')[0] + "' " + apex2CPD.ToString();
+                            tempString3 += " + Apex '" + comboBoxSelectApex2.Text.Split('*')[0] + "' " + apex2CPD.ToString();
+                            tempString4 += " + Apex '" + comboBoxSelectApex2.Text.Split('*')[0] + "' " + apex2CPD.ToString();
+                            if (FlakCannonBaseDOTDam != 0)
+                            {
+                                tempString5 += " + Apex '" + comboBoxSelectApex2.Text.Split('*')[0] + "' " + apex2CPD.ToString();
+                                tempString6 += " + Apex '" + comboBoxSelectApex2.Text.Split('*')[0] + "' " + apex2CPD.ToString();
+                            }
+                        }
+
+                        if (float.Parse(comboBoxSelectVeteranLevel.Text) != 0)
+                        {
+                            SumAdditives += float.Parse(comboBoxSelectVeteranLevel.Text) * 0.04f;
+                            tempString1 += " + Veteran PD Bonus " + (float.Parse(comboBoxSelectVeteranLevel.Text) * 0.04f).ToString();
+                            tempString2 += " + Veteran PD Bonus " + (float.Parse(comboBoxSelectVeteranLevel.Text) * 0.04f).ToString();
+                            tempString3 += " + Veteran PD Bonus " + (float.Parse(comboBoxSelectVeteranLevel.Text) * 0.04f).ToString();
+                            tempString4 += " + Veteran PD Bonus " + (float.Parse(comboBoxSelectVeteranLevel.Text) * 0.04f).ToString();
+                            if (FlakCannonBaseDOTDam != 0)
+                            {
+                                tempString5 += " + Veteran PD Bonus " + (float.Parse(comboBoxSelectVeteranLevel.Text) * 0.04f).ToString();
+                                tempString6 += " + Veteran PD Bonus " + (float.Parse(comboBoxSelectVeteranLevel.Text) * 0.04f).ToString();
+                            }
+                        }
+
+                        if (skill1PDSum != 0)
+                        {
+                            SumAdditives += skill1PDSum;
+                            tempString1 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill1Name + "' skill" + skill1PDSum.ToString();
+                            tempString2 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill1Name + "' skill" + skill1PDSum.ToString();
+                            tempString3 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill1Name + "' skill" + skill1PDSum.ToString();
+                            tempString4 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill1Name + "' skill" + skill1PDSum.ToString();
+                            if (FlakCannonBaseDOTDam != 0)
+                            {
+                                tempString5 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill1Name + "' skill" + skill1PDSum.ToString();
+                                tempString6 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill1Name + "' skill" + skill1PDSum.ToString();
+                            }
+                        }
+                        if (skill2PDSum != 0)
+                        {
+                            SumAdditives += skill2PDSum;
+                            tempString1 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill2Name + "' skill" + skill2PDSum.ToString();
+                            tempString2 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill2Name + "' skill" + skill2PDSum.ToString();
+                            tempString3 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill2Name + "' skill" + skill2PDSum.ToString();
+                            tempString4 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill2Name + "' skill" + skill2PDSum.ToString();
+                            if (FlakCannonBaseDOTDam != 0)
+                            {
+                                tempString5 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill2Name + "' skill" + skill2PDSum.ToString();
+                                tempString6 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill2Name + "' skill" + skill2PDSum.ToString();
+                            }
+                        }
+                        if (skill3PDSum != 0)
+                        {
+                            SumAdditives += skill3PDSum;
+                            tempString1 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill3Name + "' skill" + skill3PDSum.ToString();
+                            tempString2 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill3Name + "' skill" + skill3PDSum.ToString();
+                            tempString3 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill3Name + "' skill" + skill3PDSum.ToString();
+                            tempString4 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill3Name + "' skill" + skill3PDSum.ToString();
+                            if (FlakCannonBaseDOTDam != 0)
+                            {
+                                tempString5 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill3Name + "' skill" + skill3PDSum.ToString();
+                                tempString6 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill3Name + "' skill" + skill3PDSum.ToString();
+                            }
+                        }
+                        if (skill4PDSum != 0)
+                        {
+                            SumAdditives += skill4PDSum;
+                            tempString1 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4PDSum.ToString();
+                            tempString2 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4PDSum.ToString();
+                            tempString3 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4PDSum.ToString();
+                            tempString4 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4PDSum.ToString();
+
+                            if (FlakCannonBaseDOTDam != 0)
+                            {
+                                tempString5 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4PDSum.ToString();
+                                tempString6 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4PDSum.ToString();
+                            }
+                        }
+                        if (checkBoxBarricadePD.Checked)
+                        {
+                            SumAdditives += 0.2f;
+                            tempString1 += " + PD from squad Barricade 0.2 ";
+                            tempString2 += " + PD from squad Barricade 0.2 ";
+                            tempString3 += " + PD from squad Barricade 0.2 ";
+                            tempString4 += " + PD from squad Barricade 0.2 ";
+                            if (FlakCannonBaseDOTDam != 0)
+                            {
+                                
+                                tempString5 += " + PD from squad Barricade 0.2 ";
+                                tempString6 += " + PD from squad Barricade 0.2 ";
+                            }
+                        }
+                        float SumFlakAdditives; SumFlakAdditives = SumAdditives;
+
+                        //DEBUFFS
+                        SumAdditives = 0;
+                        tempString1 += " ) * ( 1 "; tempString2 += " ) * ( 1 "; tempString3 += " ) * ( 1 ";
+                        if (FlakCannonBaseDOTDam != 0) { tempString4 += " ) * ( 1 "; tempString5 += " ) * ( 1 "; tempString6 += " ) * ( 1 "; }
+
+                        if (skill1DebuffSum != 0)
+                        {
+                            SumAdditives += skill1DebuffSum * (1 + skill5SupportSum);
+                            tempString1 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill1Name + "' skill" + skill1DebuffSum.ToString(); if (skill5SupportSum != 0) tempString1 += " * ( 1 + SumSupport " + skill5SupportSum.ToString() + " )";
+                            tempString2 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill1Name + "' skill" + skill1DebuffSum.ToString(); if (skill5SupportSum != 0) tempString2 += " * ( 1 + SumSupport " + skill5SupportSum.ToString() + " )";
+                            tempString3 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill1Name + "' skill" + skill1DebuffSum.ToString(); if (skill5SupportSum != 0) tempString3 += " * ( 1 + SumSupport " + skill5SupportSum.ToString() + " )";
+                            tempString4 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill1Name + "' skill" + skill1DebuffSum.ToString(); if (skill5SupportSum != 0) tempString4 += " * ( 1 + SumSupport " + skill5SupportSum.ToString() + " )";
+
+                            if (FlakCannonBaseDOTDam != 0)
+                            {
+                                tempString5 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill1Name + "' skill" + skill1DebuffSum.ToString(); if (skill5SupportSum != 0) tempString5 += " * ( 1 + SumSupport " + skill5SupportSum.ToString() + " )";
+                                tempString6 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill1Name + "' skill" + skill1DebuffSum.ToString(); if (skill5SupportSum != 0) tempString6 += " * ( 1 + SumSupport " + skill5SupportSum.ToString() + " )";
+                            }
+                        }
+
+
+                        if (skill2DebuffSum != 0)
+                        {
+                            SumAdditives += skill2DebuffSum * (1 + skill5SupportSum);
+                            tempString1 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill2Name + "' skill" + skill2DebuffSum.ToString(); if (skill5SupportSum != 0) tempString1 += " * ( 1 + SumSupport " + skill5SupportSum.ToString() + " )";
+                            tempString2 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill2Name + "' skill" + skill2DebuffSum.ToString(); if (skill5SupportSum != 0) tempString2 += " * ( 1 + SumSupport " + skill5SupportSum.ToString() + " )";
+                            tempString3 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill2Name + "' skill" + skill2DebuffSum.ToString(); if (skill5SupportSum != 0) tempString3 += " * ( 1 + SumSupport " + skill5SupportSum.ToString() + " )";
+                            tempString4 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill2Name + "' skill" + skill2DebuffSum.ToString(); if (skill5SupportSum != 0) tempString4 += " * ( 1 + SumSupport " + skill5SupportSum.ToString() + " )";
+                            if (FlakCannonBaseDOTDam != 0)
+                            {
+
+                                tempString5 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill2Name + "' skill" + skill2DebuffSum.ToString(); if (skill5SupportSum != 0) tempString5 += " * ( 1 + SumSupport " + skill5SupportSum.ToString() + " )";
+                                tempString6 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill2Name + "' skill" + skill2DebuffSum.ToString(); if (skill5SupportSum != 0) tempString6 += " * ( 1 + SumSupport " + skill5SupportSum.ToString() + " )";
+                            }
+                        }
+
+                        if (skill3DebuffSum != 0)
+                        {
+                            SumAdditives += skill3DebuffSum * (1 + skill5SupportSum);
+                            tempString1 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill3Name + "' skill" + skill3DebuffSum.ToString(); if (skill5SupportSum != 0) tempString1 += " * ( 1 + SumSupport " + skill5SupportSum.ToString() + " )";
+                            tempString2 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill3Name + "' skill" + skill3DebuffSum.ToString(); if (skill5SupportSum != 0) tempString2 += " * ( 1 + SumSupport " + skill5SupportSum.ToString() + " )";
+                            tempString3 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill3Name + "' skill" + skill3DebuffSum.ToString(); if (skill5SupportSum != 0) tempString3 += " * ( 1 + SumSupport " + skill5SupportSum.ToString() + " )";
+                            tempString4 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill3Name + "' skill" + skill3DebuffSum.ToString(); if (skill5SupportSum != 0) tempString4 += " * ( 1 + SumSupport " + skill5SupportSum.ToString() + " )";
+
+                            if (FlakCannonBaseDOTDam != 0)
+                            {
+                                tempString5 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill3Name + "' skill" + skill3DebuffSum.ToString(); if (skill5SupportSum != 0) tempString5 += " * ( 1 + SumSupport " + skill5SupportSum.ToString() + " )";
+                                tempString6 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill3Name + "' skill" + skill3DebuffSum.ToString(); if (skill5SupportSum != 0) tempString6 += " * ( 1 + SumSupport " + skill5SupportSum.ToString() + " )";
+                            }
+                        }
+
+
+                        if (skill4DebuffSum != 0)
+                        {
+                            SumAdditives += skill4DebuffSum * (1 + skill5SupportSum);
+                            tempString1 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4DebuffSum.ToString(); if (skill5SupportSum != 0) tempString1 += " * ( 1 + SumSupport " + skill5SupportSum.ToString() + " )";
+                            tempString2 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4DebuffSum.ToString(); if (skill5SupportSum != 0) tempString2 += " * ( 1 + SumSupport " + skill5SupportSum.ToString() + " )";
+                            tempString3 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4DebuffSum.ToString(); if (skill5SupportSum != 0) tempString3 += " * ( 1 + SumSupport " + skill5SupportSum.ToString() + " )";
+                            tempString4 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4DebuffSum.ToString(); if (skill5SupportSum != 0) tempString4 += " * ( 1 + SumSupport " + skill5SupportSum.ToString() + " )";
+                            if (FlakCannonBaseDOTDam != 0)
+                            {
+                                tempString5 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4DebuffSum.ToString(); if (skill5SupportSum != 0) tempString5 += " * ( 1 + SumSupport " + skill5SupportSum.ToString() + " )";
+                                tempString6 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4DebuffSum.ToString(); if (skill5SupportSum != 0) tempString6 += " * ( 1 + SumSupport " + skill5SupportSum.ToString() + " )";
+                            }
+                        }
+
+                        if (float.Parse(textBoxSumSquadDebuffsOnTarget.Text) != 0)
+                        {
+                            SumAdditives += float.Parse(textBoxSumSquadDebuffsOnTarget.Text);
+                            tempString1 += " + debuffvsAll from Squad " + textBoxSumSquadDebuffsOnTarget.Text;
+                            tempString2 += " + debuffvsAll from Squad " + textBoxSumSquadDebuffsOnTarget.Text;
+                            tempString3 += " + debuffvsAll from Squad " + textBoxSumSquadDebuffsOnTarget.Text;
+                            tempString4 += " + debuffvsAll from Squad " + textBoxSumSquadDebuffsOnTarget.Text;
+                            if (FlakCannonBaseDOTDam != 0)
+                            {
+                                tempString5 += " + debuffvsAll from Squad " + textBoxSumSquadDebuffsOnTarget.Text; tempString6 += " + debuffvsAll from Squad " + textBoxSumSquadDebuffsOnTarget.Text;
+                            }
+                        }
+
+                        if (SumArmorDebuff != 0) { tempString2 += " + debuffvsArmor" + SumArmorDebuff.ToString();
+                                                   tempString4 += " + debuffvsArmor" + SumArmorDebuff.ToString();
+                            if (FlakCannonBaseDOTDam != 0) tempString6 += " + debuffvsArmor" + SumArmorDebuff.ToString(); }
+
+                        SumDebuff = SumAdditives;
+                        tempString1 += " ) * ( 1 )"; tempString2 += " ) * ( 1 ";
+                        tempString3 += " ) * ( 1 )"; tempString4 += " ) * ( 1 ";
+                        if (FlakCannonBaseDOTDam != 0) {  tempString5 += " ) * ( 1 )"; tempString6 += " ) * ( 1 "; }
+
+
+                        // vsDEFENSE 
+                        //
+                        // None (Kmerc, Thavok, Bscapper) have vsdefense passive. Power only has vs armor evos;
+                        
+
+
+                        tempString1 += " = " + (FlakCannonImpactBaseDam * (1 + SumFlakAdditives) * (1 + SumDebuff)).ToString();
+                        tempString3 += " = " + (FlakCannonShrapnelBaseDam * 0.7 * (1 + SumFlakAdditives) * (1 + SumDebuff)).ToString();
+
+                        if (FlakCannonBaseDOTDam != 0)
+                        {
+                            tempString5 += " = " + ((FlakCannonBaseDOTDam / 2) * (1 + SumFlakAdditives) * (1 + SumDebuff)).ToString();
+
+                        }
+
+                        
+                        
+                        if (FlakCannonvsArmor != 0) { tempString2 += " + 5a vsArmor " + FlakCannonvsArmor.ToString();  }
+                        tempString2 += " ) = " + (FlakCannonImpactBaseDam * (1 + SumFlakAdditives) * (1 + SumDebuff + SumArmorDebuff) * (1 + FlakCannonvsArmor)).ToString();
+
+                        SumAdditives = 0;
+                        if (FlakCannonvsArmor != 0) { tempString4 += " + 5a vsArmor " + FlakCannonvsArmor.ToString(); SumAdditives += FlakCannonvsArmor; }
+                        if (FlakCannonFvsArmor != 0) { tempString4 += " + Srapnel pen vsArmor" + FlakCannonFvsArmor.ToString(); SumAdditives += FlakCannonFvsArmor; }
+                        tempString4 += " ) = " + (FlakCannonShrapnelBaseDam * (1 + SumFlakAdditives) * (1 + SumDebuff + SumArmorDebuff) * (1 + SumAdditives)).ToString();
+                        
+                        if (FlakCannonBaseDOTDam != 0)
+                        {
+                                                                            
+                            if (FlakCannonvsArmor != 0)  tempString6 += " + 5a vsArmor " + FlakCannonvsArmor.ToString(); 
+                            tempString6 += " ) = " + ((FlakCannonBaseDOTDam / 2) * (1 + SumFlakAdditives) * (1 + SumDebuff + SumArmorDebuff) * (1 + FlakCannonvsArmor)).ToString();
+                        }
+
+                        
+
+                        txtBox.Text += tempString1 + "\r\n";
+                        txtBox.Text += tempString2 + "\r\n\r\n";
+                        txtBox.Text += tempString3 + "\r\n";
+                        txtBox.Text += tempString4 + "\r\n\r\n";
+
+                        // do Sum Flak here
+                        txtBox.Text += "Max of Shrapnel hits vs humanoid target = 8 "; if (FlakCannonBonusShrapnel != 0) txtBox.Text += "6a +50% extra shrapnels"; txtBox.Text +="\r\n"; 
+                        txtBox.Text += "Total average shrapnel damage vs Health and Shields = " + (FlakCannonShrapnelBaseDam * 0.7 * (1 + SumFlakAdditives) * (1 + SumDebuff)* 8 *(1+ FlakCannonBonusShrapnel)).ToString() + "\r\n";
+                        txtBox.Text += "Total average shrapnel damage vs Armor = " + (FlakCannonShrapnelBaseDam * (1 + SumFlakAdditives) * (1 + SumDebuff + SumArmorDebuff) * (1 + SumAdditives)* 8 * (1 + FlakCannonBonusShrapnel)).ToString() + "\r\n\r\n";
+                      
+
+                        if (FlakCannonBaseDOTDam != 0)
+                        {
+                           
+                            txtBox.Text += tempString5 + "\r\n";
+                            txtBox.Text += tempString6 + "\r\n\r\n";
+
+// NO DOT duration Bonus on any Thavok/KMerc/Scrapper 
+                            txtBox.Text += "DOT duration : " + FlakCannonBaseDOTDur.ToString() + " seconds \r\n";
+
+                            txtBox.Text += "Maximum Total Shredder DOT vs Health and Shields = " + (FlakCannonBaseDOTDam  * (1 + SumFlakAdditives) * (1 + SumDebuff) * FlakCannonBaseDOTDur).ToString() + "\r\n";
+                            txtBox.Text += "Maximum Total Shredder DOT vs Armor = " + (FlakCannonBaseDOTDam * (1 + SumFlakAdditives) * (1 + SumDebuff + SumArmorDebuff) * (1 + FlakCannonvsArmor) * FlakCannonBaseDOTDur).ToString() + "\r\n";
+
+                        }
+                        
+                        
                         break;
 
                 }
