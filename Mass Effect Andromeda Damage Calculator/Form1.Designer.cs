@@ -130,7 +130,7 @@
             this.comboBoxSkill5_1 = new System.Windows.Forms.ComboBox();
             this.checkBoxOnOffSkill5 = new System.Windows.Forms.CheckBox();
             this.textBoxExportBuild = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.buttonBuildLink = new System.Windows.Forms.Button();
             this.checkBoxElementalTechOnTarget = new System.Windows.Forms.CheckBox();
             this.tabControlCalcualtedResults = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -151,7 +151,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.checkBoxBarricadeWD = new System.Windows.Forms.CheckBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkBoxOverwrite = new System.Windows.Forms.CheckBox();
             this.textBoxOverwriteBaseWeaponDamage = new System.Windows.Forms.TextBox();
             this.textBoxOverwriteBaseWeaponMAGSize = new System.Windows.Forms.TextBox();
             this.checkBoxBarricadePD = new System.Windows.Forms.CheckBox();
@@ -172,14 +172,13 @@
             // 
             // buttonLoadBuild
             // 
-            this.buttonLoadBuild.Enabled = false;
             this.buttonLoadBuild.Location = new System.Drawing.Point(8, 38);
             this.buttonLoadBuild.Name = "buttonLoadBuild";
             this.buttonLoadBuild.Size = new System.Drawing.Size(142, 23);
             this.buttonLoadBuild.TabIndex = 1;
             this.buttonLoadBuild.Text = "paste and Load build";
             this.buttonLoadBuild.UseVisualStyleBackColor = true;
-            this.buttonLoadBuild.Click += new System.EventHandler(this.button1_Click);
+            this.buttonLoadBuild.Click += new System.EventHandler(this.buttonLoadBuild_Click);
             // 
             // checkBoxOnOffSkill1
             // 
@@ -358,11 +357,11 @@
             // 
             // textBoxLoadBuild
             // 
-            this.textBoxLoadBuild.Enabled = false;
             this.textBoxLoadBuild.Location = new System.Drawing.Point(8, 12);
             this.textBoxLoadBuild.Name = "textBoxLoadBuild";
             this.textBoxLoadBuild.Size = new System.Drawing.Size(142, 20);
             this.textBoxLoadBuild.TabIndex = 18;
+            this.textBoxLoadBuild.TextChanged += new System.EventHandler(this.textBoxLoadBuild_TextChanged);
             // 
             // comboBoxSelectVeteranLevel
             // 
@@ -475,7 +474,7 @@
             this.comboBoxSelectBooster1.Name = "comboBoxSelectBooster1";
             this.comboBoxSelectBooster1.Size = new System.Drawing.Size(428, 21);
             this.comboBoxSelectBooster1.TabIndex = 31;
-            this.comboBoxSelectBooster1.SelectedIndexChanged += new System.EventHandler(this.comboBoxSelectBooster1_SelectedIndexChanged);
+            this.comboBoxSelectBooster1.SelectedIndexChanged += new System.EventHandler(this.comboBoxSkill1_1_SelectedIndexChanged);
             // 
             // comboBoxSelectGear
             // 
@@ -1279,22 +1278,21 @@
             // 
             // textBoxExportBuild
             // 
-            this.textBoxExportBuild.Enabled = false;
             this.textBoxExportBuild.Location = new System.Drawing.Point(1646, 10);
             this.textBoxExportBuild.Name = "textBoxExportBuild";
             this.textBoxExportBuild.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.textBoxExportBuild.Size = new System.Drawing.Size(199, 20);
             this.textBoxExportBuild.TabIndex = 111;
             // 
-            // button1
+            // buttonBuildLink
             // 
-            this.button1.Enabled = false;
-            this.button1.Location = new System.Drawing.Point(1731, 36);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(97, 23);
-            this.button1.TabIndex = 110;
-            this.button1.Text = "exportBuild";
-            this.button1.UseVisualStyleBackColor = true;
+            this.buttonBuildLink.Location = new System.Drawing.Point(1731, 36);
+            this.buttonBuildLink.Name = "buttonBuildLink";
+            this.buttonBuildLink.Size = new System.Drawing.Size(97, 23);
+            this.buttonBuildLink.TabIndex = 110;
+            this.buttonBuildLink.Text = "exportBuild";
+            this.buttonBuildLink.UseVisualStyleBackColor = true;
+            this.buttonBuildLink.Click += new System.EventHandler(this.buttonBuildLink_Click);
             // 
             // checkBoxElementalTechOnTarget
             // 
@@ -1497,15 +1495,15 @@
             this.checkBoxBarricadeWD.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.checkBoxBarricadeWD.UseVisualStyleBackColor = true;
             // 
-            // checkBox1
+            // checkBoxOverwrite
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(305, 128);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(272, 17);
-            this.checkBox1.TabIndex = 119;
-            this.checkBox1.Text = "Overwrite BaseWeapon Damage And BaseMagSize";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBoxOverwrite.AutoSize = true;
+            this.checkBoxOverwrite.Location = new System.Drawing.Point(305, 128);
+            this.checkBoxOverwrite.Name = "checkBoxOverwrite";
+            this.checkBoxOverwrite.Size = new System.Drawing.Size(272, 17);
+            this.checkBoxOverwrite.TabIndex = 119;
+            this.checkBoxOverwrite.Text = "Overwrite BaseWeapon Damage And BaseMagSize";
+            this.checkBoxOverwrite.UseVisualStyleBackColor = true;
             // 
             // textBoxOverwriteBaseWeaponDamage
             // 
@@ -1642,7 +1640,7 @@
             this.Controls.Add(this.checkBoxBarricadePD);
             this.Controls.Add(this.textBoxOverwriteBaseWeaponMAGSize);
             this.Controls.Add(this.textBoxOverwriteBaseWeaponDamage);
-            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.checkBoxOverwrite);
             this.Controls.Add(this.checkBoxBarricadeWD);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label1);
@@ -1650,7 +1648,7 @@
             this.Controls.Add(this.tabControlCalcualtedResults);
             this.Controls.Add(this.checkBoxElementalTechOnTarget);
             this.Controls.Add(this.textBoxExportBuild);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.buttonBuildLink);
             this.Controls.Add(this.labelSkill5Name);
             this.Controls.Add(this.checkBoxSkill5_6);
             this.Controls.Add(this.checkBoxSkill5_5);
@@ -1877,7 +1875,7 @@
         private System.Windows.Forms.ComboBox comboBoxSkill5_1;
         private System.Windows.Forms.CheckBox checkBoxOnOffSkill5;
         private System.Windows.Forms.TextBox textBoxExportBuild;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonBuildLink;
         private System.Windows.Forms.CheckBox checkBoxElementalTechOnTarget;
         private System.Windows.Forms.TabControl tabControlCalcualtedResults;
         private System.Windows.Forms.TabPage tabPage1;
@@ -1892,7 +1890,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox textBoxDebug;
         private System.Windows.Forms.CheckBox checkBoxBarricadeWD;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox checkBoxOverwrite;
         private System.Windows.Forms.TextBox textBoxOverwriteBaseWeaponDamage;
         private System.Windows.Forms.TextBox textBoxOverwriteBaseWeaponMAGSize;
         private System.Windows.Forms.CheckBox checkBoxBarricadePD;

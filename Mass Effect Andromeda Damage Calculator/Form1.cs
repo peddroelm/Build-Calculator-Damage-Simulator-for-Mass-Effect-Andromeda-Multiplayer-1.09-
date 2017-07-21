@@ -520,7 +520,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
              };
 
 
-        const int constNrGear = 17;
+        const int constNrGear = 18;
         private GearPiece[] myGearArray = new GearPiece[constNrGear]
       {
                    new GearPiece("Commando Package" , "WD=0.1;BPD=0.2"),
@@ -539,7 +539,8 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                    new GearPiece("Mental Focuser", "PD=0.25"),
                    new GearPiece("Pistol / SMG AMP", "PWD=0.2"),
                    new GearPiece("Shield Enhacer", "Shields=0.3"),
-                   new GearPiece("Vulnerability VI", "Weak=0.4")
+                   new GearPiece("Vulnerability VI", "Weak=0.4"),
+                   new GearPiece("Densified Ammunition", "WD=0.125")
                 };
 
 
@@ -819,34 +820,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
 
             };
 
-        /*
-
-     
-
-                    /////////////////////////////////
-           Go trough the third race builder and build power Screen and extract what data is needed there
-        ex: Skill == "Frag grenade"
-
-        No cooldown
-        No duration
-
-        Damage vs Health, Damage vs Armor , Damage vs Shields
-
-        IF (4b) 
-               DOT tick vs Health, Damage vs Armor , Damage vs Shields 
-            and total vs DOT tick vs Health, Damage vs Armor , Damage vs Shields in DURATION [END RESULT(faster) OR EACH TERM(re-parsing)]
-
-        most data from here but needs PD from passive skill and CPD from gear/booster/add-on .. AND debuffs AND vs armor vs shields from passive .. 
-        ////
-
-                    REDO THE PARSING HERE FOR ALL SOURCES OF RELEVANT CRAP
-                    Write expanded formula with all the terms ...
-
-                    WRITE PERK LINE NOPE
-        base damage perk 1; perk 3 0.2 D (NOT DOT?), perk 4a 0.3D Same, 5b base DOT, 6a, 6b vs 
-
-                 * */
-
+       
 
 
         // initialize an array of chars ...
@@ -860,25 +834,34 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
         {
             // WE FOUND THE INTIALIZER AREA
 
+              initializeCombos();
+        }
+
+        public void initializeCombos()
+        {
+            comboBoxSelectWeapon.Items.Clear();
             for (int i = 0; i < constNrGuns; i++)
             {
                 comboBoxSelectWeapon.Items.Add(myGunArray[i].weaponName);
             }
             comboBoxSelectWeapon.SelectedIndex = 0;
 
+            comboBoxSelectChars.Items.Clear();
             for (int i = 0; i < constNumberChars; i++)
             {
                 comboBoxSelectChars.Items.Add(playingCharactersArray[i].CharacterName);
             }
             comboBoxSelectChars.SelectedIndex = 0;
 
+            comboBoxSelectGear.Items.Clear(); comboBoxSelectGear.Items.Add("none");
             for (int i = 0; i < constNrGear; i++)
             {
                 comboBoxSelectGear.Items.Add(myGearArray[i].gearName + "* " + myGearArray[i].gearEffects);
             }
             comboBoxSelectGear.SelectedIndex = 0;
 
-
+            comboBoxSelectBooster1.Items.Clear(); comboBoxSelectBooster1.Items.Add("none");
+             comboBoxSelectBooster2.Items.Clear(); comboBoxSelectBooster2.Items.Add("none");
             for (int i = 0; i < constNrBoosters; i++)
             {
 
@@ -889,7 +872,8 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
             comboBoxSelectBooster1.SelectedIndex = 0;
             comboBoxSelectBooster2.SelectedIndex = 0;
 
-
+            comboBoxSelectApex1.Items.Clear(); comboBoxSelectApex2.Items.Clear();
+            comboBoxSelectApex1.Items.Add("none"); comboBoxSelectApex2.Items.Add("none");
             for (int i = 0; i < constNrAPEXMods; i++)
             {
 
@@ -900,12 +884,12 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
             comboBoxSelectApex1.SelectedIndex = 0;
             comboBoxSelectApex2.SelectedIndex = 0;
 
-               
+
 
             comboBoxSelectVeteranLevel.SelectedIndex = 0;
             comboBoxSelectDifficulty.SelectedIndex = 2;
 
-            
+
             comboBoxBonusHealth.SelectedIndex = 0;
             comboBoxBonusShields.SelectedIndex = 0;
             comboBoxBonusPRS.SelectedIndex = 0;
@@ -1645,6 +1629,9 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                         break;
                     case "Vulnerability VI":
                         gearWeak = 0.4f;
+                        break;
+                    case "Densified Ammunition": // "WD=0.125"
+                        gearSRWD = gearSGWD = gearPWD = gearARWD = 0.125f;
                         break;
 
                 }
@@ -4707,14 +4694,9 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                         txtBox.Text += "Duration irrelevant ..no sustained effect \r\n\r\n";
 
                         txtBox.Text += "Cooldowm FORMULA: (BaseCooldown / (1 + SumPRS)) * (1 - Detonation_Feedback) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP )  \r\n";
-                        txtBox.Text += "DISCLAIMER - cooldown formula not as rigurosly tested as the damage formulas (I lack the skills required ..) \r\n";
                         txtBox.Text += "In the interest of developement speed this app ignores the WeaponWeight minigame - as long as you don't go over capacity AS YOU SHOULD! - the related term will be Zero \r\n\r\n";
                         txtBox.Text += "Cooldowm = ( BaseOverloadCooldown " + OverloadRecharge + " / ( 1 ";
-
-
-                        
-
-                      
+                   
                         //we will need to Find the right comboboxes by name .. 
                          controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_1", true);
                           comboBox = controls[0] as ComboBox;
@@ -4818,26 +4800,28 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                         if (skill3PRS != 0) { SumAdditives += skill3PRS; txtBox.Text += " + PRS from '" + playingCharactersArray[SelectedCharIndex].Skill3Name + "' skill" + skill3PRS.ToString(); }
                         if (skill4PRS != 0) { SumAdditives += skill4PRS; txtBox.Text += " + PRS from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4PRS.ToString(); }
                         if (skill5PRS != 0) { SumAdditives += skill5PRS; txtBox.Text += " + PRS from '" + playingCharactersArray[SelectedCharIndex].Skill5Name + "' skill" + skill5PRS.ToString(); }
-                        txtBox.Text += " ) * ";
-                        if (skill4PRTR != 0) { txtBox.Text += " ( 1 - Detonation Feedback" + skill4PRTR.ToString () + " ) * "; }
+                        txtBox.Text += " ) * ( 1";
+
                         float PRP; PRP = 0;
-
                         // NO CHAR CURRENTLY HAS OVERLOAD AND ANNIHILATION
-                        if (skill1PRPSum != 0) { PRP = skill1PRPSum; txtBox.Text += " ( 1 + 'Annihilation PRP' )" + skill1PRPSum.ToString() + " ) ";}
-                        if (skill2PRPSum != 0) { PRP = skill2PRPSum; txtBox.Text += " ( 1 + 'Annihilation PRP' )" + skill2PRPSum.ToString() + " ) ";}
-                        if (skill3PRPSum != 0) { PRP = skill3PRPSum; txtBox.Text += " ( 1 + 'Annihilation PRP' )" + skill3PRPSum.ToString() + " ) ";}
+                        if (skill1PRPSum != 0) { PRP = skill1PRPSum; txtBox.Text += " + 'Annihilation PRP' )" + skill1PRPSum.ToString();}
+                        if (skill2PRPSum != 0) { PRP = skill2PRPSum; txtBox.Text += " + 'Annihilation PRP' )" + skill2PRPSum.ToString();}
+                        if (skill3PRPSum != 0) { PRP = skill3PRPSum; txtBox.Text += " + 'Annihilation PRP' )" + skill3PRPSum.ToString();}
 
-                        txtBox.Text += " = " + ((OverloadRecharge/ (1 + SumAdditives))*(1-skill4PRTR)*(1+PRP)).ToString() + "\r\n\r\n";
+                        txtBox.Text += " ) = " + ((OverloadRecharge/ (1 + SumAdditives)) * (1+PRP)).ToString() + "\r\n";
+                        //if (skill4PRTR != 0) { txtBox.Text += " Detonation Feedback" + (1-skill4PRTR).ToString() + " multiplier to remaining cooldown amount \r\n"; }
+                        txtBox.Text += "\r\n";
 
-                        /// relevant variables for damage
 
-                        // will need to split  base // charged/ chain damage v*4 (health and synthhealth) 
+                       /// relevant variables for damage
 
-                    
-                                                 ///////////////
-                        /////////////// let the splittage begin
+                       // will need to split  base // charged/ chain damage v*4 (health and synthhealth) 
 
-                       
+
+                       ///////////////
+                       /////////////// let the splittage begin
+
+
                         txtBox.Text += "Overload Damage formula: BaseDamage * (1 + SumAdditives) * (1 + (SumDebuff + SumArmorDebuff) * (1 + SupportSum) + ETdebuff + SquadDebuff ) * (1 + SumvsDefense)  \r\n\r\n";
                         txtBox.Text += "some debuffs, ex Pull's expose cannot be activated vs Armor or Shields - I don't account for that here - but you can tick that debuff off in UI if you want numbers without it and RE-Calculate) \r\n\r\n";
       
@@ -5330,10 +5314,6 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
             }
 
 
-           
-
-
-
 
         }
 
@@ -5365,8 +5345,11 @@ do
 //  textBoxDebug.Text = WeaponIndex.ToString();
 comboBoxSelectAddOn1.SelectedIndex = 0;
 comboBoxSelectAddOn2.SelectedIndex = 0;
-
-}
+            // clear overwrite checkbox and values
+            checkBoxOverwrite.Checked = false;
+            textBoxOverwriteBaseWeaponDamage.Text = myGunArray[WeaponIndex].BWD.ToString()  ;
+            textBoxOverwriteBaseWeaponMAGSize.Text = myGunArray[WeaponIndex].magazineSize.ToString();
+        }
 
 private void textBoxEnemyWeak1_TextChanged(object sender, EventArgs e)
 {
@@ -5530,7 +5513,9 @@ if (!selected.Equals("none") && (!comboBoxSelectBooster1.Text.Equals("none")))
             {
                 float ftempcheck;
                 ftempcheck = (float)tempcheck; // convert from int to float so we can compare
-                if (ftempcheck > 1.25f * myGunArray[comboBoxSelectWeapon.SelectedIndex].BWD) ftempcheck = 1.25f * myGunArray[comboBoxSelectWeapon.SelectedIndex].BWD - 0.02f; if (ftempcheck < 0.75f * myGunArray[comboBoxSelectWeapon.SelectedIndex].BWD) ftempcheck = 0.75f * myGunArray[comboBoxSelectWeapon.SelectedIndex].BWD + 0.02f; textBoxOverwriteBaseWeaponDamage.Text = ftempcheck.ToString(); }
+                if (ftempcheck > 1.25f * myGunArray[comboBoxSelectWeapon.SelectedIndex].BWD) ftempcheck = 1.25f * myGunArray[comboBoxSelectWeapon.SelectedIndex].BWD - 0.02f;
+                if (ftempcheck < 0.75f * myGunArray[comboBoxSelectWeapon.SelectedIndex].BWD) ftempcheck = 0.75f * myGunArray[comboBoxSelectWeapon.SelectedIndex].BWD + 0.02f;
+                textBoxOverwriteBaseWeaponDamage.Text = ((int)ftempcheck).ToString(); }
             }
 
         private void textBoxOverwriteBaseWeaponMAGSize_Leave(object sender, EventArgs e)
@@ -5551,7 +5536,887 @@ if (!selected.Equals("none") && (!comboBoxSelectBooster1.Text.Equals("none")))
                 textBoxOverwriteBaseWeaponMAGSize.Text = ((int)tempcheck).ToString();
             }
         }
+
+        private void buttonLoadBuild_Click(object sender, EventArgs e)
+        {
+            /*
+             * 
+ WILL NOT CHECK RESTRICTIONS (weapon- addons // toogleable skill or perk //  WILL LOAD WHAT THE STRING SAYS (texboxes should trigger validation ) )
+
+cha=int 0..ConstNr ;|| comboBoxSelectChars  // char class 
+vet=int 0..10;|| comboBoxSelectVeteranLevel         //veteran
+bsH=int 0..10; || comboBoxBonusHealth  // bonus health bonus
+bsS=int 0..10; || comboBoxBonusShields // bonus shields bonus
+bPR=int 0..10; || comboBoxBonusPRS // bonus Power Recharge Speed
+wpn=int 0..ConstNr || comboBoxSelectWeapon // selected weapon
+gea=int 0..ConstNr || comboBoxSelectGear // selected gear
+ad1=int 0..ConstNr || comboBoxSelectAddOn1
+ad2=int 0..ConstNr || comboBoxSelectAddOn2
+bt1=int 0..ConstNr || comboBoxSelectBooster1
+bt2=int 0..ConstNr || comboBoxSelectBooster2
+ap1=int 0..ConstNr || comboBoxSelectApex1
+ap2=int 0..ConstNr || comboBoxSelectApex2
+
+REPLACE BELLOW WITH String
+cSBWD=0 or 1    // set false if ==1 set true;  checkBoxShieldBoostWD
+cBWD=0 or 1    // set false if ==1 set true;  checkBoxBarricadeWD
+cBPD=0 or 1    // set false if ==1 set true; checkBoxBarricadePD
+cET=0 or 1    // set false if ==1 set true;  checkBoxElementalTechOnTarget
+cWO=0 or 1  // checkBoxOverwrite
+cbl=01010;
+
+bwd=int     // textBoxOverwriteBaseWeaponDamage
+bms=int     // textBoxOverwriteBaseWeaponMAGSize
+sdt=float //textBoxSumSquadDebuffsOnTarget
+dif=int   // comboBoxSelectDifficulty
+ene=int  // comboBoxSelectEnemy 
+cbs=string 01010; // checkBoxOnOffSkill1 to checkBoxOnOffSkill5
+
+s1p=string 002107 // comboBoxSkill1_1 to 1_6  + 5 * checkBoxSkill1_1 to 1_6  (0=00  1=10 2=20  6=11 7=21 5=01 is illegal)
+s2p=string 002102
+s3p=string 002102
+s4p=string 002102
+s5p=string 002102
+
+HIT Recalculate (which should hit GENERATE BUILD LINK AT THE END)
+             * 
+             * **/
+            initializeCombos(); // VALID OR NOT WE REINITILIZE COMBOS AND RESET CONTENT
+
+            int tempIntIdx; tempIntIdx = 0; float tempfloatIdx; tempfloatIdx = 0;
+            string tempSting; tempSting = "";
+
+            foreach (string s in textBoxLoadBuild.Text.Split(';'))
+            {
+                if (s.StartsWith("cha=")) if (int.TryParse(s.Substring(4, s.Length - 4), out tempIntIdx)) if ((tempIntIdx >= 0) && (tempIntIdx <= constNumberChars)) comboBoxSelectChars.SelectedIndex = tempIntIdx;
+                if (s.StartsWith("vet=")) if (int.TryParse(s.Substring(4, s.Length - 4), out tempIntIdx)) if ((tempIntIdx >= 0) && (tempIntIdx <= 10)) comboBoxSelectVeteranLevel.SelectedIndex = tempIntIdx;
+                if (s.StartsWith("bsH=")) if (int.TryParse(s.Substring(4, s.Length - 4), out tempIntIdx)) if ((tempIntIdx >= 0) && (tempIntIdx <= 10)) comboBoxBonusHealth.SelectedIndex = tempIntIdx;
+                if (s.StartsWith("bsS=")) if (int.TryParse(s.Substring(4, s.Length - 4), out tempIntIdx)) if ((tempIntIdx >= 0) && (tempIntIdx <= 10)) comboBoxBonusShields.SelectedIndex = tempIntIdx;
+                if (s.StartsWith("bPR=")) if (int.TryParse(s.Substring(4, s.Length - 4), out tempIntIdx)) if ((tempIntIdx >= 0) && (tempIntIdx <= 10)) comboBoxBonusPRS.SelectedIndex = tempIntIdx;
+                if (s.StartsWith("wpn=")) if (int.TryParse(s.Substring(4, s.Length - 4), out tempIntIdx)) if ((tempIntIdx >= 0) && (tempIntIdx <= constNrGuns)) comboBoxSelectWeapon.SelectedIndex = tempIntIdx;
+                if (s.StartsWith("gea=")) if (int.TryParse(s.Substring(4, s.Length - 4), out tempIntIdx)) if ((tempIntIdx >= 0) && (tempIntIdx <= constNrGear)) comboBoxSelectGear.SelectedIndex = tempIntIdx;
+                //dirty very low on checks
+                if (s.StartsWith("ad1=")) if (int.TryParse(s.Substring(4, s.Length - 4), out tempIntIdx)) if ((tempIntIdx >= 0) && (tempIntIdx <= comboBoxSelectAddOn1.Items.Count)) comboBoxSelectAddOn1.SelectedIndex = tempIntIdx;
+                if (s.StartsWith("ad2=")) if (int.TryParse(s.Substring(4, s.Length - 4), out tempIntIdx)) if ((tempIntIdx >= 0) && (tempIntIdx <= comboBoxSelectAddOn2.Items.Count)) comboBoxSelectAddOn2.SelectedIndex = tempIntIdx;
+                if (s.StartsWith("bt1=")) if (int.TryParse(s.Substring(4, s.Length - 4), out tempIntIdx)) if ((tempIntIdx >= 0) && (tempIntIdx <= constNrBoosters)) comboBoxSelectBooster1.SelectedIndex = tempIntIdx;
+                if (s.StartsWith("bt2=")) if (int.TryParse(s.Substring(4, s.Length - 4), out tempIntIdx)) if ((tempIntIdx >= 0) && (tempIntIdx <= constNrBoosters)) comboBoxSelectBooster2.SelectedIndex = tempIntIdx;
+                if (s.StartsWith("ap1=")) if (int.TryParse(s.Substring(4, s.Length - 4), out tempIntIdx)) if ((tempIntIdx >= 0) && (tempIntIdx <= constNrAPEXMods)) comboBoxSelectApex1.SelectedIndex = tempIntIdx;
+                if (s.StartsWith("ap2=")) if (int.TryParse(s.Substring(4, s.Length - 4), out tempIntIdx)) if ((tempIntIdx >= 0) && (tempIntIdx <= constNrAPEXMods)) comboBoxSelectApex2.SelectedIndex = tempIntIdx;
+                if (s.StartsWith("cbl=")) if (s.Substring(4, s.Length - 4).Length == 5)
+                    {
+                        tempSting = s.Substring(4, s.Length - 4);
+                      //  MessageBox.Show(s.Substring(4, s.Length - 4));
+                        if (tempSting[0] == '1') checkBoxShieldBoostWD.Checked = true; else checkBoxShieldBoostWD.Checked = false;
+                        if (tempSting[1] == '1') checkBoxBarricadeWD.Checked = true; else checkBoxBarricadeWD.Checked = false;
+                        if (tempSting[2] == '1') checkBoxBarricadePD.Checked = true; else checkBoxBarricadePD.Checked = false;
+                        if (tempSting[3] == '1') checkBoxElementalTechOnTarget.Checked = true; else checkBoxElementalTechOnTarget.Checked = false;
+                        if (tempSting[4] == '1') checkBoxOverwrite.Checked = true; else checkBoxOverwrite.Checked = false;
+                        
+                    }
+
+
+                // bwd=int     // textBoxOverwriteBaseWeaponDamage
+                if (s.StartsWith("bwd=")) if (int.TryParse(s.Substring(4, s.Length - 4), out tempIntIdx)) if (tempIntIdx >= 0)
+                        {
+                            textBoxOverwriteBaseWeaponDamage.Text = s.Substring(4, s.Length - 4);
+                            // set focus  // lose focus to trigger validation
+                            this.ActiveControl = textBoxOverwriteBaseWeaponDamage;
+                            this.ActiveControl = buttonLoadBuild;
+                        }
+
+
+
+                //bms=int     // textBoxOverwriteBaseWeaponMAGSize
+                if (s.StartsWith("bms=")) if (int.TryParse(s.Substring(4, s.Length - 4), out tempIntIdx)) if (tempIntIdx >= 0)
+                        {
+                            textBoxOverwriteBaseWeaponMAGSize.Text = s.Substring(4, s.Length - 4);
+                            // set focus  // lose focus to trigger validation
+                            this.ActiveControl = textBoxOverwriteBaseWeaponMAGSize;
+                            this.ActiveControl = buttonLoadBuild;
+                        }
+
+                // sdt = float //textBoxSumSquadDebuffsOnTarget
+                if (s.StartsWith("sdt=")) if (float.TryParse(s.Substring(4, s.Length - 4), out tempfloatIdx)) if ((tempfloatIdx >= 0) && (tempfloatIdx <=1) )
+                        {
+                            textBoxSumSquadDebuffsOnTarget.Text = s.Substring(4, s.Length - 4);
+                            // set focus  // lose focus to trigger validation
+                            this.ActiveControl = textBoxSumSquadDebuffsOnTarget;
+                            this.ActiveControl = buttonLoadBuild;
+                        }
+
+                //  dif = int   // comboBoxSelectDifficulty
+                if (s.StartsWith("dif=")) if (int.TryParse(s.Substring(4, s.Length - 4), out tempIntIdx)) if ((tempIntIdx >= 0) && (tempIntIdx <= 3)) comboBoxSelectDifficulty.SelectedIndex = tempIntIdx;
+
+                //  ene = int  // comboBoxSelectEnemy 
+                if (s.StartsWith("ene=")) if (int.TryParse(s.Substring(4, s.Length - 4), out tempIntIdx)) if ((tempIntIdx >= 0) && (tempIntIdx <= comboBoxSelectEnemy.Items.Count)) comboBoxSelectEnemy.SelectedIndex = tempIntIdx;
+
+                //cbs = string 01010; // checkBoxOnOffSkill1 to checkBoxOnOffSkill5
+                if (s.StartsWith("cbs=")) if (s.Substring(4, s.Length - 4).Length == 5)
+                    {
+                        tempSting = s.Substring(4, s.Length - 4);
+                        if (tempSting[0] == '1') checkBoxOnOffSkill1.Checked = true; else checkBoxOnOffSkill1.Checked = false;
+                        if (tempSting[1] == '1') checkBoxOnOffSkill2.Checked = true; else checkBoxOnOffSkill2.Checked = false;
+                        if (tempSting[2] == '1') checkBoxOnOffSkill3.Checked = true; else checkBoxOnOffSkill3.Checked = false;
+                        if (tempSting[3] == '1') checkBoxOnOffSkill4.Checked = true; else checkBoxOnOffSkill4.Checked = false;
+                        if (tempSting[4] == '1') checkBoxOnOffSkill5.Checked = true; else checkBoxOnOffSkill5.Checked = false;
+                        //  MessageBox.Show(s.Substring(4, s.Length - 4));
+                    }
+
+                if (s.StartsWith("s1p=")) if (s.Substring(4, s.Length - 4).Length == 6)
+                    {
+                        //  MessageBox.Show(s.Substring(4, s.Length - 4));
+                        tempSting = s.Substring(4, s.Length - 4);
+                        switch (tempSting[5])
+                        {
+                            case '0':
+                                //set skill 1_6 to "none"
+                                //  MessageBox.Show("none");
+                                comboBoxSkill1_6.Text = "none";
+                                checkBoxSkill1_6.Checked = false;
+                                break;
+                            case '1':
+                                // set perk 6a in combobox1_6
+                                comboBoxSkill1_6.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill1evo6a;
+                                checkBoxSkill1_6.Checked = false;
+                                break;
+                            case '2':
+                                comboBoxSkill1_6.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill1evo6b;
+                                checkBoxSkill1_6.Checked = false;
+                                break;
+                            case '6':
+                                comboBoxSkill1_6.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill1evo6a;
+                                checkBoxSkill1_6.Checked = true;
+                                break;
+                            case '7':
+                                // MessageBox.Show(playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill1evo6b);
+                                comboBoxSkill1_6.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill1evo6b;
+                                checkBoxSkill1_6.Checked = true;
+                                break;
+                        }
+                        switch (tempSting[4])
+                        {
+                            case '0':
+                                comboBoxSkill1_5.Text = "none";
+                                checkBoxSkill1_5.Checked = false;
+                                break;
+                            case '1':
+                                comboBoxSkill1_5.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill1evo5a;
+                                checkBoxSkill1_5.Checked = false;
+                                break;
+                            case '2':
+                                comboBoxSkill1_5.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill1evo5b;
+                                checkBoxSkill1_5.Checked = false;
+                                break;
+                            case '6':
+                                comboBoxSkill1_5.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill1evo5a;
+                                checkBoxSkill1_5.Checked = true;
+                                break;
+                            case '7':
+                                comboBoxSkill1_5.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill1evo5b;
+                                checkBoxSkill1_5.Checked = true;
+                                break;
+                        }
+                        switch (tempSting[3])
+                        {
+                            case '0':
+                                comboBoxSkill1_4.Text = "none";
+                                checkBoxSkill1_4.Checked = false;
+                                break;
+                            case '1':
+                                comboBoxSkill1_4.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill1evo4a;
+                                checkBoxSkill1_4.Checked = false;
+                                break;
+                            case '2':
+                                comboBoxSkill1_4.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill1evo4b;
+                                checkBoxSkill1_4.Checked = false;
+                                break;
+                            case '6':
+                                comboBoxSkill1_4.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill1evo4a;
+                                checkBoxSkill1_4.Checked = true;
+                                break;
+                            case '7':
+                                comboBoxSkill1_4.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill1evo4b;
+                                checkBoxSkill1_4.Checked = true;
+                                break;
+                        }
+                        switch (tempSting[2])
+                        {
+                            case '0':
+                                comboBoxSkill1_3.Text = "none";
+                                checkBoxSkill1_3.Checked = false;
+                                break;
+                            case '1':
+                                comboBoxSkill1_3.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill1evo3;
+                                checkBoxSkill1_3.Checked = false;
+                                break;
+                            case '6':
+                                comboBoxSkill1_3.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill1evo3;
+                                checkBoxSkill1_3.Checked = true;
+                                break;
+                        }
+                        switch (tempSting[1])
+                        {
+                            case '0':
+                                comboBoxSkill1_2.Text = "none";
+                                checkBoxSkill1_2.Checked = false;
+                                break;
+                            case '1':
+                                comboBoxSkill1_2.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill1evo2;
+                                checkBoxSkill1_2.Checked = false;
+                                break;
+                            case '6':
+                                comboBoxSkill1_2.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill1evo2;
+                                checkBoxSkill1_2.Checked = true;
+                                break;
+                        }
+                        switch (tempSting[0])
+                        {
+                            case '1':
+                                comboBoxSkill1_1.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill1evo1;
+                                checkBoxSkill1_1.Checked = false;
+                                break;
+                            case '6':
+                                comboBoxSkill1_1.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill1evo1;
+                                checkBoxSkill1_1.Checked = true;
+                                break;
+
+                        }
+                    }
+                if (s.StartsWith("s2p=")) if (s.Substring(4, s.Length - 4).Length == 6)
+                    {
+                        //  MessageBox.Show(s.Substring(4, s.Length - 4));
+                        tempSting = s.Substring(4, s.Length - 4);
+                        switch (tempSting[5])
+                        {
+                            case '0':
+                                comboBoxSkill2_6.Text = "none";
+                                checkBoxSkill2_6.Checked = false;
+                                break;
+                            case '1':
+                                comboBoxSkill2_6.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill2evo6a;
+                                checkBoxSkill2_6.Checked = false;
+                                break;
+                            case '2':
+                                comboBoxSkill2_6.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill2evo6b;
+                                checkBoxSkill2_6.Checked = false;
+                                break;
+                            case '6':
+                                comboBoxSkill2_6.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill2evo6a;
+                                checkBoxSkill2_6.Checked = true;
+                                break;
+                            case '7':
+                                comboBoxSkill2_6.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill2evo6b;
+                                checkBoxSkill2_6.Checked = true;
+                                break;
+                        }
+                        switch (tempSting[4])
+                        {
+                            case '0':
+                                comboBoxSkill2_5.Text = "none";
+                                checkBoxSkill2_5.Checked = false;
+                                break;
+                            case '1':
+                                comboBoxSkill2_5.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill2evo5a;
+                                checkBoxSkill2_5.Checked = false;
+                                break;
+                            case '2':
+                                comboBoxSkill2_5.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill2evo5b;
+                                checkBoxSkill2_5.Checked = false;
+                                break;
+                            case '6':
+                                comboBoxSkill2_5.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill2evo5a;
+                                checkBoxSkill2_5.Checked = true;
+                                break;
+                            case '7':
+                                comboBoxSkill2_5.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill2evo5b;
+                                checkBoxSkill2_5.Checked = true;
+                                break;
+                        }
+                        switch (tempSting[3])
+                        {
+                            case '0':
+                                comboBoxSkill2_4.Text = "none";
+                                checkBoxSkill2_4.Checked = false;
+                                break;
+                            case '1':
+                                comboBoxSkill2_4.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill2evo4a;
+                                checkBoxSkill2_4.Checked = false;
+                                break;
+                            case '2':
+                                comboBoxSkill2_4.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill2evo4b;
+                                checkBoxSkill2_4.Checked = false;
+                                break;
+                            case '6':
+                                comboBoxSkill2_4.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill2evo4a;
+                                checkBoxSkill2_4.Checked = true;
+                                break;
+                            case '7':
+                                comboBoxSkill2_4.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill2evo4b;
+                                checkBoxSkill2_4.Checked = true;
+                                break;
+                        }
+                        switch (tempSting[2])
+                        {
+                            case '0':
+                                comboBoxSkill2_3.Text = "none";
+                                checkBoxSkill2_3.Checked = false;
+                                break;
+                            case '1':
+                                comboBoxSkill2_3.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill2evo3;
+                                checkBoxSkill2_3.Checked = false;
+                                break;
+                            case '6':
+                                comboBoxSkill2_3.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill2evo3;
+                                checkBoxSkill2_3.Checked = true;
+                                break;
+                        }
+                        switch (tempSting[1])
+                        {
+                            case '0':
+                                comboBoxSkill2_2.Text = "none";
+                                checkBoxSkill2_2.Checked = false;
+                                break;
+                            case '1':
+                                comboBoxSkill2_2.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill2evo2;
+                                checkBoxSkill2_2.Checked = false;
+                                break;
+                            case '6':
+                                comboBoxSkill2_2.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill2evo2;
+                                checkBoxSkill2_2.Checked = true;
+                                break;
+                        }
+                        switch (tempSting[0])
+                        {
+                            case '1':
+                                comboBoxSkill2_1.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill2evo1;
+                                checkBoxSkill2_1.Checked = false;
+                                break;
+                            case '6':
+                                comboBoxSkill2_1.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill2evo1;
+                                checkBoxSkill2_1.Checked = true;
+                                break;
+
+                        }
+                    }
+                if (s.StartsWith("s3p=")) if (s.Substring(4, s.Length - 4).Length == 6)
+                    {
+                        //  MessageBox.Show(s.Substring(4, s.Length - 4));
+                        tempSting = s.Substring(4, s.Length - 4);
+                        switch (tempSting[5])
+                        {
+                            case '0':
+                                comboBoxSkill3_6.Text = "none";
+                                checkBoxSkill3_6.Checked = false;
+                                break;
+                            case '1':
+                                comboBoxSkill3_6.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill3evo6a;
+                                checkBoxSkill3_6.Checked = false;
+                                break;
+                            case '2':
+                                comboBoxSkill3_6.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill3evo6b;
+                                checkBoxSkill3_6.Checked = false;
+                                break;
+                            case '6':
+                                comboBoxSkill3_6.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill3evo6a;
+                                checkBoxSkill3_6.Checked = true;
+                                break;
+                            case '7':
+                                comboBoxSkill3_6.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill3evo6b;
+                                checkBoxSkill3_6.Checked = true;
+                                break;
+                        }
+                        switch (tempSting[4])
+                        {
+                            case '0':
+                                comboBoxSkill3_5.Text = "none";
+                                checkBoxSkill3_5.Checked = false;
+                                break;
+                            case '1':
+                                comboBoxSkill3_5.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill3evo5a;
+                                checkBoxSkill3_5.Checked = false;
+                                break;
+                            case '2':
+                                comboBoxSkill3_5.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill3evo5b;
+                                checkBoxSkill3_5.Checked = false;
+                                break;
+                            case '6':
+                                comboBoxSkill3_5.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill3evo5a;
+                                checkBoxSkill3_5.Checked = true;
+                                break;
+                            case '7':
+                                comboBoxSkill3_5.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill3evo5b;
+                                checkBoxSkill3_5.Checked = true;
+                                break;
+                        }
+                        switch (tempSting[3])
+                        {
+                            case '0':
+                                comboBoxSkill3_4.Text = "none";
+                                checkBoxSkill3_4.Checked = false;
+                                break;
+                            case '1':
+                                comboBoxSkill3_4.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill3evo4a;
+                                checkBoxSkill3_4.Checked = false;
+                                break;
+                            case '2':
+                                comboBoxSkill3_4.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill3evo4b;
+                                checkBoxSkill3_4.Checked = false;
+                                break;
+                            case '6':
+                                comboBoxSkill3_4.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill3evo4a;
+                                checkBoxSkill3_4.Checked = true;
+                                break;
+                            case '7':
+                                comboBoxSkill3_4.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill3evo4b;
+                                checkBoxSkill3_4.Checked = true;
+                                break;
+                        }
+                        switch (tempSting[2])
+                        {
+                            case '0':
+                                comboBoxSkill3_3.Text = "none";
+                                checkBoxSkill3_3.Checked = false;
+                                break;
+                            case '1':
+                                comboBoxSkill3_3.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill3evo3;
+                                checkBoxSkill3_3.Checked = false;
+                                break;
+                            case '6':
+                                comboBoxSkill3_3.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill3evo3;
+                                checkBoxSkill3_3.Checked = true;
+                                break;
+                        }
+                        switch (tempSting[1])
+                        {
+                            case '0':
+                                comboBoxSkill3_2.Text = "none";
+                                checkBoxSkill3_2.Checked = false;
+                                break;
+                            case '1':
+                                comboBoxSkill3_2.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill3evo2;
+                                checkBoxSkill3_2.Checked = false;
+                                break;
+                            case '6':
+                                comboBoxSkill3_2.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill3evo2;
+                                checkBoxSkill3_2.Checked = true;
+                                break;
+                        }
+                        switch (tempSting[0])
+                        {
+                            case '1':
+                                comboBoxSkill3_1.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill3evo1;
+                                checkBoxSkill3_1.Checked = false;
+                                break;
+                            case '6':
+                                comboBoxSkill3_1.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill3evo1;
+                                checkBoxSkill3_1.Checked = true;
+                                break;
+
+                        }
+                    }
+                if (s.StartsWith("s4p=")) if (s.Substring(4, s.Length - 4).Length == 6)
+                    {
+                        //  MessageBox.Show(s.Substring(4, s.Length - 4));
+                        tempSting = s.Substring(4, s.Length - 4);
+                        switch (tempSting[5])
+                        {
+                            case '0':
+                                comboBoxSkill4_6.Text = "none";
+                                checkBoxSkill4_6.Checked = false;
+                                break;
+                            case '1':
+                                comboBoxSkill4_6.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill4evo6a;
+                                checkBoxSkill4_6.Checked = false;
+                                break;
+                            case '2':
+                                comboBoxSkill4_6.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill4evo6b;
+                                checkBoxSkill4_6.Checked = false;
+                                break;
+                            case '6':
+                                comboBoxSkill4_6.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill4evo6a;
+                                checkBoxSkill4_6.Checked = true;
+                                break;
+                            case '7':
+                                comboBoxSkill4_6.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill4evo6b;
+                                checkBoxSkill4_6.Checked = true;
+                                break;
+                        }
+                        switch (tempSting[4])
+                        {
+                            case '0':
+                                comboBoxSkill4_5.Text = "none";
+                                checkBoxSkill4_5.Checked = false;
+                                break;
+                            case '1':
+                                comboBoxSkill4_5.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill4evo5a;
+                                checkBoxSkill4_5.Checked = false;
+                                break;
+                            case '2':
+                                comboBoxSkill4_5.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill4evo5b;
+                                checkBoxSkill4_5.Checked = false;
+                                break;
+                            case '6':
+                                comboBoxSkill4_5.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill4evo5a;
+                                checkBoxSkill4_5.Checked = true;
+                                break;
+                            case '7':
+                                comboBoxSkill4_5.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill4evo5b;
+                                checkBoxSkill4_5.Checked = true;
+                                break;
+                        }
+                        switch (tempSting[3])
+                        {
+                            case '0':
+                                comboBoxSkill4_4.Text = "none";
+                                checkBoxSkill4_4.Checked = false;
+                                break;
+                            case '1':
+                                comboBoxSkill4_4.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill4evo4a;
+                                checkBoxSkill4_4.Checked = false;
+                                break;
+                            case '2':
+                                comboBoxSkill4_4.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill4evo4b;
+                                checkBoxSkill4_4.Checked = false;
+                                break;
+                            case '6':
+                                comboBoxSkill4_4.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill4evo4a;
+                                checkBoxSkill4_4.Checked = true;
+                                break;
+                            case '7':
+                                comboBoxSkill4_4.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill4evo4b;
+                                checkBoxSkill4_4.Checked = true;
+                                break;
+                        }
+                        switch (tempSting[2])
+                        {
+                            case '0':
+                                comboBoxSkill4_3.Text = "none";
+                                checkBoxSkill4_3.Checked = false;
+                                break;
+                            case '1':
+                                comboBoxSkill4_3.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill4evo3;
+                                checkBoxSkill4_3.Checked = false;
+                                break;
+                            case '6':
+                                comboBoxSkill4_3.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill4evo3;
+                                checkBoxSkill4_3.Checked = true;
+                                break;
+                        }
+                        switch (tempSting[1])
+                        {
+                            case '0':
+                                comboBoxSkill4_2.Text = "none";
+                                checkBoxSkill4_2.Checked = false;
+                                break;
+                            case '1':
+                                comboBoxSkill4_2.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill4evo2;
+                                checkBoxSkill4_2.Checked = false;
+                                break;
+                            case '6':
+                                comboBoxSkill4_2.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill4evo2;
+                                checkBoxSkill4_2.Checked = true;
+                                break;
+                        }
+                        switch (tempSting[0])
+                        {
+                            case '1':
+                                comboBoxSkill4_1.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill4evo1;
+                                checkBoxSkill4_1.Checked = false;
+                                break;
+                            case '6':
+                                comboBoxSkill4_1.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill4evo1;
+                                checkBoxSkill4_1.Checked = true;
+                                break;
+
+                        }
+                    }
+                                                if (s.StartsWith("s5p=")) if (s.Substring(4, s.Length - 4).Length == 6)
+                                                    {
+                                                        //  MessageBox.Show(s.Substring(4, s.Length - 4));
+                                                        tempSting = s.Substring(4, s.Length - 4);
+                                                        switch (tempSting[5])
+                                                        {
+                                                            case '0':
+                                                                comboBoxSkill5_6.Text = "none";
+                                                                checkBoxSkill5_6.Checked = false;
+                                                                break;
+                                                            case '1':
+                                                                comboBoxSkill5_6.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill5evo6a;
+                                                                checkBoxSkill5_6.Checked = false;
+                                                                break;
+                                                            case '2':
+                                                                comboBoxSkill5_6.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill5evo6b;
+                                                                checkBoxSkill5_6.Checked = false;
+                                                                break;
+                                                            case '6':
+                                                                comboBoxSkill5_6.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill5evo6a;
+                                                                checkBoxSkill5_6.Checked = true;
+                                                                break;
+                                                            case '7':
+                                                                comboBoxSkill5_6.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill5evo6b;
+                                                                checkBoxSkill5_6.Checked = true;
+                                                                break;
+                                                        }
+                                                        switch (tempSting[4])
+                                                        {
+                                                            case '0':
+                                                                comboBoxSkill5_5.Text = "none";
+                                                                checkBoxSkill5_5.Checked = false;
+                                                                break;
+                                                            case '1':
+                                                                comboBoxSkill5_5.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill5evo5a;
+                                                                checkBoxSkill5_5.Checked = false;
+                                                                break;
+                                                            case '2':
+                                                                comboBoxSkill5_5.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill5evo5b;
+                                                                checkBoxSkill5_5.Checked = false;
+                                                                break;
+                                                            case '6':
+                                                                comboBoxSkill5_5.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill5evo5a;
+                                                                checkBoxSkill5_5.Checked = true;
+                                                                break;
+                                                            case '7':
+                                                                comboBoxSkill5_5.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill5evo5b;
+                                                                checkBoxSkill5_5.Checked = true;
+                                                                break;
+                                                        }
+                                                        switch (tempSting[3])
+                                                        {
+                                                            case '0':
+                                                                comboBoxSkill5_4.Text = "none";
+                                                                checkBoxSkill5_4.Checked = false;
+                                                                break;
+                                                            case '1':
+                                                                comboBoxSkill5_4.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill5evo4a;
+                                                                checkBoxSkill5_4.Checked = false;
+                                                                break;
+                                                            case '2':
+                                                                comboBoxSkill5_4.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill5evo4b;
+                                                                checkBoxSkill5_4.Checked = false;
+                                                                break;
+                                                            case '6':
+                                                                comboBoxSkill5_4.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill5evo4a;
+                                                                checkBoxSkill5_4.Checked = true;
+                                                                break;
+                                                            case '7':
+                                                                comboBoxSkill5_4.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill5evo4b;
+                                                                checkBoxSkill5_4.Checked = true;
+                                                                break;
+                                                        }
+                                                        switch (tempSting[2])
+                                                        {
+                                                            case '0':
+                                                                comboBoxSkill5_3.Text = "none";
+                                                                checkBoxSkill5_3.Checked = false;
+                                                                break;
+                                                            case '1':
+                                                                comboBoxSkill5_3.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill5evo3;
+                                                                checkBoxSkill5_3.Checked = false;
+                                                                break;
+                                                            case '6':
+                                                                comboBoxSkill5_3.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill5evo3;
+                                                                checkBoxSkill5_3.Checked = true;
+                                                                break;
+                                                        }
+                                                        switch (tempSting[1])
+                                                        {
+                                                            case '0':
+                                                                comboBoxSkill5_2.Text = "none";
+                                                                checkBoxSkill5_2.Checked = false;
+                                                                break;
+                                                            case '1':
+                                                                comboBoxSkill5_2.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill5evo2;
+                                                                checkBoxSkill5_2.Checked = false;
+                                                                break;
+                                                            case '6':
+                                                                comboBoxSkill5_2.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill5evo2;
+                                                                checkBoxSkill5_2.Checked = true;
+                                                                break;
+                                                        }
+                                                        switch (tempSting[0])
+                                                        {
+                                                            case '1':
+                                                                comboBoxSkill5_1.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill5evo1;
+                                                                checkBoxSkill5_1.Checked = false;
+                                                                break;
+                                                            case '6':
+                                                                comboBoxSkill5_1.Text = playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill5evo1;
+                                                                checkBoxSkill5_1.Checked = true;
+                                                                break;
+
+                                                        }
+                                                        //s1p = string 002107 // comboBoxSkill1_1 to 1_6  + 5 * checkBoxSkill1_1 to 1_6  (0=00  1=10 2=20  6=11 7=21 5=01 is illegal)
+                                                        //s2p = string 002102
+                                                        //s3p = string 002102
+                                                        //s4p = string 002102
+                                                        //s5p = string 002102
+
+                                                    }
+            }
+            // DO RECALCULATE
+            buttonReCalculate.PerformClick();
+        }
+
+        private void textBoxLoadBuild_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonBuildLink_Click(object sender, EventArgs e)
+        {
+
+            //  cbl = 00001; bwd = 4; bms = 234; sdt = 0.3; dif = 2; ene = 4; cbs = 00000; s1p = 166700; s2p = 166700; s3p = 166700; s4p = 166700; s5p = 166700;
+            textBoxExportBuild.Text = "";
+            textBoxExportBuild.Text = ";cha=" + comboBoxSelectChars.SelectedIndex + ";";
+            textBoxExportBuild.Text += "vet=" + comboBoxSelectVeteranLevel.SelectedIndex + ";";
+            textBoxExportBuild.Text += "bsH=" + comboBoxBonusHealth.SelectedIndex + ";";
+            textBoxExportBuild.Text += "bsS=" + comboBoxBonusShields.SelectedIndex + ";";
+            textBoxExportBuild.Text += "bPR=" + comboBoxBonusPRS.SelectedIndex + ";";
+            textBoxExportBuild.Text += "wpn=" + comboBoxSelectWeapon.SelectedIndex + ";";
+            textBoxExportBuild.Text += "gea=" + comboBoxSelectGear.SelectedIndex + ";";
+            textBoxExportBuild.Text += "ad1=" + comboBoxSelectAddOn1.SelectedIndex + ";";
+            textBoxExportBuild.Text += "ad2=" + comboBoxSelectAddOn2.SelectedIndex + ";";
+            textBoxExportBuild.Text += "bt1=" + comboBoxSelectBooster1.SelectedIndex + ";";
+            textBoxExportBuild.Text += "bt2=" + comboBoxSelectBooster2.SelectedIndex + ";";
+            textBoxExportBuild.Text += "ap1=" + comboBoxSelectApex1.SelectedIndex + ";";
+            textBoxExportBuild.Text += "ap2=" + comboBoxSelectApex2.SelectedIndex + ";";
+            textBoxExportBuild.Text += "cbl=";
+            if (checkBoxShieldBoostWD.Checked) textBoxExportBuild.Text+= "1"; else textBoxExportBuild.Text += "0";
+            if (checkBoxBarricadeWD.Checked) textBoxExportBuild.Text += '1'; else textBoxExportBuild.Text += '0';
+            if (checkBoxBarricadePD.Checked) textBoxExportBuild.Text += '1'; else textBoxExportBuild.Text += '0';
+            if (checkBoxElementalTechOnTarget.Checked) textBoxExportBuild.Text += '1'; else textBoxExportBuild.Text += '0';
+            if (checkBoxOverwrite.Checked) textBoxExportBuild.Text += "1;"; else textBoxExportBuild.Text += "0;";
+
+            textBoxExportBuild.Text += "bwd=" + textBoxOverwriteBaseWeaponDamage.Text + ";";
+            textBoxExportBuild.Text += "bms=" + textBoxOverwriteBaseWeaponMAGSize.Text + ";";
+            textBoxExportBuild.Text += "sdt=" + textBoxSumSquadDebuffsOnTarget.Text + ";";
+            textBoxExportBuild.Text += "dif=" + comboBoxSelectDifficulty.SelectedIndex + ";";
+            textBoxExportBuild.Text += "ene=" + comboBoxSelectEnemy.SelectedIndex + ";";
+
+            textBoxExportBuild.Text += "cbs=";
+            if (checkBoxOnOffSkill1.Checked) textBoxExportBuild.Text += "1"; else textBoxExportBuild.Text += "0";
+            if (checkBoxOnOffSkill2.Checked) textBoxExportBuild.Text += "1"; else textBoxExportBuild.Text += "0";
+            if (checkBoxOnOffSkill3.Checked) textBoxExportBuild.Text += "1"; else textBoxExportBuild.Text += "0";
+            if (checkBoxOnOffSkill4.Checked) textBoxExportBuild.Text += "1"; else textBoxExportBuild.Text += "0";
+            if (checkBoxOnOffSkill5.Checked) textBoxExportBuild.Text += "1;"; else textBoxExportBuild.Text += "0;";
+
+            int tempInt;
+
+            textBoxExportBuild.Text += "s1p="; tempInt = 0; 
+            tempInt +=1; if (checkBoxSkill1_1.Checked) tempInt +=5 ;  textBoxExportBuild.Text +=tempInt.ToString(); tempInt = 0;
+            if (!comboBoxSkill1_2.Text.Equals("none")) tempInt += 1; if (checkBoxSkill1_2.Checked) tempInt += 5; textBoxExportBuild.Text += tempInt.ToString(); tempInt = 0;
+            if (!comboBoxSkill1_3.Text.Equals("none")) tempInt += 1; if (checkBoxSkill1_3.Checked) tempInt += 5; textBoxExportBuild.Text += tempInt.ToString(); tempInt = 0;
+            if  (comboBoxSkill1_4.Text.Equals("none")) textBoxExportBuild.Text += "0";
+            else {
+                                               if (comboBoxSkill1_4.Text.Equals(playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill1evo4a)) tempInt += 1; else tempInt += 2;
+                                               if (checkBoxSkill1_4.Checked) tempInt += 5; textBoxExportBuild.Text += tempInt.ToString(); tempInt = 0;
+                  }
+            if (comboBoxSkill1_5.Text.Equals("none")) textBoxExportBuild.Text += "0";
+            else
+            {
+                if (comboBoxSkill1_5.Text.Equals(playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill1evo5a)) tempInt += 1; else tempInt += 2;
+                if (checkBoxSkill1_5.Checked) tempInt += 5; textBoxExportBuild.Text += tempInt.ToString(); tempInt = 0;
+            }
+            if (comboBoxSkill1_6.Text.Equals("none")) textBoxExportBuild.Text += "0;";
+            else
+            {
+                if (comboBoxSkill1_6.Text.Equals(playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill1evo6a)) tempInt += 1; else tempInt += 2;
+                if (checkBoxSkill1_6.Checked) tempInt += 5; textBoxExportBuild.Text += tempInt.ToString() + ";"; 
+            }
+
+            textBoxExportBuild.Text += "s2p="; tempInt = 0;
+            tempInt += 1; if (checkBoxSkill2_1.Checked) tempInt += 5; textBoxExportBuild.Text += tempInt.ToString(); tempInt = 0;
+            if (!comboBoxSkill2_2.Text.Equals("none")) tempInt += 1; if (checkBoxSkill2_2.Checked) tempInt += 5; textBoxExportBuild.Text += tempInt.ToString(); tempInt = 0;
+            if (!comboBoxSkill2_3.Text.Equals("none")) tempInt += 1; if (checkBoxSkill2_3.Checked) tempInt += 5; textBoxExportBuild.Text += tempInt.ToString(); tempInt = 0;
+            if (comboBoxSkill2_4.Text.Equals("none")) textBoxExportBuild.Text += "0";
+            else
+            {
+                if (comboBoxSkill2_4.Text.Equals(playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill2evo4a)) tempInt += 1; else tempInt += 2;
+                if (checkBoxSkill2_4.Checked) tempInt += 5; textBoxExportBuild.Text += tempInt.ToString(); tempInt = 0;
+            }
+            if (comboBoxSkill2_5.Text.Equals("none")) textBoxExportBuild.Text += "0";
+            else
+            {
+                if (comboBoxSkill2_5.Text.Equals(playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill2evo5a)) tempInt += 1; else tempInt += 2;
+                if (checkBoxSkill2_5.Checked) tempInt += 5; textBoxExportBuild.Text += tempInt.ToString(); tempInt = 0;
+            }
+            if (comboBoxSkill2_6.Text.Equals("none")) textBoxExportBuild.Text += "0;";
+            else
+            {
+                if (comboBoxSkill2_6.Text.Equals(playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill2evo6a)) tempInt += 1; else tempInt += 2;
+                if (checkBoxSkill2_6.Checked) tempInt += 5; textBoxExportBuild.Text += tempInt.ToString() + ";";
+            }
+
+            textBoxExportBuild.Text += "s3p="; tempInt = 0;
+            tempInt += 1; if (checkBoxSkill3_1.Checked) tempInt += 5; textBoxExportBuild.Text += tempInt.ToString(); tempInt = 0;
+            if (!comboBoxSkill3_2.Text.Equals("none")) tempInt += 1; if (checkBoxSkill3_2.Checked) tempInt += 5; textBoxExportBuild.Text += tempInt.ToString(); tempInt = 0;
+            if (!comboBoxSkill3_3.Text.Equals("none")) tempInt += 1; if (checkBoxSkill3_3.Checked) tempInt += 5; textBoxExportBuild.Text += tempInt.ToString(); tempInt = 0;
+            if (comboBoxSkill3_4.Text.Equals("none")) textBoxExportBuild.Text += "0";
+            else
+            {
+                if (comboBoxSkill3_4.Text.Equals(playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill3evo4a)) tempInt += 1; else tempInt += 2;
+                if (checkBoxSkill3_4.Checked) tempInt += 5; textBoxExportBuild.Text += tempInt.ToString(); tempInt = 0;
+            }
+            if (comboBoxSkill3_5.Text.Equals("none")) textBoxExportBuild.Text += "0";
+            else
+            {
+                if (comboBoxSkill3_5.Text.Equals(playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill3evo5a)) tempInt += 1; else tempInt += 2;
+                if (checkBoxSkill3_5.Checked) tempInt += 5; textBoxExportBuild.Text += tempInt.ToString(); tempInt = 0;
+            }
+            if (comboBoxSkill3_6.Text.Equals("none")) textBoxExportBuild.Text += "0;";
+            else
+            {
+                if (comboBoxSkill3_6.Text.Equals(playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill3evo6a)) tempInt += 1; else tempInt += 2;
+                if (checkBoxSkill3_6.Checked) tempInt += 5; textBoxExportBuild.Text += tempInt.ToString() + ";";
+            }
+
+            textBoxExportBuild.Text += "s4p="; tempInt = 0;
+            if (!comboBoxSkill4_1.Text.Equals("none")) tempInt += 1; if (checkBoxSkill4_1.Checked) tempInt += 5; textBoxExportBuild.Text += tempInt.ToString(); tempInt = 0;
+            if (!comboBoxSkill4_2.Text.Equals("none")) tempInt += 1; if (checkBoxSkill4_2.Checked) tempInt += 5; textBoxExportBuild.Text += tempInt.ToString(); tempInt = 0;
+            if (!comboBoxSkill4_3.Text.Equals("none")) tempInt += 1; if (checkBoxSkill4_3.Checked) tempInt += 5; textBoxExportBuild.Text += tempInt.ToString(); tempInt = 0;
+            if (comboBoxSkill4_4.Text.Equals("none")) textBoxExportBuild.Text += "0";
+            else
+            {
+                if (comboBoxSkill4_4.Text.Equals(playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill4evo4a)) tempInt += 1; else tempInt += 2;
+                if (checkBoxSkill4_4.Checked) tempInt += 5; textBoxExportBuild.Text += tempInt.ToString(); tempInt = 0;
+            }
+            if (comboBoxSkill4_5.Text.Equals("none")) textBoxExportBuild.Text += "0";
+            else
+            {
+                if (comboBoxSkill4_5.Text.Equals(playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill4evo5a)) tempInt += 1; else tempInt += 2;
+                if (checkBoxSkill4_5.Checked) tempInt += 5; textBoxExportBuild.Text += tempInt.ToString(); tempInt = 0;
+            }
+            if (comboBoxSkill4_6.Text.Equals("none")) textBoxExportBuild.Text += "0;";
+            else
+            {
+                if (comboBoxSkill4_6.Text.Equals(playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill4evo6a)) tempInt += 1; else tempInt += 2;
+                if (checkBoxSkill4_6.Checked) tempInt += 5; textBoxExportBuild.Text += tempInt.ToString() + ";";
+            }
+            textBoxExportBuild.Text += "s5p="; tempInt = 0;
+            if (!comboBoxSkill5_1.Text.Equals("none")) tempInt += 1; if (checkBoxSkill5_1.Checked) tempInt += 5; textBoxExportBuild.Text += tempInt.ToString(); tempInt = 0;
+            if (!comboBoxSkill5_2.Text.Equals("none")) tempInt += 1; if (checkBoxSkill5_2.Checked) tempInt += 5; textBoxExportBuild.Text += tempInt.ToString(); tempInt = 0;
+            if (!comboBoxSkill5_3.Text.Equals("none")) tempInt += 1; if (checkBoxSkill5_3.Checked) tempInt += 5; textBoxExportBuild.Text += tempInt.ToString(); tempInt = 0;
+            if (comboBoxSkill5_4.Text.Equals("none")) textBoxExportBuild.Text += "0";
+            else
+            {
+                if (comboBoxSkill5_4.Text.Equals(playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill5evo4a)) tempInt += 1; else tempInt += 2;
+                if (checkBoxSkill5_4.Checked) tempInt += 5; textBoxExportBuild.Text += tempInt.ToString(); tempInt = 0;
+            }
+            if (comboBoxSkill5_5.Text.Equals("none")) textBoxExportBuild.Text += "0";
+            else
+            {
+                if (comboBoxSkill5_5.Text.Equals(playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill5evo5a)) tempInt += 1; else tempInt += 2;
+                if (checkBoxSkill5_5.Checked) tempInt += 5; textBoxExportBuild.Text += tempInt.ToString(); tempInt = 0;
+            }
+            if (comboBoxSkill5_6.Text.Equals("none")) textBoxExportBuild.Text += "0;";
+            else
+            {
+                if (comboBoxSkill5_6.Text.Equals(playingCharactersArray[comboBoxSelectChars.SelectedIndex].Skill5evo6a)) tempInt += 1; else tempInt += 2;
+                if (checkBoxSkill5_6.Checked) tempInt += 5; textBoxExportBuild.Text += tempInt.ToString() + ";";
+            }
+        }
     }
     }
 
+ 
  
