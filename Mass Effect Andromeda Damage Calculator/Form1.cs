@@ -6247,6 +6247,481 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
 
                         break;
 
+                    case "Incinerate":
+                        // "Incinerate", "incinerate description", false, "BaseDam=350;BaseDOTDam=45;BaseDOTDur=6;Recharge=12;FirePrimer=HA", "vsArmor=0.6", "Recharge=0.15", "DOTDam=0.35;IDam=0.35", "4a", "DOTDam=0.5;DOTDuration=0.5", "IDam=0.6", "vsArmor=0.65", "Detonator=1","6b",
+
+                        //human infiltrator, krogan engineer ET, turian havok trooper, salarian architect ET and TEffectDur 
+                                                                    
+                        // combo boxes HAVE PLAYER CHOICES 
+                        // Also need to get the right playingCharactersArray[SelectedCharIndex].Skill X CooldownMaxDurationPassiveTempEtc
+                        TCooldownMaxDurationPassiveTempEtc = "";
+                        if (playingCharactersArray[SelectedCharIndex].Skill1Name.Equals(ActiveSkillList[ASkillIndex])) TCooldownMaxDurationPassiveTempEtc = playingCharactersArray[SelectedCharIndex].Skill1CooldownMaxDurationPassiveTempEtc;
+                        if (playingCharactersArray[SelectedCharIndex].Skill2Name.Equals(ActiveSkillList[ASkillIndex])) TCooldownMaxDurationPassiveTempEtc = playingCharactersArray[SelectedCharIndex].Skill2CooldownMaxDurationPassiveTempEtc;
+                        if (playingCharactersArray[SelectedCharIndex].Skill3Name.Equals(ActiveSkillList[ASkillIndex])) TCooldownMaxDurationPassiveTempEtc = playingCharactersArray[SelectedCharIndex].Skill3CooldownMaxDurationPassiveTempEtc;
+
+                        //  txtBox.Text += TCooldownMaxDurationPassiveTempEtc;
+
+                        float IncinerateImpactBaseDam, IncinerateBaseDOTDPS, IncinerateRecharge, IncinerateBaseDOTDur;
+                        IncinerateImpactBaseDam = IncinerateBaseDOTDPS = IncinerateBaseDOTDur = IncinerateRecharge = 0; 
+
+                        foreach (string s in TCooldownMaxDurationPassiveTempEtc.Split(';'))
+                        {
+                            //  "BaseDam="
+                            if (s.StartsWith("BaseDam=")) IncinerateImpactBaseDam = float.Parse(s.Substring(8, s.Length - 8));
+                            if (s.StartsWith("BaseDOTDam=")) IncinerateBaseDOTDPS = float.Parse(s.Substring(11, s.Length - 11));
+                            if (s.StartsWith("BaseDOTDur=")) IncinerateBaseDOTDur = float.Parse(s.Substring(11, s.Length - 11));
+                            if (s.StartsWith("Recharge=")) IncinerateRecharge = float.Parse(s.Substring(9, s.Length - 9));
+
+                        }
+                        //  txtBox.Text += IncinerateImpactBaseDam.ToString() + " " + IncinerateChargedBaseDam.ToString() + " " + IncinerateChainBaseDam.ToString() + " " + IncinerateBaseNrChains.ToString() + " " + IncinerateRecharge.ToString() + "\r\n";
+
+
+
+
+ // "Incinerate", "incinerate description", false, "BaseDam=350;BaseDOTDam=45;BaseDOTDur=6;Recharge=12;FirePrimer=HA", "vsArmor=0.6", "Recharge=0.15", "DOTDam=0.35;IDam=0.35", "4a", "DOTDam=0.5;DOTDuration=0.5", "IDam=0.6", "vsArmor=0.65", "Detonator=1","6b",
+
+                        
+                        //we will need to Find the right comboboxes by name .. 
+                        controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_1", true);
+                        comboBox = controls[0] as ComboBox;
+                        //  txtBox.Text += comboBox.Text + "\r\n";
+
+                        float IncineratevsArmor1; IncineratevsArmor1 = 0;
+                        foreach (string s in comboBox.Text.Split(';'))
+                        {
+                            // check for Dam
+                            if (s.StartsWith("vsArmor=")) IncineratevsArmor1 += float.Parse(s.Substring(8, s.Length - 8));
+                        }
+
+                        controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_2", true);
+                        comboBox = controls[0] as ComboBox;
+                        //   txtBox.Text += comboBox.Text + "\r\n";
+
+                        float IncinerateRecharge1; IncinerateRecharge1 = 0;
+                        foreach (string s in comboBox.Text.Split(';'))
+                        {
+                            // check for Dam
+                            if (s.StartsWith("Recharge=")) IncinerateRecharge1 += float.Parse(s.Substring(9, s.Length - 9));
+
+                        }
+
+
+                        controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_3", true);
+                        comboBox = controls[0] as ComboBox;
+                        //txtBox.Text += comboBox.Text + "\r\n";
+
+                        float IncinerateIDam1, IncinerateDOTDam1; IncinerateIDam1 = IncinerateDOTDam1 =0;
+                        foreach (string s in comboBox.Text.Split(';'))
+                        {
+                            // check for Dam
+                            if (s.StartsWith("IDam=")) IncinerateIDam1 += float.Parse(s.Substring(5, s.Length - 5));
+                            if (s.StartsWith("DOTDam=")) IncinerateDOTDam1 += float.Parse(s.Substring(7, s.Length - 7));
+
+                        }
+
+                        controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_4", true);
+                        comboBox = controls[0] as ComboBox;
+                        //txtBox.Text += comboBox.Text + "\r\n";
+
+                        float  IncinerateDOTDam2, IncinerateDOTDur; IncinerateDOTDam2 = IncinerateDOTDur = 0;
+                        foreach (string s in comboBox.Text.Split(';'))
+                        {
+                            // check for Dam
+                            if (s.StartsWith("DOTDam=")) IncinerateDOTDam2 += float.Parse(s.Substring(7, s.Length - 7));
+                            if (s.StartsWith("DOTDuration=")) IncinerateDOTDur += float.Parse(s.Substring(12, s.Length - 12));
+
+                        }
+  // "Incinerate", "incinerate description", false, "BaseDam=350;BaseDOTDam=45;BaseDOTDur=6;Recharge=12;FirePrimer=HA", "vsArmor=0.6", "Recharge=0.15", "DOTDam=0.35;IDam=0.35", "4a", "DOTDam=0.5;DOTDuration=0.5", "IDam=0.6", "vsArmor=0.65", "Detonator=1","6b",
+
+                         controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_5", true);
+                         comboBox = controls[0] as ComboBox;
+                                                //txtBox.Text += comboBox.Text + "\r\n";
+
+                       float IncineratevsArmor2, IncinerateIDam2; IncineratevsArmor2 = IncinerateIDam2 = 0;
+
+                        foreach (string s in comboBox.Text.Split(';'))
+                        {
+                            if (s.StartsWith("IDam=")) IncinerateIDam2 += float.Parse(s.Substring(5, s.Length - 5));
+                            if (s.StartsWith("vsArmor=")) IncineratevsArmor2 += float.Parse(s.Substring(8, s.Length - 8));
+                        }
+
+
+  //                                                controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_6", true);
+ //                                               comboBox = controls[0] as ComboBox;
+                                                //  txtBox.Text += comboBox.Text + "\r\n";
+
+                                                
+  //                                              foreach (string s in comboBox.Text.Split(';'))
+//                                                {
+                                              
+  //                                              }
+
+                        
+                                                 // duration we'll care at the DOT section
+                                                //txtBox.Text += "Duration irrelevant ..no sustained effect \r\n\r\n";
+
+                                                txtBox.Text += "Cooldown FORMULA: (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP )  \r\n";
+                                                txtBox.Text += "In the interest of developement speed this app ignores the WeaponWeight minigame - as long as you don't go over capacity AS YOU SHOULD! - the related term will be Zero \r\n\r\n";
+                                                txtBox.Text += "Cooldown = ( BaseIncinerateCooldown " + IncinerateRecharge + " / ( 1 ";
+
+
+                                                /// relevant variables for cooldown
+                                                /// BONUS STAT PRS, IncinerateRecharge1, IncinerateRecharge2 , gearPRS, booster1PRS, booster2PRS, skill1PRS to skill5PRS; + 
+                                                /// skill4PRTR
+                                                /// skill1PRPSum to skill3PRPSum
+                                                /// 
+
+                                                /// still at cooldown
+                                                /// (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP )  \r\n";
+
+                                                SumAdditives = 0;
+                                                if (float.Parse(comboBoxBonusPRS.Text) != 0) { SumAdditives += float.Parse(comboBoxBonusPRS.Text) / 100; txtBox.Text += " + Bonus 'Power Recharge' Stat" + float.Parse(comboBoxBonusPRS.Text) / 100; }
+                                                if (IncinerateRecharge1 != 0) { SumAdditives += IncinerateRecharge1; txtBox.Text += " + 'Incinerate Recharge Evo 2' " + IncinerateRecharge1.ToString(); }
+                                                if (gearPRS != 0) { SumAdditives += gearPRS; txtBox.Text += " +  gear '" + comboBoxSelectGear.Text.Split('*')[0] + "' " + gearPRS.ToString(); }
+                                                if (booster1PRS != 0) { SumAdditives += booster1PRS; txtBox.Text += " +  booster '" + comboBoxSelectBooster1.Text.Split('*')[0] + "' " + booster1PRS.ToString(); }
+                                                if (booster2PRS != 0) { SumAdditives += booster2PRS; txtBox.Text += " +  booster '" + comboBoxSelectBooster2.Text.Split('*')[0] + "' " + booster2PRS.ToString(); }
+                                                if (skill1PRS != 0) { SumAdditives += skill1PRS; txtBox.Text += " + PRS from '" + playingCharactersArray[SelectedCharIndex].Skill1Name + "' skill" + skill1PRS.ToString(); }
+                                                if (skill2PRS != 0) { SumAdditives += skill2PRS; txtBox.Text += " + PRS from '" + playingCharactersArray[SelectedCharIndex].Skill2Name + "' skill" + skill2PRS.ToString(); }
+                                                if (skill3PRS != 0) { SumAdditives += skill3PRS; txtBox.Text += " + PRS from '" + playingCharactersArray[SelectedCharIndex].Skill3Name + "' skill" + skill3PRS.ToString(); }
+                                                if (skill4PRS != 0) { SumAdditives += skill4PRS; txtBox.Text += " + PRS from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4PRS.ToString(); }
+                                                if (skill5PRS != 0) { SumAdditives += skill5PRS; txtBox.Text += " + PRS from '" + playingCharactersArray[SelectedCharIndex].Skill5Name + "' skill" + skill5PRS.ToString(); }
+                                                txtBox.Text += " ) * ( 1";
+
+                                                PRP = 0;
+                                                // NO CHAR CURRENTLY HAS Incinerate AND ANNIHILATION
+                                                if (skill1PRPSum != 0) { PRP = skill1PRPSum; txtBox.Text += " + 'Annihilation PRP' )" + skill1PRPSum.ToString(); }
+                                                if (skill2PRPSum != 0) { PRP = skill2PRPSum; txtBox.Text += " + 'Annihilation PRP' )" + skill2PRPSum.ToString(); }
+                                                if (skill3PRPSum != 0) { PRP = skill3PRPSum; txtBox.Text += " + 'Annihilation PRP' )" + skill3PRPSum.ToString(); }
+
+                                                txtBox.Text += " ) = " + ((IncinerateRecharge / (1 + SumAdditives)) * (1 + PRP)).ToString() + "\r\n";
+                                                //if (skill4PRTR != 0) { txtBox.Text += " Detonation Feedback" + (1-skill4PRTR).ToString() + " multiplier to remaining cooldown amount \r\n"; }
+                                                txtBox.Text += "\r\n";
+
+
+                                                /// relevant variables for damage
+
+                                                // will need to split  base // charged/ chain damage v*4 (health and synthhealth) 
+
+
+                                                ///////////////
+                                                /////////////// let the splittage begin
+
+
+                                                txtBox.Text += "Incinerate Impact Damage formula: BaseDamage * (1 + SumImpactAdditives) * (1 + SumDebuff + SumArmorDebuff + ETdebuff + SquadDebuff ) * (1 + SumvsDefense)  \r\n";
+                                                txtBox.Text += "Incinerate DOT Damage per tick formula: ( BaseDOTDPS/2) * (1 + SumDOTAdditives) * (1 + SumDebuff + SumArmorDebuff + ETdebuff + SquadDebuff ) * (1 + SumvsDefense)  \r\n\r\n";
+                                                txtBox.Text += "some debuffs, ex Pull's expose cannot be activated vs Armor or Shields - I don't account for that here - but you can tick that debuff off in UI if you want numbers without it and RE-Calculate) \r\n";
+                                                txtBox.Text += "INCINERATE SELF PROCS Elemental Tech DEBUFF vsArmor and vsHealth (on the chars that have ET) \r\n\r\n";
+                        
+                                                tempString1 = "Impact Damage vs Health  = Base Impact Damage " + IncinerateImpactBaseDam.ToString() + " * ( 1";
+                                                tempString2 = "Impact Damage vs Shields = Base Impact Damage " + IncinerateImpactBaseDam.ToString() + " * ( 1";
+                                                tempString3 = "Impact Damage vs Armor = Base Impact Damage " + IncinerateImpactBaseDam.ToString() + " * ( 1";
+                                                
+                                                tempString4 = "DOT tick Damage vs Health = (BaseDOTDPS/2) Damage " + (IncinerateBaseDOTDPS / 2).ToString() + " * ( 1";
+                                                tempString5 = "DOT tick Damage vs Armor = (BaseDOTDPS/2) Damage " + (IncinerateBaseDOTDPS / 2).ToString() + " * ( 1";
+
+                      
+                                                // Will need to accumulate the strings and print at the end since I want to print 9 at once .. 
+                                                // need sum of debuffs and MAX(skill ArmorDebuff - cryo beam and turret don't stack) first 
+
+                                                //ADDITIVEs
+                        
+                                             float SumIncinerateImpactAdditives, SumIncinerateDOTAdditives ; SumIncinerateImpactAdditives = SumIncinerateDOTAdditives = 0 ;
+
+                        if (IncinerateIDam1 != 0)
+                        {
+                            SumIncinerateImpactAdditives += IncinerateIDam1;
+                            tempString1 += " + 'Damage Evo 3' " + IncinerateIDam1.ToString();
+                            tempString2 += " + 'Damage Evo 3' " + IncinerateIDam1.ToString();
+                            tempString3 += " + 'Damage Evo 3' " + IncinerateIDam1.ToString();
+                        }                                               
+                       
+                                                if (IncinerateIDam2 != 0)
+                                                {
+                            SumIncinerateImpactAdditives += IncinerateIDam2;
+                                                    tempString1 += " + 'Impact Damage Evo 5a' " + IncinerateIDam2.ToString();
+                                                    tempString2 += " + 'Impact Damage Evo 5a' " + IncinerateIDam2.ToString();
+                                                    tempString3 += " + 'Impact Damage Evo 5a' " + IncinerateIDam2.ToString();
+                                                    
+                                                }
+
+                        if (IncinerateDOTDam1 != 0)
+                        {
+                            SumIncinerateDOTAdditives += IncinerateDOTDam1;
+                            tempString4 += " + 'Damage Evo 3' " + IncinerateDOTDam1.ToString();
+                            tempString5 += " + 'Damage Evo 3' " + IncinerateDOTDam1.ToString();
+                           
+                        }
+                        if (IncinerateDOTDam2 != 0)
+                        {
+                            SumIncinerateDOTAdditives += IncinerateDOTDam2;
+                            tempString4 += " + 'DOT Damage Evo 4b' " + IncinerateDOTDam2.ToString();
+                            tempString5 += " + 'DOT Damage Evo 4b' " + IncinerateDOTDam2.ToString();
+                           
+                        }
+
+
+                        if (gearTPD != 0)
+                                                {
+                            SumIncinerateDOTAdditives += gearTPD; SumIncinerateImpactAdditives += gearTPD;
+                            tempString1 += " +  gear '" + comboBoxSelectGear.Text.Split('*')[0] + "' " + gearTPD.ToString();
+                                                    tempString2 += " +  gear '" + comboBoxSelectGear.Text.Split('*')[0] + "' " + gearTPD.ToString();
+                                                    tempString3 += " +  gear '" + comboBoxSelectGear.Text.Split('*')[0] + "' " + gearTPD.ToString();
+                                                    tempString4 += " +  gear '" + comboBoxSelectGear.Text.Split('*')[0] + "' " + gearTPD.ToString();
+                                                    tempString5 += " +  gear '" + comboBoxSelectGear.Text.Split('*')[0] + "' " + gearTPD.ToString();
+                                                                                                 }
+
+
+                                                if (booster1TPD != 0)
+                                                {
+     
+                            SumIncinerateDOTAdditives += booster1TPD; SumIncinerateImpactAdditives += booster1TPD;
+                            tempString1 += " +  booster '" + comboBoxSelectBooster1.Text.Split('*')[0] + "' " + booster1TPD.ToString();
+                                                    tempString2 += " +  booster '" + comboBoxSelectBooster1.Text.Split('*')[0] + "' " + booster1TPD.ToString();
+                                                    tempString3 += " +  booster '" + comboBoxSelectBooster1.Text.Split('*')[0] + "' " + booster1TPD.ToString();
+                                                    tempString4 += " +  booster '" + comboBoxSelectBooster1.Text.Split('*')[0] + "' " + booster1TPD.ToString();
+                                                    tempString5 += " +  booster '" + comboBoxSelectBooster1.Text.Split('*')[0] + "' " + booster1TPD.ToString();
+                                                                                                  }
+
+                                                if (booster2TPD != 0)
+                                                {
+                            SumIncinerateDOTAdditives += booster2TPD; SumIncinerateImpactAdditives += booster2TPD;
+
+                            tempString1 += " +  booster '" + comboBoxSelectBooster2.Text.Split('*')[0] + "' " + booster2TPD.ToString();
+                                                    tempString2 += " +  booster '" + comboBoxSelectBooster2.Text.Split('*')[0] + "' " + booster2TPD.ToString();
+                                                    tempString3 += " +  booster '" + comboBoxSelectBooster2.Text.Split('*')[0] + "' " + booster2TPD.ToString();
+                                                    tempString4 += " +  booster '" + comboBoxSelectBooster2.Text.Split('*')[0] + "' " + booster2TPD.ToString();
+                                                    tempString5 += " +  booster '" + comboBoxSelectBooster2.Text.Split('*')[0] + "' " + booster2TPD.ToString();
+                                                                                                  }
+                                                if (apex1TPD != 0)
+                                                {
+                                                    
+                            SumIncinerateDOTAdditives += apex1TPD; SumIncinerateImpactAdditives += apex1TPD;
+
+                            tempString1 += " +  apex '" + comboBoxSelectApex1.Text.Split('*')[0] + "' " + apex1TPD.ToString();
+                                                    tempString2 += " +  apex '" + comboBoxSelectApex1.Text.Split('*')[0] + "' " + apex1TPD.ToString();
+                                                    tempString3 += " +  apex '" + comboBoxSelectApex1.Text.Split('*')[0] + "' " + apex1TPD.ToString();
+                                                    tempString4 += " +  apex '" + comboBoxSelectApex1.Text.Split('*')[0] + "' " + apex1TPD.ToString();
+                                                    tempString5 += " +  apex '" + comboBoxSelectApex1.Text.Split('*')[0] + "' " + apex1TPD.ToString();
+                                                  
+                                                }
+
+                                                if (apex2TPD != 0)
+                                                {
+                            SumIncinerateDOTAdditives += apex2TPD; SumIncinerateImpactAdditives += apex2TPD;
+
+                            tempString1 += " +  apex '" + comboBoxSelectApex2.Text.Split('*')[0] + "' " + apex2TPD.ToString();
+                                                    tempString2 += " +  apex '" + comboBoxSelectApex2.Text.Split('*')[0] + "' " + apex2TPD.ToString();
+                                                    tempString3 += " +  apex '" + comboBoxSelectApex2.Text.Split('*')[0] + "' " + apex2TPD.ToString();
+                                                    tempString4 += " +  apex '" + comboBoxSelectApex2.Text.Split('*')[0] + "' " + apex2TPD.ToString();
+                                                    tempString5 += " +  apex '" + comboBoxSelectApex2.Text.Split('*')[0] + "' " + apex2TPD.ToString();
+                                                     }
+
+                                                if (float.Parse(comboBoxSelectVeteranLevel.Text) != 0)
+                                                {
+                                              
+                            SumIncinerateDOTAdditives += float.Parse(comboBoxSelectVeteranLevel.Text) * 0.04f; SumIncinerateImpactAdditives += float.Parse(comboBoxSelectVeteranLevel.Text) * 0.04f;
+
+                            tempString1 += " + Veteran PD Bonus " + (float.Parse(comboBoxSelectVeteranLevel.Text) * 0.04f).ToString();
+                                                    tempString2 += " + Veteran PD Bonus " + (float.Parse(comboBoxSelectVeteranLevel.Text) * 0.04f).ToString();
+                                                    tempString3 += " + Veteran PD Bonus " + (float.Parse(comboBoxSelectVeteranLevel.Text) * 0.04f).ToString();
+                                                    tempString4 += " + Veteran PD Bonus " + (float.Parse(comboBoxSelectVeteranLevel.Text) * 0.04f).ToString();
+                                                    tempString5 += " + Veteran PD Bonus " + (float.Parse(comboBoxSelectVeteranLevel.Text) * 0.04f).ToString();
+                                                  
+                                                }
+
+                                                if (skill1PDSum != 0)
+                                                {
+                                                  
+                            SumIncinerateDOTAdditives += skill1PDSum; SumIncinerateImpactAdditives += skill1PDSum;
+
+                            tempString1 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill1Name + "' skill" + skill1PDSum.ToString();
+                                                    tempString2 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill1Name + "' skill" + skill1PDSum.ToString();
+                                                    tempString3 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill1Name + "' skill" + skill1PDSum.ToString();
+                                                    tempString4 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill1Name + "' skill" + skill1PDSum.ToString();
+                                                   
+                                                }
+
+                                                if (skill2PDSum != 0)
+                                                {
+                            SumIncinerateDOTAdditives += skill2PDSum; SumIncinerateImpactAdditives += skill2PDSum;
+
+                            tempString1 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill2Name + "' skill" + skill2PDSum.ToString();
+                                                    tempString2 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill2Name + "' skill" + skill2PDSum.ToString();
+                                                    tempString3 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill2Name + "' skill" + skill2PDSum.ToString();
+                                                    tempString4 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill2Name + "' skill" + skill2PDSum.ToString();
+                                                    tempString5 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill2Name + "' skill" + skill2PDSum.ToString();
+                                                    
+                                                }
+                                                if (skill3PDSum != 0)
+                                                {
+                            SumIncinerateDOTAdditives += skill3PDSum; SumIncinerateImpactAdditives += skill3PDSum;
+                            tempString1 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill3Name + "' skill" + skill3PDSum.ToString();
+                                                    tempString2 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill3Name + "' skill" + skill3PDSum.ToString();
+                                                    tempString3 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill3Name + "' skill" + skill3PDSum.ToString();
+                                                    tempString4 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill3Name + "' skill" + skill3PDSum.ToString();
+                                                    tempString5 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill3Name + "' skill" + skill3PDSum.ToString();
+                                                            }
+                                                if (skill4PDSum != 0)
+                                                {
+                            SumIncinerateDOTAdditives += skill4PDSum; SumIncinerateImpactAdditives += skill4PDSum;
+                            tempString1 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4PDSum.ToString();
+                                                    tempString2 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4PDSum.ToString();
+                                                    tempString3 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4PDSum.ToString();
+                                                    tempString4 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4PDSum.ToString();
+                                                    tempString5 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4PDSum.ToString();
+                                                                                               }
+
+
+                                                if (checkBoxBarricadePD.Checked)
+                                                {
+                                                    
+                            SumIncinerateDOTAdditives += 0.2f; SumIncinerateImpactAdditives += 0.2f;
+
+                            tempString1 += " + PD from squad Barricade 0.2 ";
+                                                    tempString2 += " + PD from squad Barricade 0.2 ";
+                                                    tempString3 += " + PD from squad Barricade 0.2 ";
+                                                    tempString4 += " + PD from squad Barricade 0.2 ";
+                                                    tempString5 += " + PD from squad Barricade 0.2 ";
+                                                  
+                                                }
+
+
+                                                //DEBUFFS
+                                               SumAdditives = 0;
+
+                                                tempString1 += " ) * ( 1"; tempString2 += " ) * ( 1"; tempString3 += " ) * ( 1";
+                                                tempString4 += " ) * ( 1";  tempString5 += " ) * ( 1"; 
+
+                                                if (skill1DebuffSum != 0)
+                                                {
+                                                    SumAdditives += skill1DebuffSum;
+                                                    tempString1 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill1Name + "' skill" + skill1DebuffSum.ToString();
+                                                    tempString2 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill1Name + "' skill" + skill1DebuffSum.ToString(); 
+                                                    tempString3 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill1Name + "' skill" + skill1DebuffSum.ToString(); 
+                                                    tempString4 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill1Name + "' skill" + skill1DebuffSum.ToString(); 
+                                                    tempString5 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill1Name + "' skill" + skill1DebuffSum.ToString(); 
+                                                   }
+                                             if (skill2DebuffSum != 0)
+                                                   {
+                            SumAdditives += skill2DebuffSum;
+                            tempString1 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill2Name + "' skill" + skill2DebuffSum.ToString();
+                            tempString2 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill2Name + "' skill" + skill2DebuffSum.ToString();
+                            tempString3 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill2Name + "' skill" + skill2DebuffSum.ToString();
+                            tempString4 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill2Name + "' skill" + skill2DebuffSum.ToString();
+                            tempString5 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill2Name + "' skill" + skill2DebuffSum.ToString();
+                        }
+
+                        if (skill3DebuffSum != 0)
+                        {
+                            SumAdditives += skill3DebuffSum;
+                            tempString1 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill3Name + "' skill" + skill3DebuffSum.ToString();
+                            tempString2 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill3Name + "' skill" + skill3DebuffSum.ToString();
+                            tempString3 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill3Name + "' skill" + skill3DebuffSum.ToString();
+                            tempString4 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill3Name + "' skill" + skill3DebuffSum.ToString();
+                            tempString5 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill3Name + "' skill" + skill3DebuffSum.ToString();
+                        }
+
+                        if (skill4DebuffSum != 0)
+                        {
+                            SumAdditives += skill4DebuffSum;
+                            tempString1 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4DebuffSum.ToString();
+                            tempString2 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4DebuffSum.ToString();
+                            tempString3 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4DebuffSum.ToString();
+                            tempString4 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4DebuffSum.ToString();
+                            tempString5 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4DebuffSum.ToString();
+                        }
+
+
+                        //  if WE HAVE ET skill46a ET AND checkBoxElementalTechOnTarget.checked 
+                        // Incinerate does self proc ET
+                        if (comboBoxSkill4_6.Text.Equals("ET=0.35"))
+                                                {
+                                                    SumAdditives += 0.35f;
+                                                    tempString1 += " + debuffvsAll from Elemental Tech 0.35";
+                                                  if (checkBoxElementalTechOnTarget.Checked)  tempString2 += " + debuffvsAll from Elemental Tech 0.35"; //No self proc vs shields
+                                                    tempString3 += " + debuffvsAll from Elemental Tech 0.35";
+                                                    tempString4 += " + debuffvsAll from Elemental Tech 0.35";
+                                                    tempString5 += " + debuffvsAll from Elemental Tech 0.35";
+                                                           }
+
+                                                if (float.Parse(textBoxSumSquadDebuffsOnTarget.Text) != 0)
+                                                {
+                                                    SumAdditives += float.Parse(textBoxSumSquadDebuffsOnTarget.Text);
+                                                    tempString1 += " + debuffvsAll from Squad " + textBoxSumSquadDebuffsOnTarget.Text;
+                                                    tempString2 += " + debuffvsAll from Squad " + textBoxSumSquadDebuffsOnTarget.Text;
+                                                    tempString3 += " + debuffvsAll from Squad " + textBoxSumSquadDebuffsOnTarget.Text;
+                                                    tempString4 += " + debuffvsAll from Squad " + textBoxSumSquadDebuffsOnTarget.Text;
+                                                    tempString5 += " + debuffvsAll from Squad " + textBoxSumSquadDebuffsOnTarget.Text;
+                                                   
+                                                }
+
+                                            //    if (SumArmorDebuff != 0)
+                                            //    {
+                                            //        tempString4 += " + debuffvsArmor" + SumArmorDebuff.ToString();
+                                            //        tempString8 += " + debuffvsArmor" + SumArmorDebuff.ToString();
+                                            //        tempString12 += " + debuffvsArmor" + SumArmorDebuff.ToString();
+                                            //    }
+
+                                                SumDebuff = SumAdditives;
+
+                                                tempString1 += " ) * ( 1 "; tempString2 += " ) * ( 1 "; tempString3 += " ) * ( 1 ";
+                        tempString4 += " ) * ( 1 "; tempString5 += " ) * ( 1 ";
+
+
+                                                tempString1 += " ) = " + (IncinerateImpactBaseDam * (1 + SumIncinerateImpactAdditives) * (1 + SumDebuff)).ToString();
+                                                tempString4 += " ) = " + ((IncinerateBaseDOTDPS/2) * (1 + SumIncinerateDOTAdditives) * (1 + SumDebuff)).ToString();
+                                              
+
+                                                if (skill4vsShields != 0) tempString2 += " + Passive vsShields " + skill4vsShields.ToString();
+                        if (comboBoxSkill4_6.Text.Equals("ET=0.35") && (!checkBoxElementalTechOnTarget.Checked )) tempString2 += " ) = " + (IncinerateImpactBaseDam * (1 + SumIncinerateImpactAdditives) * (1 + SumDebuff - 0.35f) * (1 + skill4vsShields)).ToString(); // NO self ET vs shields
+                        else tempString2 += " ) = " + (IncinerateImpactBaseDam * (1 + SumIncinerateImpactAdditives) * (1 + SumDebuff) * (1 + skill4vsShields)).ToString();
+
+
+                        SumAdditives = IncineratevsArmor1 ;
+                        tempString3 += " + Built-in vsArmor " + IncineratevsArmor1.ToString();
+                        tempString5 += " + Built-in vsArmor " + IncineratevsArmor1.ToString();
+
+                        if (IncineratevsArmor2  != 0)
+                        {
+                            SumAdditives = IncineratevsArmor2;
+                            tempString3 += " + vsArmor evo 5b " + IncineratevsArmor2.ToString();
+                            tempString5 += " + vsArmor evo 5b " + IncineratevsArmor2.ToString();
+                        }
+
+
+                        if (skill4vsArmor != 0)
+                        {
+                            SumAdditives += skill4vsArmor; 
+                            tempString3 += " + Passive vsArmor " + skill4vsArmor.ToString();
+                            tempString5 += " + Passive vsArmor " + skill4vsArmor.ToString();
+                        }
+
+
+                                                tempString3 += " ) = " + (IncinerateImpactBaseDam * (1 + SumIncinerateImpactAdditives) * (1 + SumDebuff ) * (1 + SumAdditives )).ToString();
+                                                tempString5 += " ) = " + ((IncinerateBaseDOTDPS / 2) * (1 + SumIncinerateDOTAdditives) * (1 + SumDebuff ) * (1 + SumAdditives )).ToString();
+
+                        txtBox.Text += tempString1 + "\r\n";
+                        txtBox.Text += tempString2 + "\r\n";
+                        txtBox.Text += tempString3 + "\r\n\r\n";
+                        txtBox.Text += tempString4 + "\r\n";
+                        txtBox.Text += "DOT tick Damage vs Shields = 0 \r\n";
+                        txtBox.Text += tempString5 + "\r\n\r\n";
+
+                        // need max total DOT vs health and armor
+
+                        
+                           txtBox.Text += "DOT duration : " + IncinerateBaseDOTDur.ToString() + " * ( 1";
+                            if (skill4PEffectDur != 0) txtBox.Text += " + EffectDuration from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4PEffectDur.ToString();
+                            if (skill5PEffectDur != 0) txtBox.Text += " + EffectDuration from '" + playingCharactersArray[SelectedCharIndex].Skill5Name + "' skill" + skill5PEffectDur.ToString();
+                            if (IncinerateDOTDur != 0) txtBox.Text += " + EffectDuration from evo 3b " + IncinerateDOTDur.ToString();
+                            txtBox.Text += " ) = " + (IncinerateBaseDOTDur * (1 + skill4PEffectDur + skill5PEffectDur + IncinerateDOTDur)).ToString() + " seconds \r\n";
+
+                            txtBox.Text += "Maximum Total Incinerate DOT vs Health = " + (IncinerateBaseDOTDPS * (1 + SumIncinerateDOTAdditives) * (1 + SumDebuff) * IncinerateBaseDOTDur * (1 + skill4PEffectDur + skill5PEffectDur + IncinerateDOTDur)).ToString() + "\r\n";
+                            txtBox.Text += "Maximum Total Incinerate DOT vs Armor = " + (IncinerateBaseDOTDPS * (1 + SumIncinerateDOTAdditives) * (1 + SumDebuff) * (1 + SumAdditives ) * IncinerateBaseDOTDur * (1 + skill4PEffectDur + skill5PEffectDur + IncinerateDOTDur)).ToString() + "\r\n";
+                         
+
+                        break;
+
                 }
             }
 
@@ -6518,7 +6993,7 @@ s5p=string 002102
 HIT Recalculate (which should hit GENERATE BUILD LINK AT THE END)
              * 
              * **/
-            initializeCombos(); // VALID OR NOT WE REINITILIZE COMBOS AND RESET CONTENT
+                        initializeCombos(); // VALID OR NOT WE REINITILIZE COMBOS AND RESET CONTENT
 
             int tempIntIdx; tempIntIdx = 0; float tempfloatIdx; tempfloatIdx = 0;
             string tempSting; tempSting = "";
