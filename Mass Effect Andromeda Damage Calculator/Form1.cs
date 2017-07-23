@@ -10326,6 +10326,335 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
 
                         break;
 
+                    case "Snap Freeze":
+                     
+// "Snap Freeze", "Snap Freeze description", false, "BaseDamage=250;ColdDur=0.6;Recharge=12;CryoPrimer=HA", "TArmorDebuff=0.5;EnableTCheck", "Recharge=0.2", "Dam=0.3", "Dam=0.5", "4b", "5a", "TDebuff=0.2;EnableTCheck", "TArmorDebuff=0.65;EnableTCheck","6b",
+//batarian scrapper
+
+                      
+                                                       // combo boxes HAVE PLAYER CHOICES 
+                                                                    // Also need to get the right playingCharactersArray[SelectedCharIndex].Skill X CooldownMaxDurationPassiveTempEtc
+                                                                    TCooldownMaxDurationPassiveTempEtc = "";
+                                                                    if (playingCharactersArray[SelectedCharIndex].Skill1Name.Equals(ActiveSkillList[ASkillIndex])) TCooldownMaxDurationPassiveTempEtc = playingCharactersArray[SelectedCharIndex].Skill1CooldownMaxDurationPassiveTempEtc;
+                                                                    if (playingCharactersArray[SelectedCharIndex].Skill2Name.Equals(ActiveSkillList[ASkillIndex])) TCooldownMaxDurationPassiveTempEtc = playingCharactersArray[SelectedCharIndex].Skill2CooldownMaxDurationPassiveTempEtc;
+                                                                    if (playingCharactersArray[SelectedCharIndex].Skill3Name.Equals(ActiveSkillList[ASkillIndex])) TCooldownMaxDurationPassiveTempEtc = playingCharactersArray[SelectedCharIndex].Skill3CooldownMaxDurationPassiveTempEtc;
+
+                                               //  txtBox.Text += TCooldownMaxDurationPassiveTempEtc;
+
+                                               float SnapFreezeSustainedBaseDam, SnapFreezeRecharge;
+                                                                    SnapFreezeSustainedBaseDam = SnapFreezeRecharge = 0; 
+
+                                                                    foreach (string s in TCooldownMaxDurationPassiveTempEtc.Split(';'))
+                                                                    {
+                                                                        //  "BaseDam="
+                                                                        if (s.StartsWith("BaseDamage=")) SnapFreezeSustainedBaseDam = float.Parse(s.Substring(11, s.Length - 11));
+                                                                        if (s.StartsWith("Recharge=")) SnapFreezeRecharge = float.Parse(s.Substring(9, s.Length - 9));
+                                                                    }
+                                                                    //  txtBox.Text += IncinerateSustainedBaseDam.ToString() + " " + IncinerateChargedBaseDam.ToString() + " " + IncinerateChainBaseDam.ToString() + " " + IncinerateBaseNrChains.ToString() + " " + IncinerateRecharge.ToString() + "\r\n";
+                                                                   
+                                                                    //we will need to Find the right comboboxes by name .. 
+                                                                //    controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_1", true);
+                                                                //    comboBox = controls[0] as ComboBox;
+                                                                    //  txtBox.Text += comboBox.Text + "\r\n";
+
+                                                                  //  float SnapFreezevsArmor1; SnapFreezevsArmor1 = 0;
+                                                                  //  foreach (string s in comboBox.Text.Split(';'))
+                                                                  //  {
+                                                                        // check for Dam
+                                                                    //    if (s.StartsWith("vsArmor=")) SnapFreezevsArmor1 += float.Parse(s.Substring(8, s.Length - 8));
+                                                                   // }
+
+                                                                    controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_2", true);
+                                                                    comboBox = controls[0] as ComboBox;
+                                                                    //   txtBox.Text += comboBox.Text + "\r\n";
+
+                                                                    float SnapFreezeRecharge1; SnapFreezeRecharge1 = 0;
+                                                                    foreach (string s in comboBox.Text.Split(';'))
+                                                                    {
+
+                                                                        if (s.StartsWith("Recharge=")) SnapFreezeRecharge1 += float.Parse(s.Substring(9, s.Length - 9));
+
+                                                                    }
+ // "Snap Freeze", "Snap Freeze description", false, "BaseDamage=250;ColdDur=0.6;Recharge=12;CryoPrimer=HA", "TArmorDebuff=0.5;EnableTCheck", "Recharge=0.2", "Dam=0.3", "Dam=0.5", "4b", "5a", "TDebuff=0.2;EnableTCheck", "TArmorDebuff=0.65;EnableTCheck","6b",
+
+                       
+
+                                                                     controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_3", true);
+                                                                     comboBox = controls[0] as ComboBox;
+                                                                     //txtBox.Text += comboBox.Text + "\r\n";
+
+                                                                     float SnapFreezeSdam1; SnapFreezeSdam1 =0 ;
+                                                                     foreach (string s in comboBox.Text.Split(';'))
+                                                                     {
+                                                                         // check for Dam
+                                                                         if (s.StartsWith("Dam=")) SnapFreezeSdam1 += float.Parse(s.Substring(4, s.Length - 4));
+
+                                                                     }
+
+                                                                     controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_4", true);
+                                                                     comboBox = controls[0] as ComboBox;
+                                                                     //txtBox.Text += comboBox.Text + "\r\n";
+
+                                                                     float SnapFreezeSdam2; SnapFreezeSdam2 = 0;
+                                                                     foreach (string s in comboBox.Text.Split(';'))
+                                                                     {
+                                                                         // check for Dam
+
+                                                                         if (s.StartsWith("Dam=")) SnapFreezeSdam2 += float.Parse(s.Substring(4, s.Length - 4));
+                                                                     
+                                                                     }
+
+                                                                //      controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_5", true);
+                                                                     // comboBox = controls[0] as ComboBox;
+                                                //txtBox.Text += comboBox.Text + "\r\n";
+
+                                                
+                                                //                     foreach (string s in comboBox.Text.Split(';'))
+                                                //                     {
+                                                //                         if (s.StartsWith("Divisor=")) SnapFreezeDivisor = float.Parse(s.Substring(8, s.Length - 8));
+                                                  //                   }
+
+
+                                                                //     controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_6", true);
+                                                                //     comboBox = controls[0] as ComboBox;
+                                                                     //  txtBox.Text += comboBox.Text + "\r\n";
+                                                                //     float SnapFreezevsArmor2; SnapFreezevsArmor2 = 0;
+                                                                 //                            foreach (string s in comboBox.Text.Split(';'))
+                                                                  //                           {
+                                                                  //       if (s.StartsWith("vsArmor=")) SnapFreezevsArmor2 += float.Parse(s.Substring(8, s.Length - 8));
+                                                                  //            }
+
+                          
+                                                                     txtBox.Text += "Maximum Sustained Duration is FIXED .8 seconds - 4 damage ticks \r\n\r\n";
+
+                                                                     txtBox.Text += "Cooldown FORMULA: (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP )  \r\n";
+                                                                     txtBox.Text += "In the interest of developement speed this app ignores the WeaponWeight minigame - as long as you don't go over capacity AS YOU SHOULD! - the related term will be Zero \r\n";
+                                                                     txtBox.Text += "Cooldown = ( BaseSnapFreezeCooldown " + SnapFreezeRecharge + " / ( 1 ";
+
+
+                                                                                             /// relevant variables for cooldown
+                                                                                             /// BONUS STAT PRS, SnapFreezeRecharge1, SnapFreezeRecharge2 , gearPRS, booster1PRS, booster2PRS, skill1PRS to skill5PRS; + 
+                                                                                             /// skill4PRTR
+                                                                                             /// skill1PRPSum to skill3PRPSum
+                                                                                             /// 
+
+                                                                                             /// still at cooldown
+                                                                                             /// (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP )  \r\n";
+
+                                                                                             SumAdditives = 0;
+                                                                                             if (float.Parse(comboBoxBonusPRS.Text) != 0) { SumAdditives += float.Parse(comboBoxBonusPRS.Text) / 100; txtBox.Text += " + Bonus 'Power Recharge' Stat" + float.Parse(comboBoxBonusPRS.Text) / 100; }
+                                                                                             if (SnapFreezeRecharge1 != 0) { SumAdditives += SnapFreezeRecharge1; txtBox.Text += " + 'SnapFreeze Recharge Evo 2' " + SnapFreezeRecharge1.ToString(); }
+                                                                                             if (gearPRS != 0) { SumAdditives += gearPRS; txtBox.Text += " +  gear '" + comboBoxSelectGear.Text.Split('*')[0] + "' " + gearPRS.ToString(); }
+                                                                                             if (booster1PRS != 0) { SumAdditives += booster1PRS; txtBox.Text += " +  booster '" + comboBoxSelectBooster1.Text.Split('*')[0] + "' " + booster1PRS.ToString(); }
+                                                                                             if (booster2PRS != 0) { SumAdditives += booster2PRS; txtBox.Text += " +  booster '" + comboBoxSelectBooster2.Text.Split('*')[0] + "' " + booster2PRS.ToString(); }
+                                                                                             if (skill1PRS != 0) { SumAdditives += skill1PRS; txtBox.Text += " + PRS from '" + playingCharactersArray[SelectedCharIndex].Skill1Name + "' skill" + skill1PRS.ToString(); }
+                                                                                             if (skill2PRS != 0) { SumAdditives += skill2PRS; txtBox.Text += " + PRS from '" + playingCharactersArray[SelectedCharIndex].Skill2Name + "' skill" + skill2PRS.ToString(); }
+                                                                                             if (skill3PRS != 0) { SumAdditives += skill3PRS; txtBox.Text += " + PRS from '" + playingCharactersArray[SelectedCharIndex].Skill3Name + "' skill" + skill3PRS.ToString(); }
+                                                                                             if (skill4PRS != 0) { SumAdditives += skill4PRS; txtBox.Text += " + PRS from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4PRS.ToString(); }
+                                                                                             if (skill5PRS != 0) { SumAdditives += skill5PRS; txtBox.Text += " + PRS from '" + playingCharactersArray[SelectedCharIndex].Skill5Name + "' skill" + skill5PRS.ToString(); }
+                                                                                             txtBox.Text += " ) * ( 1";
+
+                                                                                             PRP = 0;
+                                                                                             // NO CHAR CURRENTLY HAS SnapFreeze AND ANNIHILATION
+                                                                                             if (skill1PRPSum != 0) { PRP = skill1PRPSum; txtBox.Text += " + 'Annihilation PRP' )" + skill1PRPSum.ToString(); }
+                                                                                             if (skill2PRPSum != 0) { PRP = skill2PRPSum; txtBox.Text += " + 'Annihilation PRP' )" + skill2PRPSum.ToString(); }
+                                                                                             if (skill3PRPSum != 0) { PRP = skill3PRPSum; txtBox.Text += " + 'Annihilation PRP' )" + skill3PRPSum.ToString(); }
+
+                                                                                             txtBox.Text += " ) = " + ((SnapFreezeRecharge / (1 + SumAdditives)) * (1 + PRP)).ToString() + "\r\n";
+                                                                                             //if (skill4PRTR != 0) { txtBox.Text += " Detonation Feedback" + (1-skill4PRTR).ToString() + " multiplier to remaining cooldown amount \r\n"; }
+                                                                                             txtBox.Text += "\r\n";
+
+
+
+                                                                     /// relevant variables for damage
+
+                                                                     // will need to split  base // charged/ chain damage v*4 (health and synthhealth) 
+
+
+                                                                     ///////////////
+                                                                     /////////////// let the splittage begin
+
+
+                                               txtBox.Text += "SnapFreeze Sustained tick Damage formula: (Base Sustained Damage/4) * (1 + SumSustainedAdditives) * (1 + SumDebuff + SquadDebuff ) \r\n";
+                                               txtBox.Text += "some debuffs, ex Pull's expose cannot be activated vs Armor or Shields - I don't account for that here - but you can tick that debuff off in UI if you want numbers without it and RE-Calculate) \r\n\r\n";
+
+                                               tempString1 = "Sustained Damage tick  = (Base Sustained Damage/4) " + (SnapFreezeSustainedBaseDam/4).ToString() + " * ( 1";
+                                              
+
+                                                // Will need to accumulate the strings and print at the end since I want to print 9 at once .. 
+                                                // need sum of debuffs and MAX(skill ArmorDebuff - cryo beam and turret don't stack) first 
+
+                                                //ADDITIVEs
+
+                                                float SumSnapFreezeSustainedAdditives; SumSnapFreezeSustainedAdditives = 0 ;
+
+                                                                     if (SnapFreezeSdam1 != 0)
+                                                                     {
+                                                                         SumSnapFreezeSustainedAdditives += SnapFreezeSdam1;
+                                                                         tempString1 += " + 'Sustained Damage Evo 3' " + SnapFreezeSdam1.ToString();
+                                                                         
+                                                }                                               
+                                                                     if (SnapFreezeSdam2 != 0)
+                                                                                             {
+                                                                         SumSnapFreezeSustainedAdditives += SnapFreezeSdam2;
+                                                                         tempString1 += " + 'Sustained Damage Evo 4a' " + SnapFreezeSdam2.ToString();
+                                                                         
+
+                                                }
+
+                                                                     if (gearTPD != 0)
+                                                                                             {
+                                                                          SumSnapFreezeSustainedAdditives += gearTPD;
+                                                                         tempString1 += " +  gear '" + comboBoxSelectGear.Text.Split('*')[0] + "' " + gearTPD.ToString();
+                                                                                              }
+
+
+                                                                                             if (booster1TPD != 0)
+                                                                                             {
+
+                                                                       SumSnapFreezeSustainedAdditives += booster1TPD;
+                                                                         tempString1 += " +  booster '" + comboBoxSelectBooster1.Text.Split('*')[0] + "' " + booster1TPD.ToString();
+                                                                         
+                                                                                                                                                                                           }
+
+                                                                                             if (booster2TPD != 0)
+                                                                                             {
+                                                                         SumSnapFreezeSustainedAdditives += booster2TPD;
+
+                                                                         tempString1 += " +  booster '" + comboBoxSelectBooster2.Text.Split('*')[0] + "' " + booster2TPD.ToString();
+                                                                                                                                                                                               }
+                                                                                             if (apex1TPD != 0)
+                                                                                             {
+
+                                                                         SumSnapFreezeSustainedAdditives += apex1TPD;
+
+                                                                         tempString1 += " +  apex '" + comboBoxSelectApex1.Text.Split('*')[0] + "' " + apex1TPD.ToString();
+                                                                                             }
+
+                                                                                             if (apex2TPD != 0)
+                                                                                             {
+                                                                        SumSnapFreezeSustainedAdditives += apex2TPD;
+
+                                                                         tempString1 += " +  apex '" + comboBoxSelectApex2.Text.Split('*')[0] + "' " + apex2TPD.ToString();
+                                                                         
+                                                                                                              }
+
+                                                                                             if (float.Parse(comboBoxSelectVeteranLevel.Text) != 0)
+                                                                                             {
+
+                                                                        SumSnapFreezeSustainedAdditives += float.Parse(comboBoxSelectVeteranLevel.Text) * 0.04f;
+
+                                                                         tempString1 += " + Veteran PD Bonus " + (float.Parse(comboBoxSelectVeteranLevel.Text) * 0.04f).ToString();
+                                                                                                          }
+
+                                                                                             if (skill1PDSum != 0)
+                                                                                             {
+
+                                                                         SumSnapFreezeSustainedAdditives += skill1PDSum;
+                                                                     tempString1 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill1Name + "' skill" + skill1PDSum.ToString();
+                                                                         
+                                                                                             }
+
+                                                                                             if (skill2PDSum != 0)
+                                                                                             {
+                                                                        SumSnapFreezeSustainedAdditives += skill2PDSum;
+
+                                                                         tempString1 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill2Name + "' skill" + skill2PDSum.ToString();
+                                                                                             }
+                                                                                             if (skill3PDSum != 0)
+                                                                                             {
+                                                                        SumSnapFreezeSustainedAdditives += skill3PDSum;
+                                                                         tempString1 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill3Name + "' skill" + skill3PDSum.ToString();
+                                                                                                         }
+                                                                                             if (skill4PDSum != 0)
+                                                                                             {
+                                                                         SumSnapFreezeSustainedAdditives += skill4PDSum;
+                                                                         tempString1 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4PDSum.ToString();
+                                                                                                                                            }
+
+
+                                                                                             if (checkBoxBarricadePD.Checked)
+                                                                                             {
+
+                                                                       SumSnapFreezeSustainedAdditives += 0.2f;
+
+                                                                         tempString1 += " + PD from squad Barricade 0.2 ";
+                                                                                             }
+
+
+                                                                                             //DEBUFFS
+                                                                                            SumAdditives = 0;
+
+                                                                                             tempString1 += " ) * ( 1"; 
+
+                                                                                             if (skill1DebuffSum != 0)
+                                                                                             {
+                                                                                                 SumAdditives += skill1DebuffSum;
+                                                                                                 tempString1 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill1Name + "' skill" + skill1DebuffSum.ToString();
+                                                                                                 
+                                                                                                }
+                                                                                          if (skill2DebuffSum != 0)
+                                                                                                {
+                                                                         SumAdditives += skill2DebuffSum;
+                                                                         tempString1 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill2Name + "' skill" + skill2DebuffSum.ToString();
+                                                                         
+
+                                                                     }
+
+                                                                     if (skill3DebuffSum != 0)
+                                                                     {
+                                                                         SumAdditives += skill3DebuffSum;
+                                                                         tempString1 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill3Name + "' skill" + skill3DebuffSum.ToString();
+                                                                         
+                                                                     }
+
+                                                                     if (skill4DebuffSum != 0)
+                                                                     {
+                                                                         SumAdditives += skill4DebuffSum;
+                                                                         tempString1 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4DebuffSum.ToString();
+                                                                         
+                                                                     }
+
+
+                                                                     //  if WE HAVE ET skill46a ET AND checkBoxElementalTechOnTarget.checked 
+
+                                                                  //   if (comboBoxSkill4_6.Text.Equals("ET=0.35"))
+                                                                      //                       {
+                                                                    //                             SumAdditives += 0.35f;
+                                                                       //                          tempString1 += " + debuffvsAll from Elemental Tech 0.35";
+                                                                       // tempString2 += " + debuffvsAll from Elemental Tech 0.35";
+                                                                        // if (checkBoxElementalTechOnTarget.Checked)  tempString2 += " + debuffvsAll from Elemental Tech 0.35"; //No self proc vs shields
+                                                                       // tempString3 += " + debuffvsAll from Elemental Tech 0.35";
+
+                                                                         //                               }
+
+                                                                                             if (float.Parse(textBoxSumSquadDebuffsOnTarget.Text) != 0)
+                                                                                             {
+                                                                                                 SumAdditives += float.Parse(textBoxSumSquadDebuffsOnTarget.Text);
+                                                                                                 tempString1 += " + debuffvsAll from Squad " + textBoxSumSquadDebuffsOnTarget.Text;
+                                                                           
+
+                                                                                             }
+
+                                                                                           //  if (SumArmorDebuff != 0)  // does not self benefit
+                                                                                           //  {
+                                                                                          //       tempString2 += " + debuffvsArmor" + SumArmorDebuff.ToString();
+                                                                                          //       tempString4 += " + debuffvsArmor" + SumArmorDebuff.ToString();
+                                                                                          //                                                                     }
+
+                                                                                             SumDebuff = SumAdditives;
+
+                                                                                             tempString1 += " ) * ( 1 "; 
+                                                                                             
+
+                                                                            tempString1 += " ) = " + ((SnapFreezeSustainedBaseDam/4) * (1 + SumSnapFreezeSustainedAdditives) * (1 + SumDebuff)).ToString();
+                                                    
+                                                                     txtBox.Text += tempString1 + "\r\n";
+                                                                  
+                                                txtBox.Text += "Maximum Total Sustained Dammage (4 ticks - I ignore that first tick enables its own debuff) = " + ((4 * SnapFreezeSustainedBaseDam / 4) * (1 + SumSnapFreezeSustainedAdditives) * (1 + SumDebuff)).ToString() + "\r\n";
+         
+                        break;
+
                 }
             }
 
