@@ -3919,7 +3919,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                         foreach (string s in comboBox.Text.Split(';'))
                         {
                             if (s.StartsWith("vsArmor=")) FragGrenadevsArmor += float.Parse(s.Substring(8, s.Length - 8));
-                            if (s.StartsWith("vsShields")) FragGrenadevsShields += float.Parse(s.Substring(10, s.Length - 10));
+                            if (s.StartsWith("vsShields=")) FragGrenadevsShields += float.Parse(s.Substring(10, s.Length - 10));
 
                         }
 
@@ -4312,7 +4312,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                         foreach (string s in comboBox.Text.Split(';'))
                         {
                             if (s.StartsWith("vsArmor=")) StickyGrenadevsArmor += float.Parse(s.Substring(8, s.Length - 8));
-                            if (s.StartsWith("vsShields")) StickyGrenadevsShields += float.Parse(s.Substring(10, s.Length - 10));
+                            if (s.StartsWith("vsShields=")) StickyGrenadevsShields += float.Parse(s.Substring(10, s.Length - 10));
 
                         }
 
@@ -4782,7 +4782,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                         foreach (string s in comboBox.Text.Split(';'))
                         {
 
-                            if (s.StartsWith("vsShields")) OverloadvsShields3 += float.Parse(s.Substring(10, s.Length - 10));
+                            if (s.StartsWith("vsShields=")) OverloadvsShields3 += float.Parse(s.Substring(10, s.Length - 10));
                             if (s.StartsWith("EChain=")) OverloadEChain2 += int.Parse(s.Substring(7, s.Length - 7));
                             if (s.StartsWith("Dam=")) OverloadDam3 += float.Parse(s.Substring(4, s.Length - 4));
                             if (s.StartsWith("vsSynth=")) OverloadvsSynth2 += float.Parse(s.Substring(8, s.Length - 8));
@@ -7303,7 +7303,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                         foreach (string s in comboBox.Text.Split(';'))
                         {
 
-                            if (s.StartsWith("vsShields")) EnergyDrainvsShields2 += float.Parse(s.Substring(10, s.Length - 10));
+                            if (s.StartsWith("vsShields=")) EnergyDrainvsShields2 += float.Parse(s.Substring(10, s.Length - 10));
                             if (s.StartsWith("Dam=")) EnergyDrainDam3 += float.Parse(s.Substring(4, s.Length - 4));
                             if (s.StartsWith("vsSynth=")) EnergyDrainvsSynth2 += float.Parse(s.Substring(8, s.Length - 8));
                             if (s.StartsWith("RShields=")) EnergyDrainRShields4 = float.Parse(s.Substring(9, s.Length - 9));
@@ -7361,6 +7361,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                         txtBox.Text += "EnergyDrain Damage formula: BaseDamage * (1 + SumAdditives) * (1 + (SumDebuff  + SquadDebuff ) * (1 + SumvsDefense)  \r\n";
                         txtBox.Text += "EnergyDrain ofCurrentMaxShield% Heal impact formula: CurMaxShields * (1 + SumImpactShieldHealAdditives) * (1+SumSupport) \r\n";
                         txtBox.Text += "EnergyDrain ofCurrentMaxShield% Heal over time per heal tick formula: CurMaxShields * (BaseHOTperSecond/4) * (1+SumSupport) \r\n\r\n";
+                        txtBox.Text += "EnergyDrain's BENEFIT MULTIPLCIATIVELY FROM SUPPORT STAT IN PASSIVE !! \r\n";
                         txtBox.Text += "some debuffs, ex Pull's expose cannot be activated vs Armor or Shields - I don't account for that here - but you can tick that debuff off in UI if you want numbers without it and RE-Calculate) \r\n\r\n";
 
                         tempString1 = "Damage vs NON Synthetic Health = Base Damage " + EnergyDrainBaseDam.ToString() + " * ( 1";
@@ -7686,6 +7687,192 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                             txtBox.Text += "Maximum Total HOT Percent Shield = " + (EnergyDrainRHOT  * (1 + skill5SupportSum ) * EnergyDrainRHOTDur * (1 + skill4PEffectDur + skill5PEffectDur )).ToString() + "% \r\n";
                             
                         }
+
+                        break;
+
+                    case "Shield Boost":
+// "Shield Boost", "sb description", false, "BaseHeal=125;BaseHOT=50;BaseHOTDur=3;Recharge=15", "1", "Recharge=0.1", "IHeal=0.2;HOT=0.2", "4a", "HOT=0.35", "Recharge=0.35", "IHeal=0.3", "TShields=1;EnableTCheck","HOTDur=1.5",
+                    // angara insurgent Salarian operator
+                        
+                                 // combo boxes HAVE PLAYER CHOICES 
+                                                // Also need to get the right playingCharactersArray[SelectedCharIndex].Skill X CooldownMaxDurationPassiveTempEtc
+                                                TCooldownMaxDurationPassiveTempEtc = "";
+                                                if (playingCharactersArray[SelectedCharIndex].Skill1Name.Equals(ActiveSkillList[ASkillIndex])) TCooldownMaxDurationPassiveTempEtc = playingCharactersArray[SelectedCharIndex].Skill1CooldownMaxDurationPassiveTempEtc;
+                                                if (playingCharactersArray[SelectedCharIndex].Skill2Name.Equals(ActiveSkillList[ASkillIndex])) TCooldownMaxDurationPassiveTempEtc = playingCharactersArray[SelectedCharIndex].Skill2CooldownMaxDurationPassiveTempEtc;
+                                                if (playingCharactersArray[SelectedCharIndex].Skill3Name.Equals(ActiveSkillList[ASkillIndex])) TCooldownMaxDurationPassiveTempEtc = playingCharactersArray[SelectedCharIndex].Skill3CooldownMaxDurationPassiveTempEtc;
+
+                                                //  txtBox.Text += TCooldownMaxDurationPassiveTempEtc;
+
+                                                float ShieldBoostBaseHeal, ShieldBoostRecharge, ShieldBoostBaseHOT, ShieldBoostBaseHOTDur;
+                                                ShieldBoostBaseHeal= ShieldBoostRecharge= ShieldBoostBaseHOT= ShieldBoostBaseHOTDur= 0; 
+
+                                                foreach (string s in TCooldownMaxDurationPassiveTempEtc.Split(';'))
+                                                {
+                                                    //  "BaseDam="
+                                                    if (s.StartsWith("BaseHeal=")) ShieldBoostBaseHeal = float.Parse(s.Substring(9, s.Length - 9));
+                                                    if (s.StartsWith("BaseHOT=")) ShieldBoostBaseHOT = float.Parse(s.Substring(8, s.Length - 8));
+                                                    if (s.StartsWith("BaseHOTDur=")) ShieldBoostBaseHOTDur = float.Parse(s.Substring(11, s.Length - 11));
+                                                    if (s.StartsWith("Recharge=")) ShieldBoostRecharge = float.Parse(s.Substring(9, s.Length - 9));
+
+                        }
+                                                //  txtBox.Text += ShieldBoostBaseDam.ToString() + " " + ShieldBoostChargedBaseDam.ToString() + " " + ShieldBoostChainBaseDam.ToString() + " " + ShieldBoostBaseNrChains.ToString() + " " + ShieldBoostRecharge.ToString() + "\r\n";
+                                                // duration don't care 
+                                                txtBox.Text += "..(see bellow HOT duration math) \r\n\r\n";
+                                               
+                                                //we will need to Find the right comboboxes by name .. 
+                        //                        controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_1", true);
+                        //                        comboBox = controls[0] as ComboBox;
+                                                //  txtBox.Text += comboBox.Text + "\r\n";
+
+                       //                        foreach (string s in comboBox.Text.Split(';'))
+                       //                         {
+                       //                         }
+
+                                                controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_2", true);
+                                                comboBox = controls[0] as ComboBox;
+                                                //   txtBox.Text += comboBox.Text + "\r\n";
+
+                                                float ShieldBoostRecharge1; ShieldBoostRecharge1 = 0;
+                                                foreach (string s in comboBox.Text.Split(';'))
+                                                {
+                                                    // check for Dam
+                                                    if (s.StartsWith("Recharge=")) ShieldBoostRecharge1 += float.Parse(s.Substring(9, s.Length - 9));
+
+                                                }
+
+// "Shield Boost", "sb description", false, "BaseHeal=125;BaseHOT=50;BaseHOTDur=3;Recharge=15", "1", "Recharge=0.1", "IHeal=0.2;HOT=0.2", "4a", "HOT=0.35", "Recharge=0.35", "IHeal=0.3", "TShields=1;EnableTCheck","HOTDur=1.5",
+
+
+                                                controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_3", true);
+                                                comboBox = controls[0] as ComboBox;
+                                                //txtBox.Text += comboBox.Text + "\r\n";
+
+                                                float ShieldBoostHeal1, ShieldBoostHOT1; ShieldBoostHeal1 = ShieldBoostHOT1 = 0;
+                                                foreach (string s in comboBox.Text.Split(';'))
+                                                {
+                                                    // check for Dam
+                                                    if (s.StartsWith("IHeal=")) ShieldBoostHeal1 += float.Parse(s.Substring(6, s.Length - 6));
+                                                    if (s.StartsWith("HOT=")) ShieldBoostHOT1 = float.Parse(s.Substring(4, s.Length - 4));
+                                                      }
+
+
+                                                controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_4", true);
+                                                comboBox = controls[0] as ComboBox;
+                                                //txtBox.Text += comboBox.Text + "\r\n";
+
+                                                float ShieldBoostHOT2; ShieldBoostHOT2 = 0;
+                                                foreach (string s in comboBox.Text.Split(';'))
+                                                {
+                                                 if (s.StartsWith("HOT=")) ShieldBoostHOT2 = float.Parse(s.Substring(4, s.Length - 4));
+                                                 }
+
+                                                //"RSHOT=0.06;RSHOTDur=4;TechPrimer=HSA", "5b","Dam=0.35;vsShields=0.75;vsSynth=0.15", "RShields=0.25;AllyRShields=0.5",
+                                                controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_5", true);
+                                                comboBox = controls[0] as ComboBox;
+                                                //txtBox.Text += comboBox.Text + "\r\n";
+
+                                                float ShieldBoostRecharge2 , ShieldBoostHeal2; ShieldBoostRecharge2 = ShieldBoostHeal2 = 0;
+                                                foreach (string s in comboBox.Text.Split(';'))
+                                                {
+                                                if (s.StartsWith("Recharge=")) ShieldBoostRecharge2 += float.Parse(s.Substring(9, s.Length - 9));
+                                                if (s.StartsWith("IHeal=")) ShieldBoostHeal2 += float.Parse(s.Substring(6, s.Length - 6));
+                                                  }
+
+
+                        controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_6", true);
+                                                comboBox = controls[0] as ComboBox;
+                        //  txtBox.Text += comboBox.Text + "\r\n";
+
+                                             float ShieldBoostHOTDur; ShieldBoostHOTDur = 0;
+                                                foreach (string s in comboBox.Text.Split(';'))
+                                                {
+                                                    if (s.StartsWith("HOTDur=")) ShieldBoostHOTDur += float.Parse(s.Substring(7, s.Length - 7));
+                                                }
+
+
+                                                /// relevant variables for cooldown
+                                                /// BONUS STAT PRS, ShieldBoostRecharge1, ShieldBoostRecharge2 , gearPRS, booster1PRS, booster2PRS, skill1PRS to skill5PRS; + 
+                                                /// skill4PRTR
+                                                /// skill1PRPSum to skill3PRPSum
+                                                /// 
+
+
+                                                txtBox.Text += "Cooldown FORMULA: (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP )  \r\n";
+                                                txtBox.Text += "In the interest of developement speed this app ignores the WeaponWeight minigame - as long as you don't go over capacity AS YOU SHOULD! - the related term will be Zero \r\n\r\n";
+                                                txtBox.Text += "Cooldown = ( BaseShieldBoostCooldown " + ShieldBoostRecharge + " / ( 1 ";
+
+                                                /// still at cooldown
+                                                /// (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP )  \r\n";
+
+                                                SumAdditives = 0;
+                                                if (float.Parse(comboBoxBonusPRS.Text) != 0) { SumAdditives += float.Parse(comboBoxBonusPRS.Text) / 100; txtBox.Text += " + Bonus 'Power Recharge' Stat" + float.Parse(comboBoxBonusPRS.Text) / 100; }
+                                                if (ShieldBoostRecharge1 != 0) { SumAdditives += ShieldBoostRecharge1; txtBox.Text += " + 'ShieldBoost Recharge Evo 2' " + ShieldBoostRecharge1.ToString(); }
+                                                if (ShieldBoostRecharge2 != 0) { SumAdditives += ShieldBoostRecharge2; txtBox.Text += " + 'ShieldBoost Recharge Evo 4b' " + ShieldBoostRecharge2.ToString(); }
+                                                if (gearPRS != 0) { SumAdditives += gearPRS; txtBox.Text += " +  gear '" + comboBoxSelectGear.Text.Split('*')[0] + "' " + gearPRS.ToString(); }
+                                                if (booster1PRS != 0) { SumAdditives += booster1PRS; txtBox.Text += " +  booster '" + comboBoxSelectBooster1.Text.Split('*')[0] + "' " + booster1PRS.ToString(); }
+                                                if (booster2PRS != 0) { SumAdditives += booster2PRS; txtBox.Text += " +  booster '" + comboBoxSelectBooster2.Text.Split('*')[0] + "' " + booster2PRS.ToString(); }
+                                                if (skill1PRS != 0) { SumAdditives += skill1PRS; txtBox.Text += " + PRS from '" + playingCharactersArray[SelectedCharIndex].Skill1Name + "' skill" + skill1PRS.ToString(); }
+                                                if (skill2PRS != 0) { SumAdditives += skill2PRS; txtBox.Text += " + PRS from '" + playingCharactersArray[SelectedCharIndex].Skill2Name + "' skill" + skill2PRS.ToString(); }
+                                                if (skill3PRS != 0) { SumAdditives += skill3PRS; txtBox.Text += " + PRS from '" + playingCharactersArray[SelectedCharIndex].Skill3Name + "' skill" + skill3PRS.ToString(); }
+                                                if (skill4PRS != 0) { SumAdditives += skill4PRS; txtBox.Text += " + PRS from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4PRS.ToString(); }
+                                                if (skill5PRS != 0) { SumAdditives += skill5PRS; txtBox.Text += " + PRS from '" + playingCharactersArray[SelectedCharIndex].Skill5Name + "' skill" + skill5PRS.ToString(); }
+                                                txtBox.Text += " ) * ( 1";
+
+                                                 PRP = 0;
+                                                // NO CHAR CURRENTLY HAS ShieldBoost AND ANNIHILATION
+                                                if (skill1PRPSum != 0) { PRP = skill1PRPSum; txtBox.Text += " + 'Annihilation PRP' )" + skill1PRPSum.ToString(); }
+                                                if (skill2PRPSum != 0) { PRP = skill2PRPSum; txtBox.Text += " + 'Annihilation PRP' )" + skill2PRPSum.ToString(); }
+                                                if (skill3PRPSum != 0) { PRP = skill3PRPSum; txtBox.Text += " + 'Annihilation PRP' )" + skill3PRPSum.ToString(); }
+
+                                                txtBox.Text += " ) = " + ((ShieldBoostRecharge / (1 + SumAdditives)) * (1 + PRP)).ToString() + "\r\n";
+                                                //if (skill4PRTR != 0) { txtBox.Text += " Detonation Feedback" + (1-skill4PRTR).ToString() + " multiplier to remaining cooldown amount \r\n"; }
+                                                txtBox.Text += "\r\n";
+
+
+                                                /// relevant variables for damage
+
+                                                // will need to split  base // charged/ chain damage v*4 (health and synthhealth) 
+
+                                                ///////////////
+                                                /////////////// let the splittage begin
+
+
+                                                txtBox.Text += "ShieldBoost Impact heal formula: BaseHeal * (1 + SumImpactHealAdditives + SumSupport)  \r\n";
+                                                txtBox.Text += "ShieldBoost HOT tick heal formula: BaseHOT * (1 + SumHOTAdditives + SumSupport)  \r\n";
+                                                txtBox.Text += "ShieldBoost benefits from support stat additively \r\n\r\n";
+
+                                                tempString1 = "ShieldBoost Impact heal = BaseHeal " + ShieldBoostBaseHeal.ToString() + " * ( 1";
+                                                tempString2 = "ShieldBoost HOT tick heal  = BaseHOT " + ShieldBoostBaseHOT.ToString() + " * ( 1";
+
+                             float SumImpactHealAdditives, SumHOTAdditives;  SumHOTAdditives = SumImpactHealAdditives = 0;
+                                  // Will need to accumulate the strings and print at the end since I want to print 9 at once .. 
+                                  // need sum of debuffs and MAX(skill ArmorDebuff - cryo beam and turret don't stack) first 
+
+                        //do RShield first since is separate and simple
+                     
+                                  if (ShieldBoostHeal1 != 0) { SumImpactHealAdditives += ShieldBoostHeal1;  tempString1 += " + ' Evo 3' " + ShieldBoostHeal1.ToString(); }
+                                  if (ShieldBoostHeal2 != 0) { SumImpactHealAdditives += ShieldBoostHeal2; tempString1 += " + ' Evo 5b' " + ShieldBoostHeal2.ToString(); }
+                                  if (ShieldBoostHOT1 != 0) { SumHOTAdditives += ShieldBoostHOT1; tempString2 += " + ' Evo 3' " + ShieldBoostHOT1.ToString(); }
+                                  if (ShieldBoostHOT2 != 0) { SumHOTAdditives += ShieldBoostHOT2; tempString2 += " + ' Evo 4b ' " + ShieldBoostHOT2.ToString(); }
+                     
+                        if (skill5SupportSum != 0) { tempString1 += " + SumSupport " + skill5SupportSum.ToString() + " ) "; tempString2 += " + SumSupport " + skill5SupportSum.ToString() + " ) "; }
+                        tempString1 += " ) = " + ShieldBoostBaseHeal * (1 + SumImpactHealAdditives + skill5SupportSum ) ;
+                        tempString2 += " ) = " + ShieldBoostBaseHOT * (1 + SumHOTAdditives + skill5SupportSum);
+
+                        txtBox.Text += tempString1 + "\r\n";
+                                  txtBox.Text += tempString2 + "\r\n";
+                                 
+                                      // DO HOT Maximum total
+                                 
+                                      txtBox.Text += "HOT duration : " + ShieldBoostBaseHOTDur.ToString() + " * ( 1";
+                                      if (skill4PEffectDur != 0) txtBox.Text += " + EffectDuration from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4PEffectDur.ToString();
+                                      if (skill5PEffectDur != 0) txtBox.Text += " + EffectDuration from '" + playingCharactersArray[SelectedCharIndex].Skill5Name + "' skill" + skill5PEffectDur.ToString();
+                                      if (ShieldBoostHOTDur != 0) txtBox.Text += " + EffectDuration from evo 6b " + ShieldBoostHOTDur.ToString();
+                                      txtBox.Text += " ) = " + (ShieldBoostBaseHOTDur * (1 + skill4PEffectDur + skill5PEffectDur + ShieldBoostHOTDur)).ToString() + " seconds   ";
+                                      txtBox.Text += "Maximum Total HOT amount = " + (ShieldBoostBaseHOT * (1 + SumHOTAdditives + skill5SupportSum ) * ShieldBoostBaseHOTDur * (1 + skill4PEffectDur + skill5PEffectDur + ShieldBoostHOTDur )).ToString() + "\r\n";
+
+
+
 
                         break;
                 }
