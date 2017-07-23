@@ -467,7 +467,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                      "Offensive Tech", "offensive tech description", false, "", "PD=0.1", "WD=0.08;MD=0.2", "PD=0.15;ConDam=0.2", "PD=0.25;PEffectDur=0.2", "Combo=0.5", "vsShields=0.4", "vsArmor=0.4", "ET=0.35", "MD=0.2",
                      "Support Systems", "support systems description", false, "", "1", "Health=0.2;Shields=0.2;ConHealth=0.15", "MD=0.3", "PEffectDur=0.3", "4a", "Health=0.2;Shields=0.2;ConHealth=0.2", "TDR=1.2;EnableTCheck", "6a","6b"),
                     new playingCharacter("Turian Agent", 500f, 250f, 400f, 0f, 0f, 0f , "" ,
-                     "Recon Visor", "recon visor description", true, "Duration=12;Recharge=12", "PEN=0.6", "2", "PEN=0.25", "Recharge=0.3", "4b", "5a", "Duration=0.5", "6a","ArmorDebuff=0.25",
+                     "Recon Visor", "recon visor description", true, "Duration=12;Recharge=12", "PEN=0.6", "2", "PEN=0.25", "Recharge=0.3", "4b", "5a", "Duration=0.5", "6a","TArmorDebuff=0.25;EnableTCheck",
                      "Tactical Cloak", "tactical cloak description", true, "Duration=6.5;Recharge=12", "WD=0.5;PD=0.5;MD=0.75", "Recharge=0.15", "Duration=0.25", "Recharge=0.3", "WD=0.4;PD=0.5;MD=0.5", "Duration=0.5", "5b", "6a","6b",
                      "Flamethrower", "flamerthrow description", false, "BaseSDam=275;BaseDOTDam=200;BaseDOTDur=5;Recharge=12;FirePrimer=HA", "vsArmor=0.25", "Recharge=0.2", "IDam=0.25;DOTDam=0.25", "IDam=0.4;DOTDam=0.4", "Recharge=0.3", "5a", "DOTDam=0.5;DOTDuration=0.5", "vsArmor=0.8","6b",
                      "Apex Training", "apex description", false, "", "WD=0.05", "PD=0.15", "WD=0.05;MD=0.2", "WD=0.08", "PD=0.2;MD=0.2", "Weak=0.2", "Combo=0.5", "WD=0.1","PD=0.15;SOmethingDUR",
@@ -6880,7 +6880,9 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                                                 txtBox.Text += " ) = " + ((FlamerRecharge / (1 + SumAdditives)) * (1 + PRP)).ToString() + "\r\n";
                                                 //if (skill4PRTR != 0) { txtBox.Text += " Detonation Feedback" + (1-skill4PRTR).ToString() + " multiplier to remaining cooldown amount \r\n"; }
                                                 txtBox.Text += "\r\n";
-                                                txtBox.Text += "Takes 3 sustained stacks to RAMP the DOT to the maximum damage value ~1 second - Douse as many mooks as you can (jumping around) during the sustained period !! \r\n\r\n ";
+                                                txtBox.Text += "Takes 3 sustained stacks to RAMP the DOT to the maximum damage value ~1 second - Douse as many mooks as you can (jumping around) during the sustained period !! \r\n";
+                                                txtBox.Text += "Or take advantage of the scaling cooldown - ~1 puffs is all you need to DOT kill a bunch of redbars !! \r\n\r\n ";
+ 
 
                         /// relevant variables for damage
 
@@ -6891,7 +6893,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                         /////////////// let the splittage begin
 
 
-                                                txtBox.Text += "Flamer Sustained tick Damage formula: BaseDamage * (1 + SumSustainedAdditives) * (1 + SumDebuff + SumArmorDebuff + SquadDebuff ) * (1 + SumvsDefense)  \r\n";
+                        txtBox.Text += "Flamer Sustained tick Damage formula: BaseDamage * (1 + SumSustainedAdditives) * (1 + SumDebuff + SumArmorDebuff + SquadDebuff ) * (1 + SumvsDefense)  \r\n";
                                                 txtBox.Text += "Flamer DOT Damage per tick formula: ( BaseDOTDPS/2) * (1 + SumDOTAdditives) * (1 + SumDebuff + SumArmorDebuff + SquadDebuff ) * (1 + SumvsDefense)  \r\n\r\n";
                                                 txtBox.Text += "some debuffs, ex Pull's expose cannot be activated vs Armor or Shields - I don't account for that here - but you can tick that debuff off in UI if you want numbers without it and RE-Calculate) \r\n\r\n";
                         
@@ -7195,6 +7197,497 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
         
                         break;
 
+                    case "Energy Drain":
+ // "Energy Drain", "energy drain description", false, "BaseDamage=175;RShields=0.35;Recharge=12;Detonator=1", "vsShields=1;vsSynth=0.15", "Recharge=0.1", "Dam=0.25;RShields=0.15", "Dam=0.3;RShields=0.2", "Recharge=0.3", "RSHOT=0.06;RSHOTDur=4;TechPrimer=HSA", "5b","Dam=0.35;vsShields=0.75;vsSynth=0.15", "RShields=0.25;AllyRShields=0.5",
+
+               // Human Sentinel, Asari Sentinel, Salarian Infiltrator, Angara Exemplar         
+                         
+                            // combo boxes HAVE PLAYER CHOICES 
+                        // Also need to get the right playingCharactersArray[SelectedCharIndex].Skill X CooldownMaxDurationPassiveTempEtc
+                        TCooldownMaxDurationPassiveTempEtc = "";
+                        if (playingCharactersArray[SelectedCharIndex].Skill1Name.Equals(ActiveSkillList[ASkillIndex])) TCooldownMaxDurationPassiveTempEtc = playingCharactersArray[SelectedCharIndex].Skill1CooldownMaxDurationPassiveTempEtc;
+                        if (playingCharactersArray[SelectedCharIndex].Skill2Name.Equals(ActiveSkillList[ASkillIndex])) TCooldownMaxDurationPassiveTempEtc = playingCharactersArray[SelectedCharIndex].Skill2CooldownMaxDurationPassiveTempEtc;
+                        if (playingCharactersArray[SelectedCharIndex].Skill3Name.Equals(ActiveSkillList[ASkillIndex])) TCooldownMaxDurationPassiveTempEtc = playingCharactersArray[SelectedCharIndex].Skill3CooldownMaxDurationPassiveTempEtc;
+
+                        //  txtBox.Text += TCooldownMaxDurationPassiveTempEtc;
+
+                        float EnergyDrainBaseDam, EnergyDrainRecharge, EnergyDrainRShields1;
+                        EnergyDrainBaseDam = EnergyDrainRecharge = EnergyDrainRShields1 = 0; 
+
+                        foreach (string s in TCooldownMaxDurationPassiveTempEtc.Split(';'))
+                        {
+                            //  "BaseDam="
+                            if (s.StartsWith("BaseDamage=")) EnergyDrainBaseDam = float.Parse(s.Substring(11, s.Length - 11));
+                            if (s.StartsWith("Recharge=")) EnergyDrainRecharge = float.Parse(s.Substring(9, s.Length - 9));
+                            if (s.StartsWith("RShields=")) EnergyDrainRShields1 = float.Parse(s.Substring(9, s.Length - 9));
+                        
+                        }
+                        //  txtBox.Text += EnergyDrainBaseDam.ToString() + " " + EnergyDrainChargedBaseDam.ToString() + " " + EnergyDrainChainBaseDam.ToString() + " " + EnergyDrainBaseNrChains.ToString() + " " + EnergyDrainRecharge.ToString() + "\r\n";
+                        // duration don't care 
+                        txtBox.Text += "Duration irrelevant ..no sustained effect \r\n\r\n";
+                        
+
+                        //we will need to Find the right comboboxes by name .. 
+                        controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_1", true);
+                        comboBox = controls[0] as ComboBox;
+                        //  txtBox.Text += comboBox.Text + "\r\n";
+
+                        float EnergyDrainvsShields1, EnergyDrainvsSynth1; EnergyDrainvsShields1 = EnergyDrainvsSynth1 = 0;
+                        foreach (string s in comboBox.Text.Split(';'))
+                        {
+                            // check for Dam
+                            if (s.StartsWith("vsShields=")) EnergyDrainvsShields1 += float.Parse(s.Substring(10, s.Length - 10));
+                            if (s.StartsWith("vsSynth=")) EnergyDrainvsSynth1 += float.Parse(s.Substring(8, s.Length - 8));
+
+                        }
+
+                        controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_2", true);
+                        comboBox = controls[0] as ComboBox;
+                        //   txtBox.Text += comboBox.Text + "\r\n";
+
+                        float EnergyDrainRecharge1; EnergyDrainRecharge1 = 0;
+                        foreach (string s in comboBox.Text.Split(';'))
+                        {
+                            // check for Dam
+                            if (s.StartsWith("Recharge=")) EnergyDrainRecharge1 += float.Parse(s.Substring(9, s.Length - 9));
+
+                        }
+
+                        // "Energy Drain", "energy drain description", false, "BaseDamage=175;RShields=0.35;Recharge=12;Detonator=1", "vsShields=1;vsSynth=0.15", "Recharge=0.1", "Dam=0.25;RShields=0.15", "Dam=0.3;RShields=0.2", "Recharge=0.3", "RSHOT=0.06;RSHOTDur=4;TechPrimer=HSA", "5b","Dam=0.35;vsShields=0.75;vsSynth=0.15", "RShields=0.25;AllyRShields=0.5",
+
+
+                        controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_3", true);
+                        comboBox = controls[0] as ComboBox;
+                        //txtBox.Text += comboBox.Text + "\r\n";
+
+                        float EnergyDrainDam1, EnergyDrainRShields2; EnergyDrainDam1 = EnergyDrainRShields2 = 0;
+                        foreach (string s in comboBox.Text.Split(';'))
+                        {
+                            // check for Dam
+                            if (s.StartsWith("Dam=")) EnergyDrainDam1 += float.Parse(s.Substring(4, s.Length - 4));
+                            if (s.StartsWith("RShields=")) EnergyDrainRShields2 = float.Parse(s.Substring(9, s.Length - 9));
+                              }
+
+
+                        controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_4", true);
+                        comboBox = controls[0] as ComboBox;
+                        //txtBox.Text += comboBox.Text + "\r\n";
+
+                        float EnergyDrainDam2, EnergyDrainRecharge2, EnergyDrainRShields3; EnergyDrainDam2 = EnergyDrainRecharge2 = EnergyDrainRShields3 = 0;
+                        foreach (string s in comboBox.Text.Split(';'))
+                        {
+                            // check for Dam
+                            if (s.StartsWith("Dam=")) EnergyDrainDam2 += float.Parse(s.Substring(4, s.Length - 4));
+                            if (s.StartsWith("RShields=")) EnergyDrainRShields3 = float.Parse(s.Substring(9, s.Length - 9));
+                            if (s.StartsWith("Recharge=")) EnergyDrainRecharge2 += float.Parse(s.Substring(9, s.Length - 9));
+                        }
+
+                        //"RSHOT=0.06;RSHOTDur=4;TechPrimer=HSA", "5b","Dam=0.35;vsShields=0.75;vsSynth=0.15", "RShields=0.25;AllyRShields=0.5",
+                        controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_5", true);
+                        comboBox = controls[0] as ComboBox;
+                        //txtBox.Text += comboBox.Text + "\r\n";
+
+                        float EnergyDrainRHOT, EnergyDrainRHOTDur; EnergyDrainRHOT = EnergyDrainRHOTDur = 0;
+                        foreach (string s in comboBox.Text.Split(';'))
+                        {
+                            if (s.StartsWith("RSHOT=")) EnergyDrainRHOT += float.Parse(s.Substring(6, s.Length - 6));
+                            if (s.StartsWith("RSHOTDur=")) EnergyDrainRHOTDur += float.Parse(s.Substring(9, s.Length - 9));
+                              }
+
+
+                        controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_6", true);
+                        comboBox = controls[0] as ComboBox;
+                        //  txtBox.Text += comboBox.Text + "\r\n";
+
+                        float EnergyDrainvsShields2, EnergyDrainDam3, EnergyDrainvsSynth2, EnergyDrainRShields4; EnergyDrainvsShields2 = EnergyDrainDam3 = EnergyDrainvsSynth2 = EnergyDrainRShields4 = 0; 
+                        foreach (string s in comboBox.Text.Split(';'))
+                        {
+
+                            if (s.StartsWith("vsShields")) EnergyDrainvsShields2 += float.Parse(s.Substring(10, s.Length - 10));
+                            if (s.StartsWith("Dam=")) EnergyDrainDam3 += float.Parse(s.Substring(4, s.Length - 4));
+                            if (s.StartsWith("vsSynth=")) EnergyDrainvsSynth2 += float.Parse(s.Substring(8, s.Length - 8));
+                            if (s.StartsWith("RShields=")) EnergyDrainRShields4 = float.Parse(s.Substring(9, s.Length - 9));
+
+                        }
+
+
+                        /// relevant variables for cooldown
+                        /// BONUS STAT PRS, EnergyDrainRecharge1, EnergyDrainRecharge2 , gearPRS, booster1PRS, booster2PRS, skill1PRS to skill5PRS; + 
+                        /// skill4PRTR
+                        /// skill1PRPSum to skill3PRPSum
+                        /// 
+
+
+                        txtBox.Text += "Cooldown FORMULA: (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP )  \r\n";
+                        txtBox.Text += "In the interest of developement speed this app ignores the WeaponWeight minigame - as long as you don't go over capacity AS YOU SHOULD! - the related term will be Zero \r\n\r\n";
+                        txtBox.Text += "Cooldown = ( BaseEnergyDrainCooldown " + EnergyDrainRecharge + " / ( 1 ";
+
+                        /// still at cooldown
+                        /// (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP )  \r\n";
+
+                        SumAdditives = 0;
+                        if (float.Parse(comboBoxBonusPRS.Text) != 0) { SumAdditives += float.Parse(comboBoxBonusPRS.Text) / 100; txtBox.Text += " + Bonus 'Power Recharge' Stat" + float.Parse(comboBoxBonusPRS.Text) / 100; }
+                        if (EnergyDrainRecharge1 != 0) { SumAdditives += EnergyDrainRecharge1; txtBox.Text += " + 'EnergyDrain Recharge Evo 2' " + EnergyDrainRecharge1.ToString(); }
+                        if (EnergyDrainRecharge2 != 0) { SumAdditives += EnergyDrainRecharge2; txtBox.Text += " + 'EnergyDrain Recharge Evo 4b' " + EnergyDrainRecharge2.ToString(); }
+                        if (gearPRS != 0) { SumAdditives += gearPRS; txtBox.Text += " +  gear '" + comboBoxSelectGear.Text.Split('*')[0] + "' " + gearPRS.ToString(); }
+                        if (booster1PRS != 0) { SumAdditives += booster1PRS; txtBox.Text += " +  booster '" + comboBoxSelectBooster1.Text.Split('*')[0] + "' " + booster1PRS.ToString(); }
+                        if (booster2PRS != 0) { SumAdditives += booster2PRS; txtBox.Text += " +  booster '" + comboBoxSelectBooster2.Text.Split('*')[0] + "' " + booster2PRS.ToString(); }
+                        if (skill1PRS != 0) { SumAdditives += skill1PRS; txtBox.Text += " + PRS from '" + playingCharactersArray[SelectedCharIndex].Skill1Name + "' skill" + skill1PRS.ToString(); }
+                        if (skill2PRS != 0) { SumAdditives += skill2PRS; txtBox.Text += " + PRS from '" + playingCharactersArray[SelectedCharIndex].Skill2Name + "' skill" + skill2PRS.ToString(); }
+                        if (skill3PRS != 0) { SumAdditives += skill3PRS; txtBox.Text += " + PRS from '" + playingCharactersArray[SelectedCharIndex].Skill3Name + "' skill" + skill3PRS.ToString(); }
+                        if (skill4PRS != 0) { SumAdditives += skill4PRS; txtBox.Text += " + PRS from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4PRS.ToString(); }
+                        if (skill5PRS != 0) { SumAdditives += skill5PRS; txtBox.Text += " + PRS from '" + playingCharactersArray[SelectedCharIndex].Skill5Name + "' skill" + skill5PRS.ToString(); }
+                        txtBox.Text += " ) * ( 1";
+
+                         PRP = 0;
+                        // NO CHAR CURRENTLY HAS EnergyDrain AND ANNIHILATION
+                        if (skill1PRPSum != 0) { PRP = skill1PRPSum; txtBox.Text += " + 'Annihilation PRP' )" + skill1PRPSum.ToString(); }
+                        if (skill2PRPSum != 0) { PRP = skill2PRPSum; txtBox.Text += " + 'Annihilation PRP' )" + skill2PRPSum.ToString(); }
+                        if (skill3PRPSum != 0) { PRP = skill3PRPSum; txtBox.Text += " + 'Annihilation PRP' )" + skill3PRPSum.ToString(); }
+
+                        txtBox.Text += " ) = " + ((EnergyDrainRecharge / (1 + SumAdditives)) * (1 + PRP)).ToString() + "\r\n";
+                        //if (skill4PRTR != 0) { txtBox.Text += " Detonation Feedback" + (1-skill4PRTR).ToString() + " multiplier to remaining cooldown amount \r\n"; }
+                        txtBox.Text += "\r\n";
+
+
+                        /// relevant variables for damage
+
+                        // will need to split  base // charged/ chain damage v*4 (health and synthhealth) 
+                        
+                        ///////////////
+                        /////////////// let the splittage begin
+
+
+                        txtBox.Text += "EnergyDrain Damage formula: BaseDamage * (1 + SumAdditives) * (1 + (SumDebuff  + SquadDebuff ) * (1 + SumvsDefense)  \r\n";
+                        txtBox.Text += "EnergyDrain ofCurrentMaxShield% Heal impact formula: CurMaxShields * (1 + SumImpactShieldHealAdditives) * (1+SumSupport) \r\n";
+                        txtBox.Text += "EnergyDrain ofCurrentMaxShield% Heal over time per heal tick formula: CurMaxShields * (BaseHOTperSecond/4) * (1+SumSupport) \r\n\r\n";
+                        txtBox.Text += "some debuffs, ex Pull's expose cannot be activated vs Armor or Shields - I don't account for that here - but you can tick that debuff off in UI if you want numbers without it and RE-Calculate) \r\n\r\n";
+
+                        tempString1 = "Damage vs NON Synthetic Health = Base Damage " + EnergyDrainBaseDam.ToString() + " * ( 1";
+                        tempString2 = "Damage vs Synthetic Health = Base Damage " + EnergyDrainBaseDam.ToString() + " * ( 1";
+                        tempString3 = "Damage vs Shields = Base Damage " + EnergyDrainBaseDam.ToString() + " * ( 1";
+                        tempString4 = "Damage vs Armor = Base Damage " + EnergyDrainBaseDam.ToString() + " * ( 1";
+
+                        tempString5 = "Impact Percent Shield Heal = CurrentMaxShields * ( 1";
+                        if (EnergyDrainRHOT != 0 ) tempString6 = "HOT per tick Percent Shield Heal = CurrentMaxShields * " + (EnergyDrainRHOT / 4).ToString() +  " " ;
+
+
+
+                        // Will need to accumulate the strings and print at the end since I want to print 9 at once .. 
+                        // need sum of debuffs and MAX(skill ArmorDebuff - cryo beam and turret don't stack) first 
+
+                        //do RShield first since is separate and simple
+                        SumAdditives = 0;
+                        SumAdditives += EnergyDrainRShields1; tempString5 += " + built in " + EnergyDrainRShields1.ToString();
+                        if (EnergyDrainRShields2 != 0) SumAdditives += EnergyDrainRShields2; tempString5 += " + evo 3 " + EnergyDrainRShields2.ToString();
+                        if (EnergyDrainRShields3 != 0) SumAdditives += EnergyDrainRShields3; tempString5 += " + evo 4a " + EnergyDrainRShields3.ToString();
+                        if (EnergyDrainRShields4 != 0) SumAdditives += EnergyDrainRShields4; tempString5 += " + evo 6b " + EnergyDrainRShields4.ToString();
+                        float SumImpactShieldHealAdditives; SumImpactShieldHealAdditives = SumAdditives;
+
+                        //ADDITIVEs
+                        SumAdditives = 0;
+
+                        if (EnergyDrainDam1 != 0) { SumAdditives += EnergyDrainDam1;
+                            tempString1 += " + 'Damage Evo 3' " + EnergyDrainDam1.ToString();
+                            tempString2 += " + 'Damage Evo 3' " + EnergyDrainDam1.ToString();
+                            tempString3 += " + 'Damage Evo 3' " + EnergyDrainDam1.ToString();
+                            tempString4 += " + 'Damage Evo 3' " + EnergyDrainDam1.ToString();
+                                                 }
+
+                        if (EnergyDrainDam2 != 0)
+                        {
+                            SumAdditives += EnergyDrainDam2;
+                            tempString1 += " + 'Damage Evo 4a' " + EnergyDrainDam2.ToString();
+                            tempString2 += " + 'Damage Evo 4a' " + EnergyDrainDam2.ToString();
+                            tempString3 += " + 'Damage Evo 4a' " + EnergyDrainDam2.ToString();
+                            tempString4 += " + 'Damage Evo 4a' " + EnergyDrainDam2.ToString();
+                              }
+
+                        if (EnergyDrainDam3 != 0)
+                        {
+                            SumAdditives += EnergyDrainDam3;
+                            tempString1 += " + 'Damage Evo 6a' " + EnergyDrainDam3.ToString();
+                            tempString2 += " + 'Damage Evo 6a' " + EnergyDrainDam3.ToString();
+                            tempString3 += " + 'Damage Evo 6a' " + EnergyDrainDam3.ToString();
+                            tempString4 += " + 'Damage Evo 6a' " + EnergyDrainDam3.ToString();
+                            }
+
+                        // vsSynth1 vsSynth2 ; 2, 6, 10 
+                        SumAdditivesSynth = 0;
+                        if (EnergyDrainvsSynth1 != 0)
+                        {
+                            SumAdditivesSynth += EnergyDrainvsSynth1;
+                            tempString2 += " + 'vsSynth Evo 1' " + EnergyDrainvsSynth1.ToString();
+                          
+                        }
+
+                        if (EnergyDrainvsSynth2 != 0)
+                        {
+                            SumAdditivesSynth += EnergyDrainvsSynth2;
+                            tempString2 += " + 'vsSynth Evo 6a' " + EnergyDrainvsSynth2.ToString();
+                         }
+
+                        if (gearTPD != 0)
+                        {
+                            SumAdditives += gearTPD;
+                            tempString1 += " +  gear '" + comboBoxSelectGear.Text.Split('*')[0] + "' " + gearTPD.ToString();
+                            tempString2 += " +  gear '" + comboBoxSelectGear.Text.Split('*')[0] + "' " + gearTPD.ToString();
+                            tempString3 += " +  gear '" + comboBoxSelectGear.Text.Split('*')[0] + "' " + gearTPD.ToString();
+                            tempString4 += " +  gear '" + comboBoxSelectGear.Text.Split('*')[0] + "' " + gearTPD.ToString();
+                           
+                        }
+
+
+                        if (booster1TPD != 0)
+                        {
+                            SumAdditives += booster1TPD;
+                            tempString1 += " +  booster '" + comboBoxSelectBooster1.Text.Split('*')[0] + "' " + booster1TPD.ToString();
+                            tempString2 += " +  booster '" + comboBoxSelectBooster1.Text.Split('*')[0] + "' " + booster1TPD.ToString();
+                            tempString3 += " +  booster '" + comboBoxSelectBooster1.Text.Split('*')[0] + "' " + booster1TPD.ToString();
+                            tempString4 += " +  booster '" + comboBoxSelectBooster1.Text.Split('*')[0] + "' " + booster1TPD.ToString();
+                           
+                        }
+
+                        if (booster2TPD != 0)
+                        {
+                            SumAdditives += booster2TPD;
+                            tempString1 += " +  booster '" + comboBoxSelectBooster2.Text.Split('*')[0] + "' " + booster2TPD.ToString();
+                            tempString2 += " +  booster '" + comboBoxSelectBooster2.Text.Split('*')[0] + "' " + booster2TPD.ToString();
+                            tempString3 += " +  booster '" + comboBoxSelectBooster2.Text.Split('*')[0] + "' " + booster2TPD.ToString();
+                            tempString4 += " +  booster '" + comboBoxSelectBooster2.Text.Split('*')[0] + "' " + booster2TPD.ToString();
+                           
+                        }
+                        if (apex1TPD != 0)
+                        {
+                            SumAdditives += apex1TPD;
+                            tempString1 += " +  apex '" + comboBoxSelectApex1.Text.Split('*')[0] + "' " + apex1TPD.ToString();
+                            tempString2 += " +  apex '" + comboBoxSelectApex1.Text.Split('*')[0] + "' " + apex1TPD.ToString();
+                            tempString3 += " +  apex '" + comboBoxSelectApex1.Text.Split('*')[0] + "' " + apex1TPD.ToString();
+                            tempString4 += " +  apex '" + comboBoxSelectApex1.Text.Split('*')[0] + "' " + apex1TPD.ToString();
+                                                  }
+
+                        if (apex2TPD != 0)
+                        {
+                            SumAdditives += apex2TPD;
+                            tempString1 += " +  apex '" + comboBoxSelectApex2.Text.Split('*')[0] + "' " + apex2TPD.ToString();
+                            tempString2 += " +  apex '" + comboBoxSelectApex2.Text.Split('*')[0] + "' " + apex2TPD.ToString();
+                            tempString3 += " +  apex '" + comboBoxSelectApex2.Text.Split('*')[0] + "' " + apex2TPD.ToString();
+                            tempString4 += " +  apex '" + comboBoxSelectApex2.Text.Split('*')[0] + "' " + apex2TPD.ToString();
+                           
+                        }
+
+                        if (float.Parse(comboBoxSelectVeteranLevel.Text) != 0)
+                        {
+                            SumAdditives += float.Parse(comboBoxSelectVeteranLevel.Text) * 0.04f;
+                            tempString1 += " + Veteran PD Bonus " + (float.Parse(comboBoxSelectVeteranLevel.Text) * 0.04f).ToString();
+                            tempString2 += " + Veteran PD Bonus " + (float.Parse(comboBoxSelectVeteranLevel.Text) * 0.04f).ToString();
+                            tempString3 += " + Veteran PD Bonus " + (float.Parse(comboBoxSelectVeteranLevel.Text) * 0.04f).ToString();
+                            tempString4 += " + Veteran PD Bonus " + (float.Parse(comboBoxSelectVeteranLevel.Text) * 0.04f).ToString();
+                         
+                        }
+
+                        if (skill1PDSum != 0)
+                        {
+                            SumAdditives += skill1PDSum;
+                            tempString1 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill1Name + "' skill" + skill1PDSum.ToString();
+                            tempString2 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill1Name + "' skill" + skill1PDSum.ToString();
+                            tempString3 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill1Name + "' skill" + skill1PDSum.ToString();
+                            tempString4 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill1Name + "' skill" + skill1PDSum.ToString();
+            
+                        }
+
+                        if (skill2PDSum != 0)
+                        {
+                            SumAdditives += skill2PDSum;
+                            tempString1 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill2Name + "' skill" + skill2PDSum.ToString();
+                            tempString2 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill2Name + "' skill" + skill2PDSum.ToString();
+                            tempString3 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill2Name + "' skill" + skill2PDSum.ToString();
+                            tempString4 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill2Name + "' skill" + skill2PDSum.ToString();
+           
+                        }
+                        if (skill3PDSum != 0)
+                        {
+                            SumAdditives += skill3PDSum;
+                            tempString1 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill3Name + "' skill" + skill3PDSum.ToString();
+                            tempString2 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill3Name + "' skill" + skill3PDSum.ToString();
+                            tempString3 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill3Name + "' skill" + skill3PDSum.ToString();
+                            tempString4 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill3Name + "' skill" + skill3PDSum.ToString();
+                   
+                        }
+                        if (skill4PDSum != 0)
+                        {
+                            SumAdditives += skill4PDSum;
+                            tempString1 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4PDSum.ToString();
+                            tempString2 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4PDSum.ToString();
+                            tempString3 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4PDSum.ToString();
+                            tempString4 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4PDSum.ToString();
+             
+                        }
+
+
+                        if (checkBoxBarricadePD.Checked)
+                        {
+                            SumAdditives += 0.2f;
+                            tempString1 += " + PD from squad Barricade 0.2 ";
+                            tempString2 += " + PD from squad Barricade 0.2 ";
+                            tempString3 += " + PD from squad Barricade 0.2 ";
+                            tempString4 += " + PD from squad Barricade 0.2 ";
+    
+                        }
+
+
+                        //DEBUFFS
+                        float SumEnergyDrainAdditives; SumEnergyDrainAdditives = SumAdditives; SumAdditives = 0;
+
+                        tempString1 += " ) * ( 1"; tempString2 += " ) * ( 1"; tempString3 += " ) * ( 1"; tempString4 += " ) * ( 1";
+                     
+
+                        if (skill1DebuffSum != 0)
+                        {
+                            SumAdditives += skill1DebuffSum * (1 + skill5SupportSum);
+                            tempString1 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill1Name + "' skill" + skill1DebuffSum.ToString(); if (skill5SupportSum != 0) tempString1 += " * ( 1 + SumSupport " + skill5SupportSum.ToString() + " )";
+                            tempString2 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill1Name + "' skill" + skill1DebuffSum.ToString(); if (skill5SupportSum != 0) tempString2 += " * ( 1 + SumSupport " + skill5SupportSum.ToString() + " )";
+                            tempString3 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill1Name + "' skill" + skill1DebuffSum.ToString(); if (skill5SupportSum != 0) tempString3 += " * ( 1 + SumSupport " + skill5SupportSum.ToString() + " )";
+                            tempString4 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill1Name + "' skill" + skill1DebuffSum.ToString(); if (skill5SupportSum != 0) tempString4 += " * ( 1 + SumSupport " + skill5SupportSum.ToString() + " )";
+                         
+
+                        }
+
+                        if (skill2DebuffSum != 0)
+                        {
+                            SumAdditives += skill2DebuffSum * (1 + skill5SupportSum);
+                            tempString1 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill2Name + "' skill" + skill2DebuffSum.ToString(); if (skill5SupportSum != 0) tempString1 += " * ( 1 + SumSupport " + skill5SupportSum.ToString() + " )";
+                            tempString2 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill2Name + "' skill" + skill2DebuffSum.ToString(); if (skill5SupportSum != 0) tempString2 += " * ( 1 + SumSupport " + skill5SupportSum.ToString() + " )";
+                            tempString3 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill2Name + "' skill" + skill2DebuffSum.ToString(); if (skill5SupportSum != 0) tempString3 += " * ( 1 + SumSupport " + skill5SupportSum.ToString() + " )";
+                            tempString4 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill2Name + "' skill" + skill2DebuffSum.ToString(); if (skill5SupportSum != 0) tempString4 += " * ( 1 + SumSupport " + skill5SupportSum.ToString() + " )";
+                           
+                        }
+
+                        if (skill3DebuffSum != 0)
+                        {
+                            SumAdditives += skill3DebuffSum * (1 + skill5SupportSum);
+                            tempString1 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill3Name + "' skill" + skill3DebuffSum.ToString(); if (skill5SupportSum != 0) tempString1 += " * ( 1 + SumSupport " + skill5SupportSum.ToString() + " )";
+                            tempString2 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill3Name + "' skill" + skill3DebuffSum.ToString(); if (skill5SupportSum != 0) tempString2 += " * ( 1 + SumSupport " + skill5SupportSum.ToString() + " )";
+                            tempString3 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill3Name + "' skill" + skill3DebuffSum.ToString(); if (skill5SupportSum != 0) tempString3 += " * ( 1 + SumSupport " + skill5SupportSum.ToString() + " )";
+                            tempString4 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill3Name + "' skill" + skill3DebuffSum.ToString(); if (skill5SupportSum != 0) tempString4 += " * ( 1 + SumSupport " + skill5SupportSum.ToString() + " )";
+                           
+                        }
+
+                        if (skill4DebuffSum != 0)
+                        {
+                            SumAdditives += skill4DebuffSum * (1 + skill5SupportSum);
+                            tempString1 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4DebuffSum.ToString(); if (skill5SupportSum != 0) tempString1 += " * ( 1 + SumSupport " + skill5SupportSum.ToString() + " )";
+                            tempString2 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4DebuffSum.ToString(); if (skill5SupportSum != 0) tempString2 += " * ( 1 + SumSupport " + skill5SupportSum.ToString() + " )";
+                            tempString3 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4DebuffSum.ToString(); if (skill5SupportSum != 0) tempString3 += " * ( 1 + SumSupport " + skill5SupportSum.ToString() + " )";
+                            tempString4 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4DebuffSum.ToString(); if (skill5SupportSum != 0) tempString4 += " * ( 1 + SumSupport " + skill5SupportSum.ToString() + " )";
+                           
+
+                        }
+
+
+                        //  if WE HAVE ET skill46a ET AND checkBoxElementalTechOnTarget.checked 
+                        // NO EnergyDrain  ET char
+                     //   if (comboBoxSkill4_6.Text.Equals("ET=0.35") && checkBoxElementalTechOnTarget.Checked)
+                     //   {
+                       //     SumAdditives += 0.35f;
+                        //    tempString1 += " + debuffvsAll from Elemental Tech 0.35";
+                         //   tempString2 += " + debuffvsAll from Elemental Tech 0.35";
+                         //   tempString3 += " + debuffvsAll from Elemental Tech 0.35";
+                          //  tempString4 += " + debuffvsAll from Elemental Tech 0.35";
+                          //      }
+
+                        if (float.Parse(textBoxSumSquadDebuffsOnTarget.Text) != 0)
+                        {
+                            SumAdditives += float.Parse(textBoxSumSquadDebuffsOnTarget.Text);
+                            tempString1 += " + debuffvsAll from Squad " + textBoxSumSquadDebuffsOnTarget.Text;
+                            tempString2 += " + debuffvsAll from Squad " + textBoxSumSquadDebuffsOnTarget.Text;
+                            tempString3 += " + debuffvsAll from Squad " + textBoxSumSquadDebuffsOnTarget.Text;
+                            tempString4 += " + debuffvsAll from Squad " + textBoxSumSquadDebuffsOnTarget.Text;
+                          
+                        }
+                        if (SumArmorDebuff != 0)
+                        {
+                            tempString4 += " + debuffvsArmor" + SumArmorDebuff.ToString();
+                                       }
+
+                        SumDebuff = SumAdditives;
+
+                        tempString1 += " ) * ( 1 "; tempString2 += " ) * ( 1 "; tempString3 += " ) * ( 1 "; tempString4 += " ) * ( 1 ";
+                       
+
+                        /////////////// REMEMBER SumAdditivesSynth
+
+                        tempString1 += " ) = " + (EnergyDrainBaseDam * (1 + SumEnergyDrainAdditives) * (1 + SumDebuff)).ToString();
+                        tempString2 += " ) = " + (EnergyDrainBaseDam * (1 + SumEnergyDrainAdditives + SumAdditivesSynth) * (1 + SumDebuff)).ToString();
+                    
+                      
+                        SumAdditives = 0;
+
+                        if (EnergyDrainvsShields1 != 0)
+                        {
+                            SumAdditives += EnergyDrainvsShields1;
+                            tempString3 += " + built in vsShields " + EnergyDrainvsShields1.ToString();
+                          
+                        }
+
+
+                        if (EnergyDrainvsShields2 != 0)
+                        {
+                            SumAdditives += EnergyDrainvsShields2;
+                            tempString3 += " + evo 6a vsShields " + EnergyDrainvsShields2.ToString();
+                         }
+
+                      
+                        if (skill4vsShields != 0)
+                        {
+                            SumAdditives += skill4vsShields;
+                            tempString3 += " + Passive vsShields " + skill4vsShields.ToString();
+                             }
+
+                        tempString3 += " ) = " + (EnergyDrainBaseDam * (1 + SumEnergyDrainAdditives) * (1 + SumDebuff) * (1 + SumAdditives)).ToString();
+                        
+
+
+                        //4/8/12 vs armor
+                        if (skill4vsArmor != 0)
+                        {
+                            tempString4 += " + Passive vsArmor " + skill4vsArmor.ToString();
+                                                }
+                        tempString4 += " ) = " + (EnergyDrainBaseDam * (1 + SumEnergyDrainAdditives) * (1 + SumDebuff + SumArmorDebuff) * (1 + skill4vsArmor)).ToString();
+
+                        // Do Heal impact 
+                        tempString5 += " ) ";
+                        if (skill5SupportSum != 0) {
+                                     tempString5 += " * ( 1 + SumSupport " + skill5SupportSum.ToString() + ") ";
+                                     if (EnergyDrainRHOT != 0) tempString6 += " * ( 1 + SumSupport " + skill5SupportSum.ToString() + ") ";
+                        }
+                        tempString5 += " = " + (SumImpactShieldHealAdditives * (1 + skill5SupportSum)).ToString() + "%";
+                        // DO HOT
+                        // tempString6 = "HOT per tick Percent Shield Heal = CurrentMaxShields * " + (EnergyDrainRHOT / 4).ToString() +  " " ;
+                        
+                       if (EnergyDrainRHOT !=0 ) tempString6 += " = " + ((EnergyDrainRHOT / 4) * (1 + skill5SupportSum)).ToString() + "%";
+
+                        txtBox.Text += tempString1 + "\r\n";
+                        txtBox.Text += tempString2 + "\r\n";
+                        txtBox.Text += tempString3 + "\r\n";
+                        txtBox.Text += tempString4 + "\r\n\r\n";
+                        txtBox.Text += tempString5 + "\r\n";
+
+                        if (EnergyDrainRHOT != 0)
+                        {
+                            txtBox.Text += tempString6 + "\r\n\r\n";
+                            // DO HOT Maximum total
+
+                            txtBox.Text += "HOT duration : " + EnergyDrainRHOTDur.ToString() + " * ( 1";
+                            if (skill4PEffectDur != 0) txtBox.Text += " + EffectDuration from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4PEffectDur.ToString();
+                            if (skill5PEffectDur != 0) txtBox.Text += " + EffectDuration from '" + playingCharactersArray[SelectedCharIndex].Skill5Name + "' skill" + skill5PEffectDur.ToString();
+                            txtBox.Text += " ) = " + (EnergyDrainRHOTDur * (1 + skill4PEffectDur + skill5PEffectDur)).ToString() + " seconds   ";
+
+                            txtBox.Text += "Maximum Total HOT Percent Shield = " + (EnergyDrainRHOT  * (1 + skill5SupportSum ) * EnergyDrainRHOTDur * (1 + skill4PEffectDur + skill5PEffectDur )).ToString() + "% \r\n";
+                            
+                        }
+
+                        break;
                 }
             }
 
