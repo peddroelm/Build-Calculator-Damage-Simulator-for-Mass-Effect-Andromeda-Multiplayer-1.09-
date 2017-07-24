@@ -9765,7 +9765,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                             if (SingularityBaseDamage != 0)
                             {
                                 tempString3 += " +  gear '" + comboBoxSelectGear.Text.Split('*')[0] + "' " + gearBPD.ToString();
-                                tempString3 += " +  gear '" + comboBoxSelectGear.Text.Split('*')[0] + "' " + gearBPD.ToString();
+                                tempString4 += " +  gear '" + comboBoxSelectGear.Text.Split('*')[0] + "' " + gearBPD.ToString();
                             }
                         }
 
@@ -11791,200 +11791,169 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                                                }
 
 
-                                               /// relevant variables for damage
+                        /// relevant variables for damage
 
-                                               // will need to split  base // charged/ chain damage v*4 (health and synthhealth) 
+                        // will need to split  base // charged/ chain damage v*4 (health and synthhealth) 
 
 
-                                               ///////////////
-                                               /////////////// let the splittage begin
-                                               /*
-                    
-                                               txtBox.Text += "Pull Damage formula: BaseDamage * (1 + SumAdditives)*(1 + SumDebuff + SquadDebuff ) \r\n";
-                                               txtBox.Text += "some debuffs, ex Pull's expose cannot be activated vs Armor or Shields - I don't account for that here - but you can tick that debuff off in UI if you want numbers without it and RE-Calculate) \r\n\r\n";
+                        ///////////////
+                        /////////////// let the splittage begin
+                      
 
-                                               tempString1 = "Pull Damage vs Health, Shields and Armor = Base Impact Damage " + PullBaseDam.ToString() + " * ( 1";
-                                               tempString2 = "Pull Damage vs Health  (and EXTREMELY RARELY vsArmor and vs Shields ) = Base Enviroment Impact Damage " + PullBaseEDam.ToString() + " * ( 1";
-                        
+                        txtBox.Text += "Pull 6a anti-shield's Damage formula: BaseDamage * (1 + SumAdditives) * (1 + SumDebuff + SquadDebuff ) \r\n";
+                        txtBox.Text += "Pull 5a crushing grip damage per tick formula: (BaseDOTDPS/2) *  (1 + SumDebuff + SquadDebuff )   (NO ADDITIVES!!)  \r\n";
+                        txtBox.Text += "some debuffs, ex Pull's expose cannot be activated vs Armor or Shields - I don't account for that here - but you can tick that debuff off in UI if you want numbers without it and RE-Calculate) \r\n\r\n";
+
+                        if (PullBaseDamage !=0) tempString1 = "Pull Damage vs Shields = Base Damage vs Shields " + PullBaseDamage.ToString() + " * ( 1";
+                        if (PullBaseDOTDPS !=0)  tempString2 = "Crushing Grip's DOT tick Damage vs Health = (BaseDOTDPS/2)  " + (PullBaseDOTDPS/2).ToString() + " ";
+
                         // Will need to accumulate the strings and print at the end since I want to print 9 at once .. 
                         // need sum of debuffs and MAX(skill ArmorDebuff - cryo beam and turret don't stack) first 
                         //"Pull", "Pull description", false, "BaseDam=400;Detonator=1;Recharge=10", "1", "Recharge=0.1", "Dam=0.25", "Dam=0.3", "4b", "LWeak=0.4", "vsShields=0.35","Dam=0.3","Cost=0.45",
-                     
-                    //ADDITIVEs
-                    SumAdditives = 0;
 
-                    if (PullDam1 != 0)
-                    {
-                        SumAdditives += PullDam1;
-                        tempString1 += " + 'Damage Evo 3' " + PullDam1.ToString();
-                        tempString2 += " + 'Damage Evo 3' " + PullDam1.ToString();
-                       
-                    }
-
-                    if (PullDam2 != 0)
-                    {
-                        SumAdditives += PullDam2;
-                        tempString1 += " + 'Damage Evo 4a' " + PullDam2.ToString();
-                        tempString2 += " + 'Damage Evo 4a' " + PullDam2.ToString();
-                       
-                    }
-
-
-                    if (gearBPD != 0)
-                    {
-                        SumAdditives += gearBPD;
-                        tempString1 += " +  gear '" + comboBoxSelectGear.Text.Split('*')[0] + "' " + gearBPD.ToString();
-                        tempString2 += " +  gear '" + comboBoxSelectGear.Text.Split('*')[0] + "' " + gearBPD.ToString();
                     
-                    }
+//ADDITIVEs
+SumAdditives = 0;
+
+if (gearBPD != 0)
+{
+ SumAdditives += gearBPD;
+ tempString1 += " +  gear '" + comboBoxSelectGear.Text.Split('*')[0] + "' " + gearBPD.ToString();
+}
 
 
-                    if (booster1BPD != 0)
-                    {
-                        SumAdditives += booster1BPD;
-                        tempString1 += " +  booster '" + comboBoxSelectBooster1.Text.Split('*')[0] + "' " + booster1BPD.ToString();
-                        tempString2 += " +  booster '" + comboBoxSelectBooster1.Text.Split('*')[0] + "' " + booster1BPD.ToString();
+if (booster1BPD != 0)
+{
+ SumAdditives += booster1BPD;
+ tempString1 += " +  booster '" + comboBoxSelectBooster1.Text.Split('*')[0] + "' " + booster1BPD.ToString();
+
+ }
+
+if (booster2BPD != 0)
+{
+ SumAdditives += booster2BPD;
+ tempString1 += " +  booster '" + comboBoxSelectBooster2.Text.Split('*')[0] + "' " + booster2BPD.ToString();
+
+
+}
+if (apex1BPD != 0)
+{
+ SumAdditives += apex1BPD;
+ tempString1 += " +  apex '" + comboBoxSelectApex1.Text.Split('*')[0] + "' " + apex1BPD.ToString();
+}
+
+if (apex2BPD != 0)
+{
+ SumAdditives += apex2BPD;
+ tempString1 += " +  apex '" + comboBoxSelectApex2.Text.Split('*')[0] + "' " + apex2BPD.ToString();
+}
+
+if (float.Parse(comboBoxSelectVeteranLevel.Text) != 0)
+{
+ SumAdditives += float.Parse(comboBoxSelectVeteranLevel.Text) * 0.04f;
+ tempString1 += " + Veteran PD Bonus " + (float.Parse(comboBoxSelectVeteranLevel.Text) * 0.04f).ToString();
+}
+
+if (skill1PDSum != 0)
+{
+ SumAdditives += skill1PDSum;
+ tempString1 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill1Name + "' skill" + skill1PDSum.ToString();
+}
+
+if (skill2PDSum != 0)
+{
+ SumAdditives += skill2PDSum;
+ tempString1 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill2Name + "' skill" + skill2PDSum.ToString();
+}
+if (skill3PDSum != 0)
+{
+ SumAdditives += skill3PDSum;
+ tempString1 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill3Name + "' skill" + skill3PDSum.ToString();
+
+}
+if (skill4PDSum != 0)
+{
+ SumAdditives += skill4PDSum;
+ tempString1 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4PDSum.ToString();
+}
+if (skill4BPD != 0)
+{
+ SumAdditives += skill4BPD;
+ tempString1 += " + BPD from 'Biotic Expert' evo " + skill4BPD.ToString();
+}
+
+
+if (checkBoxBarricadePD.Checked)
+{
+ SumAdditives += 0.2f;
+ tempString1 += " + PD from squad Barricade 0.2 ";
+}
+
+
+
+tempString1 += " ) * (1";
+tempString2 += " * (1";
+
+
+//DEBUFFS
+float SumPullAdditives; SumPullAdditives = SumAdditives; SumAdditives = 0;
+
+
+
+if (skill1DebuffSum != 0)
+{
+ SumAdditives += skill1DebuffSum;
+ tempString1 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill1Name + "' skill" + skill1DebuffSum.ToString();
+ tempString2 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill1Name + "' skill" + skill1DebuffSum.ToString();
+
+}
+if (skill2DebuffSum != 0)
+{
+ SumAdditives += skill2DebuffSum;
+ tempString1 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill2Name + "' skill" + skill2DebuffSum.ToString();
+ tempString2 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill2Name + "' skill" + skill2DebuffSum.ToString();
+
+}
+if (skill3DebuffSum != 0)
+{
+ SumAdditives += skill3DebuffSum;
+ tempString1 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill3Name + "' skill" + skill3DebuffSum.ToString();
+ tempString2 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill3Name + "' skill" + skill3DebuffSum.ToString();
+
+}
+if (skill4DebuffSum != 0)
+{
+ SumAdditives += skill4DebuffSum;
+ tempString1 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4DebuffSum.ToString();
+ tempString2 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4DebuffSum.ToString();
+
+}
+
+if (float.Parse(textBoxSumSquadDebuffsOnTarget.Text) != 0)
+{
+ SumAdditives += float.Parse(textBoxSumSquadDebuffsOnTarget.Text);
+ tempString1 += " + debuffvsAll from Squad " + textBoxSumSquadDebuffsOnTarget.Text;
+ tempString2 += " + debuffvsAll from Squad " + textBoxSumSquadDebuffsOnTarget.Text;
+
+}
+
+SumDebuff = SumAdditives;
+
+
+tempString1 += " ) = " + (PullBaseDamage * (1 + SumPullAdditives) * (1 + SumDebuff)).ToString();
+tempString2 += " ) = " + ((PullBaseDOTDPS/2) * (1 + SumDebuff)).ToString();
+
+
+                   
+                        if (PullBaseDamage != 0) txtBox.Text += tempString1 + "\r\n\r\n";
+                        if (PullBaseDOTDPS != 0) {
+                                                        txtBox.Text += tempString2 + "\r\n\r\n";
+                            txtBox.Text += "Lift DOT duration : " + PullBaseDuration.ToString() + " * ( 1";
+                            if (PullDuration1 != 0) txtBox.Text += " + EffectDuration from evo 3 " + PullDuration1.ToString();
+                            if (PullDuration2 != 0) txtBox.Text += " + EffectDuration from evo 4a " + PullDuration2.ToString();
+                            txtBox.Text += " ) = " + (PullBaseDuration * (1 + PullDuration1 + PullDuration2)).ToString() + " seconds \r\n";
+                            txtBox.Text += "Maximum Total vs lifted DOT  = " + (PullBaseDOTDPS *  (1 + SumDebuff) * PullBaseDuration * (1 + PullDuration1 + PullDuration2)).ToString() + "\r\n";
                         }
-
-                    if (booster2BPD != 0)
-                    {
-                        SumAdditives += booster2BPD;
-                        tempString1 += " +  booster '" + comboBoxSelectBooster2.Text.Split('*')[0] + "' " + booster2BPD.ToString();
-                        tempString2 += " +  booster '" + comboBoxSelectBooster2.Text.Split('*')[0] + "' " + booster2BPD.ToString();
-                     
-                    }
-                    if (apex1BPD != 0)
-                    {
-                        SumAdditives += apex1BPD;
-                        tempString1 += " +  apex '" + comboBoxSelectApex1.Text.Split('*')[0] + "' " + apex1BPD.ToString();
-                        tempString2 += " +  apex '" + comboBoxSelectApex1.Text.Split('*')[0] + "' " + apex1BPD.ToString();
-                  
-                    }
-
-                    if (apex2BPD != 0)
-                    {
-                        SumAdditives += apex2BPD;
-                        tempString1 += " +  apex '" + comboBoxSelectApex2.Text.Split('*')[0] + "' " + apex2BPD.ToString();
-                        tempString2 += " +  apex '" + comboBoxSelectApex2.Text.Split('*')[0] + "' " + apex2BPD.ToString();
-                       
-                    }
-
-                    if (float.Parse(comboBoxSelectVeteranLevel.Text) != 0)
-                    {
-                        SumAdditives += float.Parse(comboBoxSelectVeteranLevel.Text) * 0.04f;
-                        tempString1 += " + Veteran PD Bonus " + (float.Parse(comboBoxSelectVeteranLevel.Text) * 0.04f).ToString();
-                        tempString2 += " + Veteran PD Bonus " + (float.Parse(comboBoxSelectVeteranLevel.Text) * 0.04f).ToString();
-                
-                    }
-
-                    if (skill1PDSum != 0)
-                    {
-                        SumAdditives += skill1PDSum;
-                        tempString1 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill1Name + "' skill" + skill1PDSum.ToString();
-                        tempString2 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill1Name + "' skill" + skill1PDSum.ToString();
-                    
-                    }
-
-                    if (skill2PDSum != 0)
-                    {
-                        SumAdditives += skill2PDSum;
-                        tempString1 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill2Name + "' skill" + skill2PDSum.ToString();
-                        tempString2 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill2Name + "' skill" + skill2PDSum.ToString();
-                      
-                    }
-                    if (skill3PDSum != 0)
-                    {
-                        SumAdditives += skill3PDSum;
-                        tempString1 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill3Name + "' skill" + skill3PDSum.ToString();
-                        tempString2 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill3Name + "' skill" + skill3PDSum.ToString();
-                       
-                    }
-                    if (skill4PDSum != 0)
-                    {
-                        SumAdditives += skill4PDSum;
-                        tempString1 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4PDSum.ToString();
-                        tempString2 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4PDSum.ToString();
-                      
-                    }
-                    if (skill4BPD != 0)
-                    {
-                        SumAdditives += skill4BPD;
-                        tempString1 += " + BPD from 'Biotic Expert' evo " + skill4BPD.ToString();
-                        tempString2 += " + BPD from 'Biotic Expert' evo " + skill4BPD.ToString();
-                    
-                    }
-
-
-                    if (checkBoxBarricadePD.Checked)
-                    {
-                        SumAdditives += 0.2f;
-                        tempString1 += " + PD from squad Barricade 0.2 ";
-                        tempString2 += " + PD from squad Barricade 0.2 ";
-             
-                    }
-
-                    // Weakspot
-
-               
-                    tempString1 += " ) * (1";
-                    tempString2 += " ) * (1";
-                    tempString3 += " ) * (1";
-                    tempString4 += " ) * (1";
-
-
-                    //DEBUFFS
-                    float SumPullAdditives; SumPullAdditives = SumAdditives; SumAdditives = 0;
-
-
-
-                    if (skill1DebuffSum != 0)
-                    {
-                        SumAdditives += skill1DebuffSum;
-                        tempString1 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill1Name + "' skill" + skill1DebuffSum.ToString();
-                        tempString2 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill1Name + "' skill" + skill1DebuffSum.ToString();
-                     
-                    }
-                    if (skill2DebuffSum != 0)
-                    {
-                        SumAdditives += skill2DebuffSum;
-                        tempString1 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill2Name + "' skill" + skill2DebuffSum.ToString();
-                        tempString2 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill2Name + "' skill" + skill2DebuffSum.ToString();
-                    
-                    }
-                    if (skill3DebuffSum != 0)
-                    {
-                        SumAdditives += skill3DebuffSum;
-                        tempString1 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill3Name + "' skill" + skill3DebuffSum.ToString();
-                        tempString2 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill3Name + "' skill" + skill3DebuffSum.ToString();
-                     
-                    }
-                    if (skill4DebuffSum != 0)
-                    {
-                        SumAdditives += skill4DebuffSum;
-                        tempString1 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4DebuffSum.ToString();
-                        tempString2 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4DebuffSum.ToString();
-                     
-                    }
-
-                    if (float.Parse(textBoxSumSquadDebuffsOnTarget.Text) != 0)
-                    {
-                        SumAdditives += float.Parse(textBoxSumSquadDebuffsOnTarget.Text);
-                        tempString1 += " + debuffvsAll from Squad " + textBoxSumSquadDebuffsOnTarget.Text;
-                        tempString2 += " + debuffvsAll from Squad " + textBoxSumSquadDebuffsOnTarget.Text;
-                    
-                    }
-
-                    SumDebuff = SumAdditives;
-
-
-                    tempString1 += " ) = " + (PullBaseDam * (1 + SumPullAdditives) * (1 + SumDebuff)).ToString();
-                    tempString2 += " ) = " + (PullBaseEDam * (1 + SumPullAdditives) *  (1 + SumDebuff)).ToString();
-
-
-                    txtBox.Text += tempString1 + "\r\n\r\n";
-                    txtBox.Text += tempString2 + "\r\n\r\n";                      
-
-                         **/
 
                         break;
 
