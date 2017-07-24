@@ -473,8 +473,8 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                      "Apex Training", "apex description", false, "", "WD=0.05", "PD=0.15", "WD=0.05;MD=0.2", "WD=0.08", "PD=0.2;MD=0.2", "Weak=0.2", "Combo=0.5", "WD=0.1","PD=0.15;SOmethingDUR",
                      "Support Systems", "Support Systems description", false, "", "1", "Shields=0.2;Health=0.2", "MD=0.3", "PEffectDur=0.3", "MD=0.4", "Shields=0.2;Health=0.2", "TDR=1.2;EnableTCheck", "6a","6b"),
                      new playingCharacter("Batarian Scrapper", 585f, 310f, 750f, 0f, 0f, 0f , "Detonator=0.7" ,
-                     "Concussive Shot", "concussive shot description", false, "BaseDam=440;Recharge=10;Detonator=1", "1", "2", "Dam=0.35", "Recharge=0.3", "Repeat", "5a","Dam=0.5", "vsArmor=1.25", "vsShields=1",
-                     "Snap Freeze", "Snap Freeze description", false, "BaseDamage=250;ColdDur=0.6;Recharge=12;CryoPrimer=HA", "TArmorDebuff=0.5;EnableTCheck", "Recharge=0.2", "Dam=0.3", "Dam=0.5", "4b", "5a", "TDebuff=0.2;EnableTCheck", "TArmorDebuff=0.65;EnableTCheck","6b",
+                    "Concussive Shot", "concussive shot description", false, "BaseDam=440;Recharge=10;Detonator=1", "1", "2", "Dam=0.35", "Recharge=0.3", "Repeat", "5a","Dam=0.5", "vsArmor=1.25", "vsShields=1",
+                    "Snap Freeze", "Snap Freeze description", false, "BaseDamage=250;ColdDur=0.6;Recharge=12;CryoPrimer=HA", "TArmorDebuff=0.5;EnableTCheck", "Recharge=0.2", "Dam=0.3", "Dam=0.5", "4b", "5a", "TDebuff=0.2;EnableTCheck", "TArmorDebuff=0.65;EnableTCheck","6b",
                      "Flak Cannon", "Flak description", false, "BaseDamage=250;SBase=85;Cooldown=1", "SvsArmor=-0.3", "2", "Dam=0.4", "Dam=0.5", "4b", "vsArmor=0.75", "5b", "NrSrapnel=0.5","BaseDOTDam=100;BaseDOTDur=8",
                      "Munitions Training", "munitions training description", false, "", "WD=0.05", "PD=0.2", "WD=0.05;MD=0.2", "WD=0.08", "PD=0.2;MD=0.2", "TWD=0.2;TMD=0.3;EnableTCheck", "Reload=0.15;MAG=0.25", "TDebuff=0.24;EnableTCheck", "Weak=0.2",
                      "Combat Fitness", "combat fitness description", false, "", "Shields=0.1;Health=0.1", "MD=0.3", "Shields=0.15;Health=0.15", "Shields=0.25;Health=0.25", "MD=0.5", "TDR=0.5;EnableTCheck", "TDR=1;EnableTCheck", "TDR=2;EnableTCheck","TMD=0.65;EnableTCheck"),
@@ -3567,6 +3567,30 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                     tempString10 += " + gear '" + comboBoxSelectGear.Text.Split('*')[0] + "' " + gearMD.ToString(); tempString11 += " + gear '" + comboBoxSelectGear.Text.Split('*')[0] + "' " + gearMD.ToString(); tempString12 += " + gear '" + comboBoxSelectGear.Text.Split('*')[0] + "' " + gearMD.ToString();
                 }
             }
+
+            if (addon1MD != 0)
+            {
+                SumAdditives += addon1MD;
+                tempString1 += " + addon '" + comboBoxSelectAddOn1.Text.Split('*')[0] + "' " + addon1MD.ToString(); tempString2 += " + addon '" + comboBoxSelectAddOn1.Text.Split('*')[0] + "' " + addon1MD.ToString(); tempString3 += " + addon '" + comboBoxSelectAddOn1.Text.Split('*')[0] + "' " + addon1MD.ToString();
+                tempString4 += " + addon '" + comboBoxSelectAddOn1.Text.Split('*')[0] + "' " + addon1MD.ToString(); tempString5 += " + addon '" + comboBoxSelectAddOn1.Text.Split('*')[0] + "' " + addon1MD.ToString(); tempString6 += " + addon '" + comboBoxSelectAddOn1.Text.Split('*')[0] + "' " + addon1MD.ToString();
+                tempString7 += " + addon '" + comboBoxSelectAddOn1.Text.Split('*')[0] + "' " + addon1MD.ToString(); tempString8 += " + addon '" + comboBoxSelectAddOn1.Text.Split('*')[0] + "' " + addon1MD.ToString(); tempString9 += " + addon '" + comboBoxSelectAddOn1.Text.Split('*')[0] + "' " + addon1MD.ToString();
+                if (playingCharactersArray[SelectedCharIndex].CharacterName.Equals("Krogan Gladiator"))
+                {
+                    tempString10 += " + addon '" + comboBoxSelectAddOn1.Text.Split('*')[0] + "' " + addon1MD.ToString(); tempString11 += " + addon '" + comboBoxSelectAddOn1.Text.Split('*')[0] + "' " + addon1MD.ToString(); tempString12 += " + addon '" + comboBoxSelectAddOn1.Text.Split('*')[0] + "' " + addon1MD.ToString();
+                }
+            }
+            if (addon2MD != 0)
+            {
+                SumAdditives += addon2MD;
+                tempString1 += " + addon '" + comboBoxSelectAddOn2.Text.Split('*')[0] + "' " + addon2MD.ToString(); tempString2 += " + addon '" + comboBoxSelectAddOn2.Text.Split('*')[0] + "' " + addon2MD.ToString(); tempString3 += " + addon '" + comboBoxSelectAddOn2.Text.Split('*')[0] + "' " + addon2MD.ToString();
+                tempString4 += " + addon '" + comboBoxSelectAddOn2.Text.Split('*')[0] + "' " + addon2MD.ToString(); tempString5 += " + addon '" + comboBoxSelectAddOn2.Text.Split('*')[0] + "' " + addon2MD.ToString(); tempString6 += " + addon '" + comboBoxSelectAddOn2.Text.Split('*')[0] + "' " + addon2MD.ToString();
+                tempString7 += " + addon '" + comboBoxSelectAddOn2.Text.Split('*')[0] + "' " + addon2MD.ToString(); tempString8 += " + addon '" + comboBoxSelectAddOn2.Text.Split('*')[0] + "' " + addon2MD.ToString(); tempString9 += " + addon '" + comboBoxSelectAddOn2.Text.Split('*')[0] + "' " + addon2MD.ToString();
+                if (playingCharactersArray[SelectedCharIndex].CharacterName.Equals("Krogan Gladiator"))
+                {
+                    tempString10 += " + addon '" + comboBoxSelectAddOn2.Text.Split('*')[0] + "' " + addon2MD.ToString(); tempString11 += " + addon '" + comboBoxSelectAddOn2.Text.Split('*')[0] + "' " + addon2MD.ToString(); tempString12 += " + addon '" + comboBoxSelectAddOn2.Text.Split('*')[0] + "' " + addon2MD.ToString();
+                }
+            }
+
 
             if (booster1MD != 0) { SumAdditives += booster1MD;
                 tempString1 += " + booster '" + comboBoxSelectBooster1.Text.Split('*')[0] + "' " + booster1MD.ToString(); tempString2 += " + booster '" + comboBoxSelectBooster1.Text.Split('*')[0] + "' " + booster1MD.ToString(); tempString3 += " + booster '" + comboBoxSelectBooster1.Text.Split('*')[0] + "' " + booster1MD.ToString();
@@ -10941,6 +10965,23 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                                 tempString5 += " +  gear '" + comboBoxSelectGear.Text.Split('*')[0] + "' " + gearCPD.ToString();
                             }
 
+                            
+                            if (addon1MD != 0)
+                            {
+                                SumAvengerStrikeDOTAdditives += addon1MD;
+                                tempString4 += " + addon '" + comboBoxSelectAddOn1.Text.Split('*')[0] + "' " + addon1MD.ToString();
+                                tempString5 += " + addon '" + comboBoxSelectAddOn1.Text.Split('*')[0] + "' " + addon1MD.ToString(); 
+                              
+                            }
+
+                            if (addon2MD != 0)
+                            {
+                                SumAvengerStrikeDOTAdditives += addon2MD;
+                                tempString4 += " + addon '" + comboBoxSelectAddOn2.Text.Split('*')[0] + "' " + addon2MD.ToString();
+                                tempString5 += " + addon '" + comboBoxSelectAddOn2.Text.Split('*')[0] + "' " + addon2MD.ToString();
+
+                            }
+
 
                             if (booster1CPD != 0)
                             {
@@ -11954,6 +11995,343 @@ tempString2 += " ) = " + ((PullBaseDOTDPS/2) * (1 + SumDebuff)).ToString();
                             txtBox.Text += " ) = " + (PullBaseDuration * (1 + PullDuration1 + PullDuration2)).ToString() + " seconds \r\n";
                             txtBox.Text += "Maximum Total vs lifted DOT  = " + (PullBaseDOTDPS *  (1 + SumDebuff) * PullBaseDuration * (1 + PullDuration1 + PullDuration2)).ToString() + "\r\n";
                         }
+
+                        break;
+                    case "Concussive Shot":
+                        //"Concussive Shot", "concussive shot description", false, "BaseDam=440;Recharge=10;Detonator=1", "1", "2", "Dam=0.35", "Recharge=0.3", "Repeat", "5a","Dam=0.5", "vsArmor=1.25", "vsShields=1",
+                        // human soldier, batarian scrapper
+
+                       
+                          // combo boxes HAVE PLAYER CHOICES 
+                                               // Also need to get the right playingCharactersArray[SelectedCharIndex].Skill X CooldownMaxDurationPassiveTempEtc
+                                               TCooldownMaxDurationPassiveTempEtc = "";
+                                               if (playingCharactersArray[SelectedCharIndex].Skill1Name.Equals(ActiveSkillList[ASkillIndex])) TCooldownMaxDurationPassiveTempEtc = playingCharactersArray[SelectedCharIndex].Skill1CooldownMaxDurationPassiveTempEtc;
+                                               if (playingCharactersArray[SelectedCharIndex].Skill2Name.Equals(ActiveSkillList[ASkillIndex])) TCooldownMaxDurationPassiveTempEtc = playingCharactersArray[SelectedCharIndex].Skill2CooldownMaxDurationPassiveTempEtc;
+                                               if (playingCharactersArray[SelectedCharIndex].Skill3Name.Equals(ActiveSkillList[ASkillIndex])) TCooldownMaxDurationPassiveTempEtc = playingCharactersArray[SelectedCharIndex].Skill3CooldownMaxDurationPassiveTempEtc;
+
+                                               //  txtBox.Text += TCooldownMaxDurationPassiveTempEtc;
+
+                                               // duration don't care - Actually THERE IS THE POSIBILITY FOR DOT
+                                               txtBox.Text += "Duration irrelevant ..no sustained effect \r\n\r\n";
+                       
+                                               float ConcussiveShotBaseDam, ConcussiveShotRecharge; ConcussiveShotBaseDam = ConcussiveShotRecharge = 0;
+                                               foreach (string s in TCooldownMaxDurationPassiveTempEtc.Split(';'))
+                                               {
+                                                   //  "BaseDam="
+                                                   if (s.StartsWith("BaseDam=")) ConcussiveShotBaseDam = float.Parse(s.Substring(8, s.Length - 8));
+                                                   if (s.StartsWith("Recharge=")) ConcussiveShotRecharge = float.Parse(s.Substring(9, s.Length - 9));
+                                                    //  txtBox.Text += ConcussiveShotBaseDam.ToString() + "\r\n";
+                                                }
+
+                                               
+                                               //we will need to Find the right comboboxes by name .. 
+                                               //  controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_1", true);
+                                               //  comboBox = controls[0] as ComboBox;
+                                               //  txtBox.Text += comboBox.Text + "\r\n";
+
+                                               // controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_2", true);
+                                               // comboBox = controls[0] as ComboBox;
+                                               // txtBox.Text += comboBox.Text + "\r\n";
+
+
+                                               controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_3", true);
+                                               comboBox = controls[0] as ComboBox;
+                                               //txtBox.Text += comboBox.Text + "\r\n";
+
+                                               float ConcussiveShotDam1; ConcussiveShotDam1 = 0;
+                                               foreach (string s in comboBox.Text.Split(';'))
+                                               {
+                                                   // check for Dam
+                                                   if (s.StartsWith("Dam=")) ConcussiveShotDam1 += float.Parse(s.Substring(4, s.Length - 4));
+
+                                               }
+
+
+                                                   controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_4", true);
+                                                   comboBox = controls[0] as ComboBox;
+                                               //txtBox.Text += comboBox.Text + "\r\n";
+
+                                                   bool ConcussiveShotRepeat; ConcussiveShotRepeat = false; float ConcussiveShotRecharge1; ConcussiveShotRecharge1 = 0;
+                                                    foreach (string s in comboBox.Text.Split(';'))
+                                                   {
+                            if (s.StartsWith("Recharge=")) ConcussiveShotRecharge1 += float.Parse(s.Substring(9, s.Length - 9));
+                            if (s.StartsWith("Repeat")) ConcussiveShotRepeat = true;
+                                                    }
+
+                                               controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_5", true);
+                                               comboBox = controls[0] as ComboBox;
+                                               //txtBox.Text += comboBox.Text + "\r\n";
+
+
+                                               float ConcussiveShotDam2; ConcussiveShotDam2 = 0;
+                                               foreach (string s in comboBox.Text.Split(';'))
+                                               {
+                                                   //   "BaseDOTDam=100;BaseDOTDur=6"
+                                                   if (s.StartsWith("Dam=")) ConcussiveShotDam2 += float.Parse(s.Substring(4, s.Length - 4));
+                                               }
+
+
+                                               controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_6", true);
+                                               comboBox = controls[0] as ComboBox;
+                                               //  txtBox.Text += comboBox.Text + "\r\n";
+
+                                               float ConcussiveShotvsShields, ConcussiveShotvsArmor; ConcussiveShotvsShields = ConcussiveShotvsArmor = 0;
+                                               foreach (string s in comboBox.Text.Split(';'))
+                                               {
+                                                   if (s.StartsWith("vsShields=")) ConcussiveShotvsShields += float.Parse(s.Substring(10, s.Length - 10));
+                                                   if (s.StartsWith("vsArmor=")) ConcussiveShotvsArmor += float.Parse(s.Substring(8, s.Length - 8));
+
+                        }
+
+
+                        if (!ConcussiveShotRepeat)
+                            {
+
+                            txtBox.Text += "Cooldown FORMULA: (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP )  \r\n";
+                            txtBox.Text += "In the interest of developement speed this app ignores the WeaponWeight minigame - as long as you don't go over capacity AS YOU SHOULD! - the related term will be Zero \r\n\r\n";
+                            txtBox.Text += "Cooldown = ( BaseConcussiveShotCooldown " + ConcussiveShotRecharge + " / ( 1 ";
+
+
+                            /// relevant variables for cooldown
+                            /// BONUS STAT PRS, ConcussiveShotRecharge1, ConcussiveShotRecharge2 , gearPRS, booster1PRS, booster2PRS, skill1PRS to skill5PRS; + 
+                            /// skill4PRTR
+                            /// skill1PRPSum to skill3PRPSum
+                            /// 
+
+                            /// still at cooldown
+                            /// (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP )  \r\n";
+
+                            SumAdditives = 0;
+                            if (float.Parse(comboBoxBonusPRS.Text) != 0) { SumAdditives += float.Parse(comboBoxBonusPRS.Text) / 100; txtBox.Text += " + Bonus 'Power Recharge' Stat" + float.Parse(comboBoxBonusPRS.Text) / 100; }
+                            if (ConcussiveShotRecharge1 != 0) { SumAdditives += ConcussiveShotRecharge1; txtBox.Text += " + 'ConcussiveShot Recharge Evo 2' " + ConcussiveShotRecharge1.ToString(); }
+                            //   if (ConcussiveShotRecharge2 != 0) { SumAdditives += ConcussiveShotRecharge2; txtBox.Text += " + 'ConcussiveShot Recharge Evo 4b' " + ConcussiveShotRecharge2.ToString(); }
+                            if (gearPRS != 0) { SumAdditives += gearPRS; txtBox.Text += " +  gear '" + comboBoxSelectGear.Text.Split('*')[0] + "' " + gearPRS.ToString(); }
+                            if (booster1PRS != 0) { SumAdditives += booster1PRS; txtBox.Text += " +  booster '" + comboBoxSelectBooster1.Text.Split('*')[0] + "' " + booster1PRS.ToString(); }
+                            if (booster2PRS != 0) { SumAdditives += booster2PRS; txtBox.Text += " +  booster '" + comboBoxSelectBooster2.Text.Split('*')[0] + "' " + booster2PRS.ToString(); }
+                            if (skill1PRS != 0) { SumAdditives += skill1PRS; txtBox.Text += " + PRS from '" + playingCharactersArray[SelectedCharIndex].Skill1Name + "' skill" + skill1PRS.ToString(); }
+                            if (skill2PRS != 0) { SumAdditives += skill2PRS; txtBox.Text += " + PRS from '" + playingCharactersArray[SelectedCharIndex].Skill2Name + "' skill" + skill2PRS.ToString(); }
+                            if (skill3PRS != 0) { SumAdditives += skill3PRS; txtBox.Text += " + PRS from '" + playingCharactersArray[SelectedCharIndex].Skill3Name + "' skill" + skill3PRS.ToString(); }
+                            if (skill4PRS != 0) { SumAdditives += skill4PRS; txtBox.Text += " + PRS from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4PRS.ToString(); }
+                            if (skill5PRS != 0) { SumAdditives += skill5PRS; txtBox.Text += " + PRS from '" + playingCharactersArray[SelectedCharIndex].Skill5Name + "' skill" + skill5PRS.ToString(); }
+                            txtBox.Text += " ) * ( 1";
+
+                            PRP = 0;
+                            // NO CHAR CURRENTLY HAS ConcussiveShot AND ANNIHILATION
+                            if (skill1PRPSum != 0) { PRP = skill1PRPSum; txtBox.Text += " + 'Annihilation PRP' )" + skill1PRPSum.ToString(); }
+                            if (skill2PRPSum != 0) { PRP = skill2PRPSum; txtBox.Text += " + 'Annihilation PRP' )" + skill2PRPSum.ToString(); }
+                            if (skill3PRPSum != 0) { PRP = skill3PRPSum; txtBox.Text += " + 'Annihilation PRP' )" + skill3PRPSum.ToString(); }
+
+                            txtBox.Text += " ) = " + ((ConcussiveShotRecharge / (1 + SumAdditives)) * (1 + PRP)).ToString() + "\r\n";
+                            //if (skill4PRTR != 0) { txtBox.Text += " Detonation Feedback" + (1-skill4PRTR).ToString() + " multiplier to remaining cooldown amount \r\n"; }
+                            txtBox.Text += "\r\n";
+                        }
+                        else txtBox.Text += "Cooldownn 0 (+animation) Grenade Based \r\n";
+                   
+                                               ///////////////
+                                               /////////////// let the splittage begin
+                                               
+                                               txtBox.Text += "Damage formula: BasetDamage * (1 + SumAdditives) * (1 + SumDebuff + SumArmorDebuff + SquadDebuff) * (1 + SumvsDefense)  \r\n";
+                                               txtBox.Text += "some debuffs, ex Pull's expose cannot be activated vs Armor or Shields - I don't account for that here - but you can tick that debuff off in UI if you want numbers without it and RE-Calculate) \r\n\r\n";
+
+                        
+                                               tempString1 = "Damage vs Health = Base Damage " + ConcussiveShotBaseDam.ToString() + " * ( 1 ";
+                                               if (ConcussiveShotRepeat) tempString2 = "Damage vs lifted or Knocked down Health (hits twice) =  Base Damage " + (ConcussiveShotBaseDam).ToString() + " * ( 1 ";
+                                              tempString3 = "Damage vs Armor = Base Damage " + ConcussiveShotBaseDam.ToString() + " * ( 1 ";
+                                              tempString4 = "Damage vs Shields = Base Damage " + ConcussiveShotBaseDam.ToString() + " * ( 1 ";
+                                              
+                                             
+                                               // Will need to accumulate the strings and print at the end since I want to print 9 at once .. 
+                                               // need sum of debuffs and MAX(skill ArmorDebuff - cryo beam and turret don't stack) first 
+
+                                               //ADDITIVEs
+                                               //                    SumAdditives = 0;
+
+                                               if (ConcussiveShotDam1 != 0)
+                                               {
+                                                   SumAdditives += ConcussiveShotDam1;
+                                                   tempString1 += " + 'Damage Evo 3' " + ConcussiveShotDam1.ToString();
+                                                   if (ConcussiveShotRepeat) tempString2 += " + 'Damage Evo 3' " + ConcussiveShotDam1.ToString();
+                                                   tempString3 += " + 'Damage Evo 3' " + ConcussiveShotDam1.ToString();
+                                                   tempString4 += " + 'Damage Evo 3' " + ConcussiveShotDam1.ToString();
+                                                          }
+                        if (ConcussiveShotDam2 != 0)
+                        {
+                            SumAdditives += ConcussiveShotDam2;
+                            tempString1 += " + 'Damage Evo 4b' " + ConcussiveShotDam2.ToString();
+                            if (ConcussiveShotRepeat) tempString2 += " + 'Damage Evo 4b' " + ConcussiveShotDam2.ToString();
+                            tempString3 += " + 'Damage Evo 4b' " + ConcussiveShotDam2.ToString();
+                            tempString4 += " + 'Damage Evo 4b' " + ConcussiveShotDam2.ToString();
+                        }
+
+
+
+                        if (gearCPD != 0)
+                                               {
+                                                   SumAdditives += gearCPD;
+                                                   tempString1 += " +  gear '" + comboBoxSelectGear.Text.Split('*')[0] + "' " + gearCPD.ToString();
+                            if (ConcussiveShotRepeat) tempString2 += " +  gear '" + comboBoxSelectGear.Text.Split('*')[0] + "' " + gearCPD.ToString();
+                                                   tempString3 += " +  gear '" + comboBoxSelectGear.Text.Split('*')[0] + "' " + gearCPD.ToString();
+                                                   tempString4 += " +  gear '" + comboBoxSelectGear.Text.Split('*')[0] + "' " + gearCPD.ToString();
+
+                        }
+                                               if (booster1CPD != 0)
+                                               {
+                                                   SumAdditives += booster1CPD;
+                                                   tempString1 += " + booster '" + comboBoxSelectBooster1.Text.Split('*')[0] + "' " + booster1CPD.ToString();
+                            if (ConcussiveShotRepeat) tempString2 += " + booster '" + comboBoxSelectBooster1.Text.Split('*')[0] + "' " + booster1CPD.ToString();
+                                                   tempString3 += " + booster '" + comboBoxSelectBooster1.Text.Split('*')[0] + "' " + booster1CPD.ToString();
+                                                   tempString4 += " + booster '" + comboBoxSelectBooster1.Text.Split('*')[0] + "' " + booster1CPD.ToString();
+                        }
+                                               if (booster2CPD != 0)
+                                               {
+                                                   SumAdditives += booster2CPD;
+                                                   tempString1 += " + booster '" + comboBoxSelectBooster2.Text.Split('*')[0] + "' " + booster2CPD.ToString();
+                            if (ConcussiveShotRepeat) tempString2 += " + booster '" + comboBoxSelectBooster2.Text.Split('*')[0] + "' " + booster2CPD.ToString();
+                                                   tempString3 += " + booster '" + comboBoxSelectBooster2.Text.Split('*')[0] + "' " + booster2CPD.ToString();
+                                                   tempString4 += " + booster '" + comboBoxSelectBooster2.Text.Split('*')[0] + "' " + booster2CPD.ToString();
+                        }
+                                               if (apex1CPD != 0)
+                                               {
+                                                   SumAdditives += apex1CPD;
+                                                   tempString1 += " + Apex '" + comboBoxSelectApex1.Text.Split('*')[0] + "' " + apex1CPD.ToString();
+                            if (ConcussiveShotRepeat) tempString2 += " + Apex '" + comboBoxSelectApex1.Text.Split('*')[0] + "' " + apex1CPD.ToString();
+                                                   tempString3 += " + Apex '" + comboBoxSelectApex1.Text.Split('*')[0] + "' " + apex1CPD.ToString();
+                                                   tempString4 += " + Apex '" + comboBoxSelectApex1.Text.Split('*')[0] + "' " + apex1CPD.ToString();
+                        }
+                                               if (apex2CPD != 0)
+                                               {
+                                                   SumAdditives += apex2CPD;
+                                                   tempString1 += " + Apex '" + comboBoxSelectApex2.Text.Split('*')[0] + "' " + apex2CPD.ToString();
+                            if (ConcussiveShotRepeat) tempString2 += " + Apex '" + comboBoxSelectApex2.Text.Split('*')[0] + "' " + apex2CPD.ToString();
+                            tempString3 += " + Apex '" + comboBoxSelectApex2.Text.Split('*')[0] + "' " + apex2CPD.ToString();
+                            tempString4 += " + Apex '" + comboBoxSelectApex2.Text.Split('*')[0] + "' " + apex2CPD.ToString();
+                                               }
+
+                                               if (float.Parse(comboBoxSelectVeteranLevel.Text) != 0)
+                                               {
+                                                   SumAdditives += float.Parse(comboBoxSelectVeteranLevel.Text) * 0.04f;
+                                                   tempString1 += " + Veteran PD Bonus " + (float.Parse(comboBoxSelectVeteranLevel.Text) * 0.04f).ToString();
+                            if (ConcussiveShotRepeat) tempString2 += " + Veteran PD Bonus " + (float.Parse(comboBoxSelectVeteranLevel.Text) * 0.04f).ToString();
+                                                    tempString3 += " + Veteran PD Bonus " + (float.Parse(comboBoxSelectVeteranLevel.Text) * 0.04f).ToString();
+                                                    tempString4 += " + Veteran PD Bonus " + (float.Parse(comboBoxSelectVeteranLevel.Text) * 0.04f).ToString();
+                        }
+
+                                               if (skill1PDSum != 0)
+                                               {
+                                                   SumAdditives += skill1PDSum;
+                                                   tempString1 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill1Name + "' skill" + skill1PDSum.ToString();
+                            if (ConcussiveShotRepeat) tempString2 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill1Name + "' skill" + skill1PDSum.ToString();
+                                                   tempString3 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill1Name + "' skill" + skill1PDSum.ToString();
+                                                   tempString4 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill1Name + "' skill" + skill1PDSum.ToString();
+                        }
+                                               if (skill2PDSum != 0)
+                                               {
+                                                   SumAdditives += skill2PDSum;
+                                                   tempString1 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill2Name + "' skill" + skill2PDSum.ToString();
+                                                     if (ConcussiveShotRepeat) tempString2 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill2Name + "' skill" + skill2PDSum.ToString();
+                                                   tempString3 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill2Name + "' skill" + skill2PDSum.ToString();
+                                                   tempString4 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill2Name + "' skill" + skill2PDSum.ToString();
+
+                        }
+                        if (skill3PDSum != 0)
+                                               {
+                                                   SumAdditives += skill3PDSum;
+                                                   tempString1 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill3Name + "' skill" + skill3PDSum.ToString();
+                                                     if (ConcussiveShotRepeat) tempString2 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill3Name + "' skill" + skill3PDSum.ToString();
+                                                   tempString3 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill3Name + "' skill" + skill3PDSum.ToString();
+                                                   tempString4 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill3Name + "' skill" + skill3PDSum.ToString();
+                        }
+                                               if (skill4PDSum != 0)
+                                               {
+                                                   SumAdditives += skill4PDSum;
+                                                   tempString1 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4PDSum.ToString();
+                                                     if (ConcussiveShotRepeat) tempString2 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4PDSum.ToString();
+                                                   tempString3 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4PDSum.ToString();
+                                                   tempString4 += " + PD from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4PDSum.ToString();
+                        }
+                                               if (checkBoxBarricadePD.Checked)
+                                               {
+                                                   SumAdditives += 0.2f;
+                                                   tempString1 += " + PD from squad Barricade 0.2 ";
+                                                     if (ConcussiveShotRepeat) tempString2 += " + PD from squad Barricade 0.2 ";
+                                                   tempString3 += " + PD from squad Barricade 0.2 ";
+                                                   tempString4 += " + PD from squad Barricade 0.2 ";
+                        }
+                                               float SumConcussiveAdditives; SumConcussiveAdditives = SumAdditives;
+
+                                               //DEBUFFS
+                                               SumAdditives = 0;
+                                               tempString1 += " ) * ( 1 ";   if (ConcussiveShotRepeat) tempString2 += " ) * ( 1 "; tempString3 += " ) * ( 1 "; tempString4 += " ) * ( 1 ";
+
+
+                        if (skill1DebuffSum != 0)
+                                               {
+                                                   SumAdditives += skill1DebuffSum;
+                                                   tempString1 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill1Name + "' skill" + skill1DebuffSum.ToString(); 
+                                                     if (ConcussiveShotRepeat) tempString2 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill1Name + "' skill" + skill1DebuffSum.ToString(); 
+                                                   tempString3 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill1Name + "' skill" + skill1DebuffSum.ToString(); 
+                                                   tempString4 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill1Name + "' skill" + skill1DebuffSum.ToString(); 
+                        }
+                        if (skill2DebuffSum != 0)
+                        {
+                            SumAdditives += skill2DebuffSum;
+                            tempString1 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill2Name + "' skill" + skill2DebuffSum.ToString();
+                            if (ConcussiveShotRepeat) tempString2 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill2Name + "' skill" + skill2DebuffSum.ToString();
+                            tempString3 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill2Name + "' skill" + skill2DebuffSum.ToString();
+                            tempString4 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill2Name + "' skill" + skill2DebuffSum.ToString();
+                        }
+                        if (skill3DebuffSum != 0)
+                        {
+                            SumAdditives += skill3DebuffSum;
+                            tempString1 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill3Name + "' skill" + skill3DebuffSum.ToString();
+                            if (ConcussiveShotRepeat) tempString2 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill3Name + "' skill" + skill3DebuffSum.ToString();
+                            tempString3 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill3Name + "' skill" + skill3DebuffSum.ToString();
+                            tempString4 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill3Name + "' skill" + skill3DebuffSum.ToString();
+                        }
+                        if (skill4DebuffSum != 0)
+                        {
+                            SumAdditives += skill4DebuffSum;
+                            tempString1 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4DebuffSum.ToString();
+                            if (ConcussiveShotRepeat) tempString2 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4DebuffSum.ToString();
+                            tempString3 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4DebuffSum.ToString();
+                            tempString4 += " + debuffvsAll from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4DebuffSum.ToString();
+                        }
+
+
+
+
+                        if (float.Parse(textBoxSumSquadDebuffsOnTarget.Text) != 0)
+                                               {
+                                                   SumAdditives += float.Parse(textBoxSumSquadDebuffsOnTarget.Text);
+                                                   tempString1 += " + debuffvsAll from Squad " + textBoxSumSquadDebuffsOnTarget.Text;
+                                                  if (ConcussiveShotRepeat) tempString2 += " + debuffvsAll from Squad " + textBoxSumSquadDebuffsOnTarget.Text;
+                                                   tempString3 += " + debuffvsAll from Squad " + textBoxSumSquadDebuffsOnTarget.Text;
+                                                   tempString3 += " + debuffvsAll from Squad " + textBoxSumSquadDebuffsOnTarget.Text;
+                        }
+
+                                               if (SumArmorDebuff != 0) { tempString3 += " + debuffvsArmor" + SumArmorDebuff.ToString(); }
+
+                                               SumDebuff = SumAdditives;
+                                               tempString1 += " ) ";   if (ConcussiveShotRepeat) tempString2 += " ) "; tempString3 += " ) * ( 1 "; tempString4 += " ) * ( 1 ";
+
+                        // vsDEFENSE
+                        //
+                        //HSoldier and TSoldier can't get vsArmor/vsShields in passive so I'll skip that code 
+                                               tempString1 += " = " + (ConcussiveShotBaseDam * (1 + SumConcussiveAdditives) * (1 + SumDebuff)).ToString();
+                                               
+                        if (ConcussiveShotRepeat) tempString2 += " = " + (ConcussiveShotBaseDam * (1 + SumConcussiveAdditives) * (1 + SumDebuff)).ToString() + " + " + (ConcussiveShotBaseDam * (1 + SumConcussiveAdditives) * (1 + SumDebuff)).ToString() + " = " + (2*ConcussiveShotBaseDam * (1 + SumConcussiveAdditives) * (1 + SumDebuff)).ToString();
+
+                        if (ConcussiveShotvsArmor != 0) tempString3 += " + vsArmor 6a" + ConcussiveShotvsArmor.ToString();
+                        if (ConcussiveShotvsShields !=0) tempString4 += " + vsShields 6b" + ConcussiveShotvsShields.ToString();
+                        tempString3 += " ) = " + (ConcussiveShotBaseDam * (1 + SumConcussiveAdditives) * (1 + SumDebuff + SumArmorDebuff ) * (1 + ConcussiveShotvsArmor)).ToString();
+                        tempString4 += " ) = " + (ConcussiveShotBaseDam * (1 + SumConcussiveAdditives) * (1 + SumDebuff) * (1 + ConcussiveShotvsShields)).ToString();
+
+
+                        txtBox.Text += tempString1 + "\r\n";
+                        if (ConcussiveShotRepeat) txtBox.Text += tempString2 + "\r\n";
+                        txtBox.Text +="\r\n";
+                        txtBox.Text += tempString3 + "\r\n";
+                        txtBox.Text += tempString4 + "\r\n";
 
                         break;
 
