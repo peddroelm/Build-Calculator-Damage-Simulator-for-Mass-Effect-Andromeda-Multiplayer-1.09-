@@ -9628,7 +9628,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                                                    txtBox.Text += "(ALWAYS) MAX duration Cooldown = ( BaseSingularityCooldown " + SingularityRecharge + " / ( 1 ";
 
                                                    /// relevant variables for cooldown
-                                                   /// BONUS STAT PRS, SingularityReSingularity1, SingularityReSingularity2 , gearPRS, booster1PRS, booster2PRS, skill1PRS to skill5PRS; + 
+                                                   /// BONUS STAT PRS, SingularitySingularity1, SingularitySingularity2 , gearPRS, booster1PRS, booster2PRS, skill1PRS to skill5PRS; + 
                                                    /// skill4PRTR
                                                    /// skill1PRPSum to skill3PRPSum
                                                    /// 
@@ -9637,7 +9637,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                                                    /// (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumSingularityPRP )  \r\n";
 
                                                    SumAdditives = 0;
-                                                   if (float.Parse(comboBoxBonusPRS.Text) != 0) { SumAdditives += float.Parse(comboBoxBonusPRS.Text) / 100; txtBox.Text += " + Bonus 'Power ReSingularity' Stat" + float.Parse(comboBoxBonusPRS.Text) / 100; }
+                                                   if (float.Parse(comboBoxBonusPRS.Text) != 0) { SumAdditives += float.Parse(comboBoxBonusPRS.Text) / 100; txtBox.Text += " + Bonus 'Power Singularity' Stat" + float.Parse(comboBoxBonusPRS.Text) / 100; }
                                                    if (SingularityRecharge1 != 0) { SumAdditives += SingularityRecharge1; txtBox.Text += " + 'Singularity Recharge Evo 2' " + SingularityRecharge1.ToString(); }
                                                    if (SingularityRecharge2 != 0) { SumAdditives += SingularityRecharge2; txtBox.Text += " + 'Singularity Recharge Evo 5b' " + SingularityRecharge2.ToString(); }
                                                    if (gearPRS != 0) { SumAdditives += gearPRS; txtBox.Text += " +  gear '" + comboBoxSelectGear.Text.Split('*')[0] + "' " + gearPRS.ToString(); }
@@ -9686,7 +9686,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
 
                         // Will need to accumulate the strings and print at the end since I want to print 9 at once .. 
                         // need sum of debuffs and MAX(skill ArmorDebuff - cryo beam and turret don't stack) first 
-                        //"Singularity", "Singularity description", false, "BaseDam=400;Detonator=1;ReSingularity=10", "1", "ReSingularity=0.1", "Dam=0.25", "Dam=0.3", "4b", "LWeak=0.4", "vsShields=0.35","Dam=0.3","Cost=0.45",
+                        //"Singularity", "Singularity description", false, "BaseDam=400;Detonator=1;Singularity=10", "1", "Singularity=0.1", "Dam=0.25", "Dam=0.3", "4b", "LWeak=0.4", "vsShields=0.35","Dam=0.3","Cost=0.45",
 
                         //ADDITIVEs
                         SumAdditives = 0; 
@@ -10657,8 +10657,6 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
 
                 }
             }
-
-
 
         }
 
