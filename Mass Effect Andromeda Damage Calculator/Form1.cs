@@ -366,7 +366,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
              {
                   new playingCharacter("Human Soldier", 500f, 250f, 400f, 0f, 0f, 0f, "" ,
                      "Frag Grenade", "frag grenade description", false, "BaseDam=1000;Cooldown=0;AnimDur=0.9", "1", "2", "Dam=0.3", "4a", "Dam=0.4", "5a", "BaseDOTDam=100;BaseDOTDur=6", "vsArmor=0.8","vsShields=1",
-                     "Turbocharge", "turbocharge description", true, "Duration=8;Recharge=0.2", "WD=0.1;ROF=0.2;MAG=0.2", "Recharge=0.1", "WD=0.1", "Recharge=0.2", "Duration=0.5", "WD=0.15", "5b", "ROF=0.2;MAG=0.2","MAG=0.8",
+                     "Turbocharge", "turbocharge description", true, "Duration=8;Recharge=20", "WD=0.1;ROF=0.2;MAG=0.2", "Recharge=0.1", "WD=0.1", "Recharge=0.2", "Duration=0.5", "WD=0.15", "5b", "ROF=0.2;MAG=0.2","MAG=0.8",
                      "Concussive Shot", "concussive shot description", false, "BaseDam=440;Recharge=10;Detonator=1", "1", "2", "Dam=0.35", "Recharge=0.3", "Repeat", "5a","Dam=0.5", "vsArmor=1.25", "vsShields=1",
                      "Munitions Training", "munitions training description", false, "", "WD=0.05", "PD=0.2", "WD=0.05;MD=0.2", "WD=0.08", "PD=0.2;MD=0.2", "TWD=0.2;TMD=0.3;EnableTCheck", "Reload=0.15;MAG=0.25", "TDebuff=0.24;EnableTCheck", "Weak=0.2",
                      "Combat Fitness", "combat fitness description", false, "", "Shields=0.1;Health=0.1", "MD=0.3", "Shields=0.15;Health=0.15", "Shields=0.25;Health=0.25", "MD=0.5", "TDR=0.5;EnableTCheck", "TDR=1;EnableTCheck", "TDR=2;EnableTCheck","TMD=0.65;EnableTCheck"),
@@ -401,7 +401,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                      "Combat Fitness", "combat fitness description", false, "", "Shields=0.1;Health=0.1", "MD=0.3", "Shields=0.15;Health=0.15", "Shields=0.25;Health=0.25", "MD=0.5", "TDR=0.5;EnableTCheck", "TDR=1;EnableTCheck", "TDR=2;EnableTCheck","TMD=0.65;EnableTCheck"),
                     new playingCharacter("Turian Soldier", 500f, 275f, 400f, 0f, 0f, 0f , "" ,
                      "Fortify", "fortification description", true, "Recharge=5", "DR=0.4", "Recharge=0.3", "DR=0.1", "DR=0.2", "4b", "5a", "MD=0.3", "TDR=0.5;EnableTCheck","BaseDamage=400;vsShields=0.6;Recharge=-0.5",
-                     "Turbocharge", "turbocharge description", true,"Duration=8;Recharge=0.2", "WD=0.1;ROF=0.2;MAG=0.2", "Recharge=0.1", "WD=0.1", "Recharge=0.2", "Duration=0.5", "WD=0.15", "5b", "ROF=0.2;MAG=0.2","MAG=0.8",
+                     "Turbocharge", "turbocharge description", true,"Duration=8;Recharge=20", "WD=0.1;ROF=0.2;MAG=0.2", "Recharge=0.1", "WD=0.1", "Recharge=0.2", "Duration=0.5", "WD=0.15", "5b", "ROF=0.2;MAG=0.2","MAG=0.8",
                      "Frag Grenade", "frag grenade description", false, "BaseDam=1000;Cooldown=0;AnimDur=0.9", "1", "2", "Dam=0.3", "4a", "Dam=0.4", "5a", "BaseDOTDam=100;BaseDOTDur=6", "vsArmor=0.8","vsShields=1",
                      "Munitions Training", "munitions training description", false, "", "WD=0.05", "PD=0.2", "WD=0.05;MD=0.2", "WD=0.08", "MD=0.2", "TWD=0.2;TMD=0.3;EnableTCheck", "Reload=0.15;MAG=0.25", "TDebuff=0.24;EnableTCheck", "Weak=0.2",
                      "Combat Fitness", "combat fitness description", false, "", "Shields=0.1;Health=0.1", "MD=0.3", "Shields=0.15;Health=0.15", "Shields=0.25;Health=0.25", "MD=0.5", "TDR=0.5;EnableTCheck", "TDR=1;EnableTCheck", "TDR=2;EnableTCheck","TMD=0.65;EnableTCheck"),
@@ -443,7 +443,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                      "Rage", "rage description", true, "Duration=15", "RMD=0.25;RDR=0.15", "MD=0.15", "Shields=0.2;Health=0.2", "Shields=0.2;Health=0.2;RDR=0.15", "MD=0.25;RMD=0.065", "TDR=0.5;EnableTCheck", "TMD=0.65;EnableTCheck", "MD=0.25;RageDuration=0.5" , "AllyDR=0.3;Shields=0.2;Health=0.2"),
                    new playingCharacter("Turian Havok Trooper", 500f, 350f, 400f, 0f, 0f, 0f , "" ,
                      "Incinerate", "incinerate description", false, "BaseDam=350;BaseDOTDam=45;BaseDOTDur=6;Recharge=12;FirePrimer=HA", "vsArmor=0.6", "Recharge=0.15", "DOTDam=0.35;IDam=0.35", "4a", "DOTDam=0.5;DOTDuration=0.5", "IDam=0.6", "vsArmor=0.65", "Detonator=1","6b",
-                     "Turbocharge", "turbocharge description", true, "Duration=8;Recharge=0.2", "WD=0.1;ROF=0.2;MAG=0.2", "Recharge=0.1", "WD=0.1", "Recharge=0.2", "Duration=0.5", "WD=0.15", "5b", "ROF=0.2;MAG=0.2","MAG=0.8",
+                     "Turbocharge", "turbocharge description", true, "Duration=8;Recharge=20", "WD=0.1;ROF=0.2;MAG=0.2", "Recharge=0.1", "WD=0.1", "Recharge=0.2", "Duration=0.5", "WD=0.15", "5b", "ROF=0.2;MAG=0.2","MAG=0.8",
                      "Flak Cannon", "Flak description", false, "BaseDamage=250;SBase=85;Cooldown=1", "SvsArmor=-0.3", "2", "Dam=0.4", "Dam=0.5", "4b", "vsArmor=0.75", "5b", "NrSrapnel=0.5","BaseDOTDam=100;BaseDOTDur=8",
                      "Munitions Training", "munitions training description", false, "", "WD=0.05", "PD=0.2", "WD=0.05;MD=0.2", "WD=0.08", "PD=0.2;MD=0.2", "TWD=0.2;TMD=0.3;EnableTCheck", "Reload=0.15;MAG=0.25", "TDebuff=0.24;EnableTCheck", "Weak=0.2",
                      "Aerial Assault", "aerial assault description", false, "", "Shields=0.1;Health=0.1", "TDR=1;EnableTCheck", "Shields=0.15;Health=0.15", "4a", "Shields=0.25;Health=0.25", "TDR=1;EnableTCheck", "MD=0.6", "TDR=1;EnableTCheck", "Shields=0.25;Health=0.25;TMD=0.65;EnableTCheck"),
@@ -9400,7 +9400,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                         /// (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP )  \r\n";
 
                         SumAdditives = 0;
-                        if (float.Parse(comboBoxBonusPRS.Text) != 0) { SumAdditives += float.Parse(comboBoxBonusPRS.Text) / 100; txtBox.Text += " + Bonus 'Power ReAnnihilation' Stat" + float.Parse(comboBoxBonusPRS.Text) / 100; }
+                        if (float.Parse(comboBoxBonusPRS.Text) != 0) { SumAdditives += float.Parse(comboBoxBonusPRS.Text) / 100; txtBox.Text += " + Bonus 'Power Recharge' Stat" + float.Parse(comboBoxBonusPRS.Text) / 100; }
                         //      if (AnnihilationReAnnihilation1 != 0) { SumAdditives += AnnihilationReAnnihilation1; txtBox.Text += " + 'Annihilation ReAnnihilation Evo 2' " + AnnihilationReAnnihilation1.ToString(); }
                         //      if (AnnihilationReAnnihilation2 != 0) { SumAdditives += AnnihilationReAnnihilation2; txtBox.Text += " + 'Annihilation ReAnnihilation Evo 6a' " + AnnihilationReAnnihilation2.ToString(); }
                         if (gearPRS != 0) { SumAdditives += gearPRS; txtBox.Text += " +  gear '" + comboBoxSelectGear.Text.Split('*')[0] + "' " + gearPRS.ToString(); }
@@ -9722,7 +9722,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                         /// (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumSingularityPRP )  \r\n";
 
                         SumAdditives = 0;
-                        if (float.Parse(comboBoxBonusPRS.Text) != 0) { SumAdditives += float.Parse(comboBoxBonusPRS.Text) / 100; txtBox.Text += " + Bonus 'Power Singularity' Stat" + float.Parse(comboBoxBonusPRS.Text) / 100; }
+                        if (float.Parse(comboBoxBonusPRS.Text) != 0) { SumAdditives += float.Parse(comboBoxBonusPRS.Text) / 100; txtBox.Text += " + Bonus 'Power Recharge' Stat" + float.Parse(comboBoxBonusPRS.Text) / 100; }
                         if (SingularityRecharge1 != 0) { SumAdditives += SingularityRecharge1; txtBox.Text += " + 'Singularity Recharge Evo 2' " + SingularityRecharge1.ToString(); }
                         if (SingularityRecharge2 != 0) { SumAdditives += SingularityRecharge2; txtBox.Text += " + 'Singularity Recharge Evo 5b' " + SingularityRecharge2.ToString(); }
                         if (gearPRS != 0) { SumAdditives += gearPRS; txtBox.Text += " +  gear '" + comboBoxSelectGear.Text.Split('*')[0] + "' " + gearPRS.ToString(); }
@@ -12973,7 +12973,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                         /// (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumTacticalCloakPRP )  \r\n";
 
                         SumAdditives = 0;
-                        if (float.Parse(comboBoxBonusPRS.Text) != 0) { SumAdditives += float.Parse(comboBoxBonusPRS.Text) / 100; txtBox.Text += " + Bonus 'Power TacticalCloak' Stat" + float.Parse(comboBoxBonusPRS.Text) / 100; }
+                        if (float.Parse(comboBoxBonusPRS.Text) != 0) { SumAdditives += float.Parse(comboBoxBonusPRS.Text) / 100; txtBox.Text += " + Bonus 'Power Recharge' Stat" + float.Parse(comboBoxBonusPRS.Text) / 100; }
                         if (TacticalCloakRecharge1 != 0) { SumAdditives += TacticalCloakRecharge1; txtBox.Text += " + 'TacticalCloak Recharge Evo 4a' " + TacticalCloakRecharge1.ToString(); }
                         if (TacticalCloakRecharge2 != 0) { SumAdditives += TacticalCloakRecharge2; txtBox.Text += " + 'TacticalCloak Recharge Evo 5a' " + TacticalCloakRecharge2.ToString(); }
                         if (gearPRS != 0) { SumAdditives += gearPRS; txtBox.Text += " +  gear '" + comboBoxSelectGear.Text.Split('*')[0] + "' " + gearPRS.ToString(); }
@@ -13114,7 +13114,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                         /// (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumReconVisorPRP )  \r\n";
 
                         SumAdditives = 0;
-                        if (float.Parse(comboBoxBonusPRS.Text) != 0) { SumAdditives += float.Parse(comboBoxBonusPRS.Text) / 100; txtBox.Text += " + Bonus 'Power ReconVisor' Stat" + float.Parse(comboBoxBonusPRS.Text) / 100; }
+                        if (float.Parse(comboBoxBonusPRS.Text) != 0) { SumAdditives += float.Parse(comboBoxBonusPRS.Text) / 100; txtBox.Text += " + Bonus 'Power Recharge' Stat" + float.Parse(comboBoxBonusPRS.Text) / 100; }
                         if (ReconVisorRecharge1 != 0) { SumAdditives += ReconVisorRecharge1; txtBox.Text += " + 'ReconVisor Recharge Evo 4a' " + ReconVisorRecharge1.ToString(); }
                         //   if (ReconVisorRecharge2 != 0) { SumAdditives += ReconVisorRecharge2; txtBox.Text += " + 'ReconVisor Recharge Evo 5a' " + ReconVisorRecharge2.ToString(); }
                         if (gearPRS != 0) { SumAdditives += gearPRS; txtBox.Text += " +  gear '" + comboBoxSelectGear.Text.Split('*')[0] + "' " + gearPRS.ToString(); }
@@ -13150,7 +13150,254 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                               txtBox.Text += " = " + Math.Min(100,((100*(ReconVisorPEN1 + ReconVisorPEN2 + addon1PenMul + addon2PenMul)))).ToString()+  " %";
                                 }
 
-                        break; 
+                        break;
+                    case "Turbocharge":
+                        //  "Turbocharge", "turbocharge description", true, "Duration=8;Recharge=20", "WD=0.1;ROF=0.2;MAG=0.2", "Recharge=0.1", "WD=0.1", "Recharge=0.2", "Duration=0.5", "WD=0.15", "5b", "ROF=0.2;MAG=0.2","MAG=0.8",
+                        // Human Soldier, Turian Soldier, Turian Havok
+                       
+                                     TCooldownMaxDurationPassiveTempEtc = "";
+                                                if (playingCharactersArray[SelectedCharIndex].Skill1Name.Equals(ActiveSkillList[ASkillIndex])) TCooldownMaxDurationPassiveTempEtc = playingCharactersArray[SelectedCharIndex].Skill1CooldownMaxDurationPassiveTempEtc;
+                                                if (playingCharactersArray[SelectedCharIndex].Skill2Name.Equals(ActiveSkillList[ASkillIndex])) TCooldownMaxDurationPassiveTempEtc = playingCharactersArray[SelectedCharIndex].Skill2CooldownMaxDurationPassiveTempEtc;
+                                                if (playingCharactersArray[SelectedCharIndex].Skill3Name.Equals(ActiveSkillList[ASkillIndex])) TCooldownMaxDurationPassiveTempEtc = playingCharactersArray[SelectedCharIndex].Skill3CooldownMaxDurationPassiveTempEtc;
+
+                                                //  txtBox.Text += TCooldownMaxDurationPassiveTempEtc;
+
+                                                float TurbochargeRecharge, TurbochargeDuration; TurbochargeRecharge = TurbochargeDuration = 0;
+
+                                                foreach (string s in TCooldownMaxDurationPassiveTempEtc.Split(';'))
+                                                {
+                                                    //  "BaseDam="
+                                                    if (s.StartsWith("Recharge=")) TurbochargeRecharge = float.Parse(s.Substring(9, s.Length - 9));
+                                                    if (s.StartsWith("Duration=")) TurbochargeDuration = float.Parse(s.Substring(9, s.Length - 9));
+                                                }
+
+
+                                                //we will need to Find the right comboboxes by name .. 
+                       //                         controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_1", true);
+                         //                       comboBox = controls[0] as ComboBox;
+                                                //  txtBox.Text += comboBox.Text + "\r\n";
+
+                           //                     float TurbochargePEN1; TurbochargePEN1 = 0;
+                             //                   foreach (string s in comboBox.Text.Split(';'))
+                               //                 {
+
+                                   //                 if (s.StartsWith("PEN=")) TurbochargePEN1 += float.Parse(s.Substring(4, s.Length - 4));
+                                 //               }
+
+                                                    controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_2", true);
+                                                    comboBox = controls[0] as ComboBox;
+                                                //   txtBox.Text += comboBox.Text + "\r\n";
+
+
+                                                  float TurbochargeRecharge1; TurbochargeRecharge1 = 0;
+                                                  foreach (string s in comboBox.Text.Split(';'))
+                                                  {
+                                                     if (s.StartsWith("Recharge=")) TurbochargeRecharge1 += float.Parse(s.Substring(9, s.Length - 9));
+                                                 }
+
+                                            //    controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_3", true);
+                                            //    comboBox = controls[0] as ComboBox;
+                                                //txtBox.Text += comboBox.Text + "\r\n";
+
+                                            //    float TurbochargePEN2; TurbochargePEN2 = 0;
+                                             //   foreach (string s in comboBox.Text.Split(';'))
+                                            //    {
+                                                    // check for Dam
+
+                                              //      if (s.StartsWith("PEN=")) TurbochargePEN2 += float.Parse(s.Substring(4, s.Length - 4));
+                                               // }
+
+
+                                                controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_4", true);
+                                                comboBox = controls[0] as ComboBox;
+                                                //txtBox.Text += comboBox.Text + "\r\n";
+
+                                                float TurbochargeRecharge2, TurbochargeDuration1; TurbochargeRecharge2 = TurbochargeDuration1 = 0;
+                                                foreach (string s in comboBox.Text.Split(';'))
+                                                {
+                                                    // check for Dam
+                                                    if (s.StartsWith("Recharge=")) TurbochargeRecharge2 += float.Parse(s.Substring(9, s.Length - 9));
+                                                   if (s.StartsWith("Duration=")) TurbochargeDuration1 += float.Parse(s.Substring(9, s.Length - 9));
+                         }
+
+   //  "Turbocharge", "turbocharge description", true, "Duration=8;Recharge=20", "WD=0.1;ROF=0.2;MAG=0.2", "Recharge=0.1", "WD=0.1", "Recharge=0.2", "Duration=0.5", "WD=0.15", "5b", "ROF=0.2;MAG=0.2","MAG=0.8",
+
+                        /*
+                        controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_5", true);
+                                                comboBox = controls[0] as ComboBox;
+                                                //txtBox.Text += comboBox.Text + "\r\n";
+
+                                                float TurbochargeDuration1; TurbochargeDuration1 = 0;
+
+                                                foreach (string s in comboBox.Text.Split(';'))
+                                                {
+                                                    if (s.StartsWith("Duration=")) TurbochargeDuration1 += float.Parse(s.Substring(9, s.Length - 9));
+
+                                                }
+
+
+                                                //   controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_6", true);
+                                                //    comboBox = controls[0] as ComboBox;
+                                                //  txtBox.Text += comboBox.Text + "\r\n";
+                                                //  float TurbochargeBaseDamage; TurbochargeBaseDamage = 0;
+                                                //  foreach (string s in comboBox.Text.Split(';'))
+                                                // {
+                                                //      if (s.StartsWith("BaseDamage=")) TurbochargeBaseDamage += float.Parse(s.Substring(11, s.Length - 11));
+                                                //  }
+
+                        **/
+                                                txtBox.Text += "Max Duration (can be canceled anytime) base max duration" + TurbochargeDuration.ToString() + " * ( 1 ";
+                                                if (TurbochargeDuration1 != 0) txtBox.Text += " + Duration evo 3 " + TurbochargeDuration1.ToString();
+                                                txtBox.Text += " ) * ( 1 ";
+                                                if (skill4PEffectDur != 0) txtBox.Text += " + EffectDuration from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4PEffectDur.ToString();
+                                                if (skill5PEffectDur != 0) txtBox.Text += " + EffectDuration from '" + playingCharactersArray[SelectedCharIndex].Skill5Name + "' skill" + skill5PEffectDur.ToString();
+                                                txtBox.Text += " ) = " + (TurbochargeDuration * (1 + TurbochargeDuration1) * (1 + skill4PEffectDur + skill5PEffectDur)).ToString() + "\r\n\r\n";
+
+                                                txtBox.Text += "Cooldown FORMULA: (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 )  \r\n";
+                                                txtBox.Text += "In the interest of developement speed this app ignores the WeaponWeight minigame - as long as you don't go over capacity AS YOU SHOULD! - the related term will be Zero \r\n\r\n";
+                                                //txtBox.Text += "Turbocharge DOES HAVE SCALING cooldown \r\n";
+                                                txtBox.Text += "duration Cooldown = ( BaseTurbochargeCooldown " + TurbochargeRecharge + " / ( 1 ";
+
+                                                /// relevant variables for cooldown
+                                                /// BONUS STAT PRS, TurbochargeTurbocharge1, TurbochargeTurbocharge2 , gearPRS, booster1PRS, booster2PRS, skill1PRS to skill5PRS; + 
+                                                /// skill4PRTR
+                                                /// skill1PRPSum to skill3PRPSum
+                                                /// 
+
+                                                /// still at cooldown
+                                                /// (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumTurbochargePRP )  \r\n";
+
+                                                SumAdditives = 0;
+                                                if (float.Parse(comboBoxBonusPRS.Text) != 0) { SumAdditives += float.Parse(comboBoxBonusPRS.Text) / 100; txtBox.Text += " + Bonus 'Power Recharge' Stat" + float.Parse(comboBoxBonusPRS.Text) / 100; }
+                                                if (TurbochargeRecharge1 != 0) { SumAdditives += TurbochargeRecharge1; txtBox.Text += " + 'Turbocharge Recharge Evo 2' " + TurbochargeRecharge1.ToString(); }
+                                                if (TurbochargeRecharge2 != 0) { SumAdditives += TurbochargeRecharge2; txtBox.Text += " + 'Turbocharge Recharge Evo 4a' " + TurbochargeRecharge2.ToString(); }
+                                                if (gearPRS != 0) { SumAdditives += gearPRS; txtBox.Text += " +  gear '" + comboBoxSelectGear.Text.Split('*')[0] + "' " + gearPRS.ToString(); }
+                                                if (booster1PRS != 0) { SumAdditives += booster1PRS; txtBox.Text += " +  booster '" + comboBoxSelectBooster1.Text.Split('*')[0] + "' " + booster1PRS.ToString(); }
+                                                if (booster2PRS != 0) { SumAdditives += booster2PRS; txtBox.Text += " +  booster '" + comboBoxSelectBooster2.Text.Split('*')[0] + "' " + booster2PRS.ToString(); }
+                                                if (skill1PRS != 0) { SumAdditives += skill1PRS; txtBox.Text += " + PRS from '" + playingCharactersArray[SelectedCharIndex].Skill1Name + "' skill" + skill1PRS.ToString(); }
+                                                if (skill2PRS != 0) { SumAdditives += skill2PRS; txtBox.Text += " + PRS from '" + playingCharactersArray[SelectedCharIndex].Skill2Name + "' skill" + skill2PRS.ToString(); }
+                                                if (skill3PRS != 0) { SumAdditives += skill3PRS; txtBox.Text += " + PRS from '" + playingCharactersArray[SelectedCharIndex].Skill3Name + "' skill" + skill3PRS.ToString(); }
+                                                if (skill4PRS != 0) { SumAdditives += skill4PRS; txtBox.Text += " + PRS from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4PRS.ToString(); }
+                                                if (skill5PRS != 0) { SumAdditives += skill5PRS; txtBox.Text += " + PRS from '" + playingCharactersArray[SelectedCharIndex].Skill5Name + "' skill" + skill5PRS.ToString(); }
+                                                txtBox.Text += " ) * ( 1";
+
+                                                PRP = 0;
+                                                // NO CHAR CURRENTLY HAS Turbocharge AND Annihilation
+                                                if (skill1PRPSum != 0) { PRP = skill1PRPSum; txtBox.Text += " + 'Turbocharge PRP'" + skill1PRPSum.ToString(); }
+                                                if (skill2PRPSum != 0) { PRP = skill2PRPSum; txtBox.Text += " + 'Turbocharge PRP'" + skill2PRPSum.ToString(); }
+                                                if (skill3PRPSum != 0) { PRP = skill3PRPSum; txtBox.Text += " + 'Turbocharge PRP'" + skill3PRPSum.ToString(); }
+
+                                                txtBox.Text += " ) = " + ((TurbochargeRecharge / (1 + SumAdditives) * (1 + PRP))).ToString() + "\r\n";
+                                                //if (skill4PRTR != 0) { txtBox.Text += " Detonation Feedback" + (1-skill4PRTR).ToString() + " multiplier to remaining cooldown amount \r\n"; }
+                                                txtBox.Text += "\r\n\r\n"; 
+                                                  break;
+
+                    case "Stealth Grid":
+                        //"Stealth Grid", "Stealth Grid description", true, "Duration=8;Cooldown=1", "WD=0.3;PD=0.3;MD=0.5", "2", "Duration=0.3", "4a", "4b", "Duration=0.3", "5b", "6a","WD=0.5;PD=0.4;MD=05",
+                        //Asari Huntress, Angara Avenger
+                      
+                                              TCooldownMaxDurationPassiveTempEtc = "";
+                                                if (playingCharactersArray[SelectedCharIndex].Skill1Name.Equals(ActiveSkillList[ASkillIndex])) TCooldownMaxDurationPassiveTempEtc = playingCharactersArray[SelectedCharIndex].Skill1CooldownMaxDurationPassiveTempEtc;
+                                                if (playingCharactersArray[SelectedCharIndex].Skill2Name.Equals(ActiveSkillList[ASkillIndex])) TCooldownMaxDurationPassiveTempEtc = playingCharactersArray[SelectedCharIndex].Skill2CooldownMaxDurationPassiveTempEtc;
+                                                if (playingCharactersArray[SelectedCharIndex].Skill3Name.Equals(ActiveSkillList[ASkillIndex])) TCooldownMaxDurationPassiveTempEtc = playingCharactersArray[SelectedCharIndex].Skill3CooldownMaxDurationPassiveTempEtc;
+
+                                                //  txtBox.Text += TCooldownMaxDurationPassiveTempEtc;
+
+                                                float StealthGridRecharge, StealthGridDuration; StealthGridRecharge = StealthGridDuration = 0;
+
+                                                foreach (string s in TCooldownMaxDurationPassiveTempEtc.Split(';'))
+                                                {
+                                                    //  "BaseDam="
+                                                    if (s.StartsWith("Recharge=")) StealthGridRecharge = float.Parse(s.Substring(9, s.Length - 9));
+                                                    if (s.StartsWith("Duration=")) StealthGridDuration = float.Parse(s.Substring(9, s.Length - 9));
+                                                }
+
+
+                                                //we will need to Find the right comboboxes by name .. 
+                       //                         controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_1", true);
+                         //                       comboBox = controls[0] as ComboBox;
+                                                //  txtBox.Text += comboBox.Text + "\r\n";
+
+                           //                     float StealthGridPEN1; StealthGridPEN1 = 0;
+                             //                   foreach (string s in comboBox.Text.Split(';'))
+                               //                 {
+
+                                   //                 if (s.StartsWith("PEN=")) StealthGridPEN1 += float.Parse(s.Substring(4, s.Length - 4));
+                                 //               }
+
+                                    //                controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_2", true);
+                                      //              comboBox = controls[0] as ComboBox;
+                                                //   txtBox.Text += comboBox.Text + "\r\n";
+
+
+                                        //          float StealthGridRecharge1; StealthGridRecharge1 = 0;
+                                          //        foreach (string s in comboBox.Text.Split(';'))
+                                          //        {
+                                            //         if (s.StartsWith("Recharge=")) StealthGridRecharge1 += float.Parse(s.Substring(9, s.Length - 9));
+                                            //     }
+
+                                                controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_3", true);
+                                                comboBox = controls[0] as ComboBox;
+                                                //txtBox.Text += comboBox.Text + "\r\n";
+
+                                                float StealthGridDuration1; StealthGridDuration1 = 0;
+                                                foreach (string s in comboBox.Text.Split(';'))
+                                                {
+                            if (s.StartsWith("Duration=")) StealthGridDuration1 += float.Parse(s.Substring(9, s.Length - 9));
+                        }
+                
+
+
+                                      //          controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_4", true);
+                                        //        comboBox = controls[0] as ComboBox;
+                                                //txtBox.Text += comboBox.Text + "\r\n";
+
+                                       //         float StealthGridRecharge2, StealthGridDuration1; StealthGridRecharge2 = StealthGridDuration1 = 0;
+                                       //         foreach (string s in comboBox.Text.Split(';'))
+                                        //        {
+                                                    // check for Dam
+                                         //           if (s.StartsWith("Recharge=")) StealthGridRecharge2 += float.Parse(s.Substring(9, s.Length - 9));
+                                           //        if (s.StartsWith("Duration=")) StealthGridDuration1 += float.Parse(s.Substring(9, s.Length - 9));
+                         //}
+
+   //  "StealthGrid", "StealthGrid description", true, "Duration=8;Recharge=20", "WD=0.1;ROF=0.2;MAG=0.2", "Recharge=0.1", "WD=0.1", "Recharge=0.2", "Duration=0.5", "WD=0.15", "5b", "ROF=0.2;MAG=0.2","MAG=0.8",
+
+                      
+                                              controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_5", true);
+                                                comboBox = controls[0] as ComboBox;
+                                                //txtBox.Text += comboBox.Text + "\r\n";
+
+                                                float StealthGridDuration2; StealthGridDuration2 = 0;
+
+                                                foreach (string s in comboBox.Text.Split(';'))
+                                                {
+                                                    if (s.StartsWith("Duration=")) StealthGridDuration2 += float.Parse(s.Substring(9, s.Length - 9));
+
+                                                }
+
+
+                                                //   controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_6", true);
+                                                //    comboBox = controls[0] as ComboBox;
+                                                //  txtBox.Text += comboBox.Text + "\r\n";
+                                                //  float StealthGridBaseDamage; StealthGridBaseDamage = 0;
+                                                //  foreach (string s in comboBox.Text.Split(';'))
+                                                // {
+                                                //      if (s.StartsWith("BaseDamage=")) StealthGridBaseDamage += float.Parse(s.Substring(11, s.Length - 11));
+                                                //  }
+
+
+                        txtBox.Text += "Max Duration (can be canceled anytime) base max duration" + StealthGridDuration.ToString() + " * ( 1 ";
+                        if (StealthGridDuration1 != 0) txtBox.Text += " + Duration 'evo 3' " + StealthGridDuration1.ToString();
+                        if (StealthGridDuration2 != 0) txtBox.Text += " + Duration 'evo 5a' " + StealthGridDuration2.ToString();
+                        txtBox.Text += " ) * ( 1 ";
+                        if (skill4PEffectDur != 0) txtBox.Text += " + EffectDuration from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4PEffectDur.ToString();
+                        if (skill5PEffectDur != 0) txtBox.Text += " + EffectDuration from '" + playingCharactersArray[SelectedCharIndex].Skill5Name + "' skill" + skill5PEffectDur.ToString();
+                        txtBox.Text += " ) = " + (StealthGridDuration * (1 + StealthGridDuration1 + StealthGridDuration2 ) * (1 + skill4PEffectDur + skill5PEffectDur)).ToString() + "\r\n\r\n";
+
+                        txtBox.Text += "Fixed Cooldown 1";
+
+                        break;
+
 
                 }
             }
