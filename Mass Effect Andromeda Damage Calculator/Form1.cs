@@ -12665,8 +12665,8 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                         txtBox.Text += " ) = " + (BarricadeDuration * (1 + BarricadeDuration1 + BarricadeDuration2)).ToString() + "\r\n\r\n";
 
 
-                        // duration we'll care at the DOT section
-                        //txtBox.Text += "Duration irrelevant ..no sustained effect \r\n\r\n";
+                        
+                       txtBox.Text += "Fixed Cooldown = 1 \r\n\r\n";
                         /*
                         txtBox.Text += "Cooldown FORMULA: (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP )  \r\n";
                         txtBox.Text += "In the interest of developement speed this app ignores the WeaponWeight minigame - as long as you don't go over capacity AS YOU SHOULD! - the related term will be Zero \r\n\r\n";
@@ -12843,11 +12843,293 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                             txtBox.Text += "Maximum Total Barricade DOT vs Health = " + (BarricadeBaseDOTDPS *  (1 + SumDebuff) * BarricadeDuration * (1 + BarricadeDuration1 + BarricadeDuration2)).ToString() + "\r\n";
                             txtBox.Text += "Maximum Total Barricade DOT vs Shields = " + (BarricadeBaseDOTDPS * (1 + SumDebuff) * (1 + skill4vsShields + BarricadevsShields) * BarricadeDuration * (1 + BarricadeDuration1 + BarricadeDuration2)).ToString() + "\r\n";
                             txtBox.Text += "Maximum Total Barricade DOT vs Armor = " + (BarricadeBaseDOTDPS * (1 + SumDebuff) * (1 + skill4vsArmor) * BarricadeDuration * (1 + BarricadeDuration1 + BarricadeDuration2)).ToString() + "\r\n";
+                                                    }
+    
+                        break;
+                    case "Tactical Cloak":
+                        // "Tactical Cloak", "tactical cloak description", true, "Duration=6.5;Recharge=12", "WD=0.5;PD=0.5;MD=0.75", "Recharge=0.15", "Duration=0.25", "Recharge=0.3", "WD=0.4;PD=0.5;MD=0.5", "Duration=0.5", "5b", "6a","6b",
+                        // human infiltrator, salarian infiltrator, turian agent
+
+                        TCooldownMaxDurationPassiveTempEtc = "";
+                        if (playingCharactersArray[SelectedCharIndex].Skill1Name.Equals(ActiveSkillList[ASkillIndex])) TCooldownMaxDurationPassiveTempEtc = playingCharactersArray[SelectedCharIndex].Skill1CooldownMaxDurationPassiveTempEtc;
+                        if (playingCharactersArray[SelectedCharIndex].Skill2Name.Equals(ActiveSkillList[ASkillIndex])) TCooldownMaxDurationPassiveTempEtc = playingCharactersArray[SelectedCharIndex].Skill2CooldownMaxDurationPassiveTempEtc;
+                        if (playingCharactersArray[SelectedCharIndex].Skill3Name.Equals(ActiveSkillList[ASkillIndex])) TCooldownMaxDurationPassiveTempEtc = playingCharactersArray[SelectedCharIndex].Skill3CooldownMaxDurationPassiveTempEtc;
+
+                        //  txtBox.Text += TCooldownMaxDurationPassiveTempEtc;
+
+                        float TacticalCloakRecharge, TacticalCloakDuration;  TacticalCloakRecharge = TacticalCloakDuration = 0;
+
+                        foreach (string s in TCooldownMaxDurationPassiveTempEtc.Split(';'))
+                        {
+                            //  "BaseDam="
+                             if (s.StartsWith("Recharge=")) TacticalCloakRecharge = float.Parse(s.Substring(9, s.Length - 9));
+                            if (s.StartsWith("Duration=")) TacticalCloakDuration = float.Parse(s.Substring(9, s.Length - 9));
+                        }
+
+
+                        //we will need to Find the right comboboxes by name .. 
+                        //                         controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_1", true);
+                        //                          comboBox = controls[0] as ComboBox;
+                        //  txtBox.Text += comboBox.Text + "\r\n";
+
+                        //                        float TacticalCloakvsShields; TacticalCloakvsShields = 0;
+                        //                        foreach (string s in comboBox.Text.Split(';'))
+                        //                       {
+                        // check for Dam
+                        //                           if (s.StartsWith("vsShields=")) TacticalCloakvsShields1 += float.Parse(s.Substring(10, s.Length - 10));
+                        //                            if (s.StartsWith("vsSynth=")) TacticalCloakvsSynth1 += float.Parse(s.Substring(8, s.Length - 8));
+
+                        //                       }
+
+                        controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_2", true);
+                        comboBox = controls[0] as ComboBox;
+                        //   txtBox.Text += comboBox.Text + "\r\n";
+
+
+                        float TacticalCloakRecharge1; TacticalCloakRecharge1 = 0;
+                        foreach (string s in comboBox.Text.Split(';'))
+                        {
+                            if (s.StartsWith("Recharge=")) TacticalCloakRecharge1 += float.Parse(s.Substring(9, s.Length - 9));
+                        }
+
+                        controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_3", true);
+                        comboBox = controls[0] as ComboBox;
+                        //txtBox.Text += comboBox.Text + "\r\n";
+
+                        float TacticalCloakDuration1; TacticalCloakDuration1 = 0;
+                        foreach (string s in comboBox.Text.Split(';'))
+                        {
+                            // check for Dam
+                            if (s.StartsWith("Duration=")) TacticalCloakDuration1 += float.Parse(s.Substring(9, s.Length - 9));
 
                         }
-                                                
+
+
+                        controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_4", true);
+                        comboBox = controls[0] as ComboBox;
+                        //txtBox.Text += comboBox.Text + "\r\n";
+
+                        float TacticalCloakRecharge2; TacticalCloakRecharge2 = 0;
+                        foreach (string s in comboBox.Text.Split(';'))
+                        {
+                            // check for Dam
+                            if (s.StartsWith("Recharge=")) TacticalCloakRecharge2 += float.Parse(s.Substring(9, s.Length - 9));
+
+                        }
+
+                        // "Tactical Cloak", "tactical cloak description", true, "Duration=6.5;Recharge=12", "WD=0.5;PD=0.5;MD=0.75", "Recharge=0.15", "Duration=0.25", "Recharge=0.3", "WD=0.4;PD=0.5;MD=0.5", "Duration=0.5", "5b", "6a","6b",
+
+
+                        controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_5", true);
+                        comboBox = controls[0] as ComboBox;
+                        //txtBox.Text += comboBox.Text + "\r\n";
+
+                        float TacticalCloakDuration2; TacticalCloakDuration2 = 0;
+
+                        foreach (string s in comboBox.Text.Split(';'))
+                        {
+                            if (s.StartsWith("Duration=")) TacticalCloakDuration2 += float.Parse(s.Substring(9, s.Length - 9));
+
+                        }
+
+
+                     //   controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_6", true);
+                    //    comboBox = controls[0] as ComboBox;
+                        //  txtBox.Text += comboBox.Text + "\r\n";
+                      //  float TacticalCloakBaseDamage; TacticalCloakBaseDamage = 0;
+                      //  foreach (string s in comboBox.Text.Split(';'))
+                       // {
+                      //      if (s.StartsWith("BaseDamage=")) TacticalCloakBaseDamage += float.Parse(s.Substring(11, s.Length - 11));
+                      //  }
+
+
+                        txtBox.Text += "Max Duration (can be canceled anytime) base max duration" + TacticalCloakDuration.ToString() +  " * ( 1 ";
+                        if (TacticalCloakDuration1 != 0) txtBox.Text += " + Duration evo 3 " + TacticalCloakDuration1.ToString();
+                        if (TacticalCloakDuration2 != 0) txtBox.Text += " + Duration evo 5b " + TacticalCloakDuration2.ToString();
+                        txtBox.Text += " ) = " + (TacticalCloakDuration * (1 + TacticalCloakDuration1 + TacticalCloakDuration2)).ToString() + "\r\n\r\n";
+
+
+                        txtBox.Text += "Cooldown FORMULA: (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 )  \r\n";
+                        txtBox.Text += "In the interest of developement speed this app ignores the WeaponWeight minigame - as long as you don't go over capacity AS YOU SHOULD! - the related term will be Zero \r\n\r\n";
+                        txtBox.Text += "TacticalCloak DOES HAVE SCALING cooldown \r\n";
+                        txtBox.Text += "MAX duration Cooldown = ( BaseTacticalCloakCooldown " + TacticalCloakRecharge + " / ( 1 ";
+
+                        /// relevant variables for cooldown
+                        /// BONUS STAT PRS, TacticalCloakTacticalCloak1, TacticalCloakTacticalCloak2 , gearPRS, booster1PRS, booster2PRS, skill1PRS to skill5PRS; + 
+                        /// skill4PRTR
+                        /// skill1PRPSum to skill3PRPSum
+                        /// 
+
+                        /// still at cooldown
+                        /// (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumTacticalCloakPRP )  \r\n";
+
+                        SumAdditives = 0;
+                        if (float.Parse(comboBoxBonusPRS.Text) != 0) { SumAdditives += float.Parse(comboBoxBonusPRS.Text) / 100; txtBox.Text += " + Bonus 'Power TacticalCloak' Stat" + float.Parse(comboBoxBonusPRS.Text) / 100; }
+                        if (TacticalCloakRecharge1 != 0) { SumAdditives += TacticalCloakRecharge1; txtBox.Text += " + 'TacticalCloak Recharge Evo 4a' " + TacticalCloakRecharge1.ToString(); }
+                        if (TacticalCloakRecharge2 != 0) { SumAdditives += TacticalCloakRecharge2; txtBox.Text += " + 'TacticalCloak Recharge Evo 5a' " + TacticalCloakRecharge2.ToString(); }
+                        if (gearPRS != 0) { SumAdditives += gearPRS; txtBox.Text += " +  gear '" + comboBoxSelectGear.Text.Split('*')[0] + "' " + gearPRS.ToString(); }
+                        if (booster1PRS != 0) { SumAdditives += booster1PRS; txtBox.Text += " +  booster '" + comboBoxSelectBooster1.Text.Split('*')[0] + "' " + booster1PRS.ToString(); }
+                        if (booster2PRS != 0) { SumAdditives += booster2PRS; txtBox.Text += " +  booster '" + comboBoxSelectBooster2.Text.Split('*')[0] + "' " + booster2PRS.ToString(); }
+                        if (skill1PRS != 0) { SumAdditives += skill1PRS; txtBox.Text += " + PRS from '" + playingCharactersArray[SelectedCharIndex].Skill1Name + "' skill" + skill1PRS.ToString(); }
+                        if (skill2PRS != 0) { SumAdditives += skill2PRS; txtBox.Text += " + PRS from '" + playingCharactersArray[SelectedCharIndex].Skill2Name + "' skill" + skill2PRS.ToString(); }
+                        if (skill3PRS != 0) { SumAdditives += skill3PRS; txtBox.Text += " + PRS from '" + playingCharactersArray[SelectedCharIndex].Skill3Name + "' skill" + skill3PRS.ToString(); }
+                        if (skill4PRS != 0) { SumAdditives += skill4PRS; txtBox.Text += " + PRS from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4PRS.ToString(); }
+                        if (skill5PRS != 0) { SumAdditives += skill5PRS; txtBox.Text += " + PRS from '" + playingCharactersArray[SelectedCharIndex].Skill5Name + "' skill" + skill5PRS.ToString(); }
+                        txtBox.Text += " ) * ( 1";
+
+                        PRP = 0; 
+                                 // NO CHAR CURRENTLY HAS TacticalCloak AND Annihilation
+                        if (skill1PRPSum != 0) { PRP = skill1PRPSum; txtBox.Text += " + 'TacticalCloak PRP'" + skill1PRPSum.ToString(); }
+                        if (skill2PRPSum != 0) { PRP = skill2PRPSum; txtBox.Text += " + 'TacticalCloak PRP'" + skill2PRPSum.ToString(); }
+                        if (skill3PRPSum != 0) { PRP = skill3PRPSum; txtBox.Text += " + 'TacticalCloak PRP'" + skill3PRPSum.ToString(); }
+
+                        txtBox.Text += " ) = " + ((TacticalCloakRecharge / (1 + SumAdditives) * (1 + PRP))).ToString() + "\r\n";
+                        //if (skill4PRTR != 0) { txtBox.Text += " Detonation Feedback" + (1-skill4PRTR).ToString() + " multiplier to remaining cooldown amount \r\n"; }
+                        txtBox.Text += "\r\n\r\n";
 
                         break;
+                    case "Recon Visor":
+                        //"Recon Visor", "recon visor description", true, "Duration=12;Recharge=12", "PEN=0.6", "2", "PEN=0.25", "Recharge=0.3", "4b", "5a", "Duration=0.5", "6a","TArmorDebuff=0.25;EnableTCheck",
+                        // Turian Agent
+                        /*
+                        TCooldownMaxDurationPassiveTempEtc = "";
+                        if (playingCharactersArray[SelectedCharIndex].Skill1Name.Equals(ActiveSkillList[ASkillIndex])) TCooldownMaxDurationPassiveTempEtc = playingCharactersArray[SelectedCharIndex].Skill1CooldownMaxDurationPassiveTempEtc;
+                        if (playingCharactersArray[SelectedCharIndex].Skill2Name.Equals(ActiveSkillList[ASkillIndex])) TCooldownMaxDurationPassiveTempEtc = playingCharactersArray[SelectedCharIndex].Skill2CooldownMaxDurationPassiveTempEtc;
+                        if (playingCharactersArray[SelectedCharIndex].Skill3Name.Equals(ActiveSkillList[ASkillIndex])) TCooldownMaxDurationPassiveTempEtc = playingCharactersArray[SelectedCharIndex].Skill3CooldownMaxDurationPassiveTempEtc;
+
+                        //  txtBox.Text += TCooldownMaxDurationPassiveTempEtc;
+
+                        float ReconVisorRecharge, ReconVisorDuration;  ReconVisorRecharge = ReconVisorDuration = 0;
+
+                        foreach (string s in TCooldownMaxDurationPassiveTempEtc.Split(';'))
+                        {
+                            //  "BaseDam="
+                             if (s.StartsWith("Recharge=")) ReconVisorRecharge = float.Parse(s.Substring(9, s.Length - 9));
+                            if (s.StartsWith("Duration=")) ReconVisorDuration = float.Parse(s.Substring(9, s.Length - 9));
+                        }
+
+
+                        //we will need to Find the right comboboxes by name .. 
+                        //                         controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_1", true);
+                        //                          comboBox = controls[0] as ComboBox;
+                        //  txtBox.Text += comboBox.Text + "\r\n";
+
+                        //                        float ReconVisorvsShields; ReconVisorvsShields = 0;
+                        //                        foreach (string s in comboBox.Text.Split(';'))
+                        //                       {
+                        // check for Dam
+                        //                           if (s.StartsWith("vsShields=")) ReconVisorvsShields1 += float.Parse(s.Substring(10, s.Length - 10));
+                        //                            if (s.StartsWith("vsSynth=")) ReconVisorvsSynth1 += float.Parse(s.Substring(8, s.Length - 8));
+
+                        //                       }
+
+                        controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_2", true);
+                        comboBox = controls[0] as ComboBox;
+                        //   txtBox.Text += comboBox.Text + "\r\n";
+
+
+                        float ReconVisorRecharge1; ReconVisorRecharge1 = 0;
+                        foreach (string s in comboBox.Text.Split(';'))
+                        {
+                            if (s.StartsWith("Recharge=")) ReconVisorRecharge1 += float.Parse(s.Substring(9, s.Length - 9));
+                        }
+
+                        controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_3", true);
+                        comboBox = controls[0] as ComboBox;
+                        //txtBox.Text += comboBox.Text + "\r\n";
+
+                        float ReconVisorDuration1; ReconVisorDuration1 = 0;
+                        foreach (string s in comboBox.Text.Split(';'))
+                        {
+                            // check for Dam
+                            if (s.StartsWith("Duration=")) ReconVisorDuration1 += float.Parse(s.Substring(9, s.Length - 9));
+
+                        }
+
+
+                        controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_4", true);
+                        comboBox = controls[0] as ComboBox;
+                        //txtBox.Text += comboBox.Text + "\r\n";
+
+                        float ReconVisorRecharge2; ReconVisorRecharge2 = 0;
+                        foreach (string s in comboBox.Text.Split(';'))
+                        {
+                            // check for Dam
+                            if (s.StartsWith("Recharge=")) ReconVisorRecharge2 += float.Parse(s.Substring(9, s.Length - 9));
+
+                        }
+
+                        // "Tactical Cloak", "tactical cloak description", true, "Duration=6.5;Recharge=12", "WD=0.5;PD=0.5;MD=0.75", "Recharge=0.15", "Duration=0.25", "Recharge=0.3", "WD=0.4;PD=0.5;MD=0.5", "Duration=0.5", "5b", "6a","6b",
+
+
+                        controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_5", true);
+                        comboBox = controls[0] as ComboBox;
+                        //txtBox.Text += comboBox.Text + "\r\n";
+
+                        float ReconVisorDuration2; ReconVisorDuration2 = 0;
+
+                        foreach (string s in comboBox.Text.Split(';'))
+                        {
+                            if (s.StartsWith("Duration=")) ReconVisorDuration2 += float.Parse(s.Substring(9, s.Length - 9));
+
+                        }
+
+
+                     //   controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_6", true);
+                    //    comboBox = controls[0] as ComboBox;
+                        //  txtBox.Text += comboBox.Text + "\r\n";
+                      //  float ReconVisorBaseDamage; ReconVisorBaseDamage = 0;
+                      //  foreach (string s in comboBox.Text.Split(';'))
+                       // {
+                      //      if (s.StartsWith("BaseDamage=")) ReconVisorBaseDamage += float.Parse(s.Substring(11, s.Length - 11));
+                      //  }
+
+
+                        txtBox.Text += "Max Duration (can be canceled anytime) base max duration" + ReconVisorDuration.ToString() +  " * ( 1 ";
+                        if (ReconVisorDuration1 != 0) txtBox.Text += " + Duration evo 3 " + ReconVisorDuration1.ToString();
+                        if (ReconVisorDuration2 != 0) txtBox.Text += " + Duration evo 5b " + ReconVisorDuration2.ToString();
+                        txtBox.Text += " ) = " + (ReconVisorDuration * (1 + ReconVisorDuration1 + ReconVisorDuration2)).ToString() + "\r\n\r\n";
+
+
+                        txtBox.Text += "Cooldown FORMULA: (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 )  \r\n";
+                        txtBox.Text += "In the interest of developement speed this app ignores the WeaponWeight minigame - as long as you don't go over capacity AS YOU SHOULD! - the related term will be Zero \r\n\r\n";
+                        txtBox.Text += "ReconVisor DOES HAVE SCALING cooldown \r\n";
+                        txtBox.Text += "MAX duration Cooldown = ( BaseReconVisorCooldown " + ReconVisorRecharge + " / ( 1 ";
+
+                        /// relevant variables for cooldown
+                        /// BONUS STAT PRS, ReconVisorReconVisor1, ReconVisorReconVisor2 , gearPRS, booster1PRS, booster2PRS, skill1PRS to skill5PRS; + 
+                        /// skill4PRTR
+                        /// skill1PRPSum to skill3PRPSum
+                        /// 
+
+                        /// still at cooldown
+                        /// (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumReconVisorPRP )  \r\n";
+
+                        SumAdditives = 0;
+                        if (float.Parse(comboBoxBonusPRS.Text) != 0) { SumAdditives += float.Parse(comboBoxBonusPRS.Text) / 100; txtBox.Text += " + Bonus 'Power ReconVisor' Stat" + float.Parse(comboBoxBonusPRS.Text) / 100; }
+                        if (ReconVisorRecharge1 != 0) { SumAdditives += ReconVisorRecharge1; txtBox.Text += " + 'ReconVisor Recharge Evo 4a' " + ReconVisorRecharge1.ToString(); }
+                        if (ReconVisorRecharge2 != 0) { SumAdditives += ReconVisorRecharge2; txtBox.Text += " + 'ReconVisor Recharge Evo 5a' " + ReconVisorRecharge2.ToString(); }
+                        if (gearPRS != 0) { SumAdditives += gearPRS; txtBox.Text += " +  gear '" + comboBoxSelectGear.Text.Split('*')[0] + "' " + gearPRS.ToString(); }
+                        if (booster1PRS != 0) { SumAdditives += booster1PRS; txtBox.Text += " +  booster '" + comboBoxSelectBooster1.Text.Split('*')[0] + "' " + booster1PRS.ToString(); }
+                        if (booster2PRS != 0) { SumAdditives += booster2PRS; txtBox.Text += " +  booster '" + comboBoxSelectBooster2.Text.Split('*')[0] + "' " + booster2PRS.ToString(); }
+                        if (skill1PRS != 0) { SumAdditives += skill1PRS; txtBox.Text += " + PRS from '" + playingCharactersArray[SelectedCharIndex].Skill1Name + "' skill" + skill1PRS.ToString(); }
+                        if (skill2PRS != 0) { SumAdditives += skill2PRS; txtBox.Text += " + PRS from '" + playingCharactersArray[SelectedCharIndex].Skill2Name + "' skill" + skill2PRS.ToString(); }
+                        if (skill3PRS != 0) { SumAdditives += skill3PRS; txtBox.Text += " + PRS from '" + playingCharactersArray[SelectedCharIndex].Skill3Name + "' skill" + skill3PRS.ToString(); }
+                        if (skill4PRS != 0) { SumAdditives += skill4PRS; txtBox.Text += " + PRS from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4PRS.ToString(); }
+                        if (skill5PRS != 0) { SumAdditives += skill5PRS; txtBox.Text += " + PRS from '" + playingCharactersArray[SelectedCharIndex].Skill5Name + "' skill" + skill5PRS.ToString(); }
+                        txtBox.Text += " ) * ( 1";
+
+                        PRP = 0; 
+                                 // NO CHAR CURRENTLY HAS ReconVisor AND Annihilation
+                        if (skill1PRPSum != 0) { PRP = skill1PRPSum; txtBox.Text += " + 'ReconVisor PRP'" + skill1PRPSum.ToString(); }
+                        if (skill2PRPSum != 0) { PRP = skill2PRPSum; txtBox.Text += " + 'ReconVisor PRP'" + skill2PRPSum.ToString(); }
+                        if (skill3PRPSum != 0) { PRP = skill3PRPSum; txtBox.Text += " + 'ReconVisor PRP'" + skill3PRPSum.ToString(); }
+
+                        txtBox.Text += " ) = " + ((ReconVisorRecharge / (1 + SumAdditives) * (1 + PRP))).ToString() + "\r\n";
+                        //if (skill4PRTR != 0) { txtBox.Text += " Detonation Feedback" + (1-skill4PRTR).ToString() + " multiplier to remaining cooldown amount \r\n"; }
+                        txtBox.Text += "\r\n\r\n";
+                         **/
+                        break; 
 
                 }
             }
