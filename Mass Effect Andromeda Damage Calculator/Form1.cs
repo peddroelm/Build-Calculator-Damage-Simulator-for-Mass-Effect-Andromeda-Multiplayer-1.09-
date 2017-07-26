@@ -5365,7 +5365,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
 
                     case "Flak Cannon":
                         // "Flak Cannon", "Flak description", false, "BaseDamage=250;SBase=85;Cooldown=1", "SvsArmor=-0.3", "2", "Dam=0.4", "Dam=0.5", "4b", "vsArmor=0.75", "5b", "NrSrapnel=0.5","BaseDOTDam=100",
-
+                        // Krogan MErcenary, Turian Havok
                         // combo boxes HAVE PLAYER CHOICES 
                         // Also need to get the right playingCharactersArray[SelectedCharIndex].Skill X CooldownMaxDurationPassiveTempEtc
                         TCooldownMaxDurationPassiveTempEtc = "";
@@ -5443,7 +5443,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                         comboBox = controls[0] as ComboBox;
                         //txtBox.Text += comboBox.Text + "\r\n";
 
-                        float FlakCannonvsArmor, FlakCannonvsShields; FlakCannonvsArmor = FlakCannonvsShields = 0;
+                        float FlakCannonvsArmor; FlakCannonvsArmor = 0;
                         foreach (string s in comboBox.Text.Split(';'))
                         {
 
@@ -6773,13 +6773,14 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
 
 
                         txtBox.Text += "DOT duration : " + IncinerateBaseDOTDur.ToString() + " * ( 1";
+                        if (IncinerateDOTDur != 0) txtBox.Text += " + EffectDuration from evo 4b " + IncinerateDOTDur.ToString();
+                        txtBox.Text += " ) * ( 1 ";
                         if (skill4PEffectDur != 0) txtBox.Text += " + EffectDuration from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4PEffectDur.ToString();
                         if (skill5PEffectDur != 0) txtBox.Text += " + EffectDuration from '" + playingCharactersArray[SelectedCharIndex].Skill5Name + "' skill" + skill5PEffectDur.ToString();
-                        if (IncinerateDOTDur != 0) txtBox.Text += " + EffectDuration from evo 4b " + IncinerateDOTDur.ToString();
-                        txtBox.Text += " ) = " + (IncinerateBaseDOTDur * (1 + skill4PEffectDur + skill5PEffectDur + IncinerateDOTDur)).ToString() + " seconds \r\n";
+                        txtBox.Text += " ) = " + (IncinerateBaseDOTDur * (1 + IncinerateDOTDur) * (1 + skill4PEffectDur + skill5PEffectDur)).ToString() + " seconds \r\n";
 
-                        txtBox.Text += "Maximum Total Incinerate DOT vs Health = " + (IncinerateBaseDOTDPS * (1 + SumIncinerateDOTAdditives) * (1 + SumDebuff) * IncinerateBaseDOTDur * (1 + skill4PEffectDur + skill5PEffectDur + IncinerateDOTDur)).ToString() + "\r\n";
-                        txtBox.Text += "Maximum Total Incinerate DOT vs Armor = " + (IncinerateBaseDOTDPS * (1 + SumIncinerateDOTAdditives) * (1 + SumDebuff) * (1 + SumAdditives) * IncinerateBaseDOTDur * (1 + skill4PEffectDur + skill5PEffectDur + IncinerateDOTDur)).ToString() + "\r\n";
+                        txtBox.Text += "Maximum Total Incinerate DOT vs Health = " + (IncinerateBaseDOTDPS * (1 + SumIncinerateDOTAdditives) * (1 + SumDebuff) * IncinerateBaseDOTDur * (1 + IncinerateDOTDur) * (1 + skill4PEffectDur + skill5PEffectDur)).ToString() + "\r\n";
+                        txtBox.Text += "Maximum Total Incinerate DOT vs Armor = " + (IncinerateBaseDOTDPS * (1 + SumIncinerateDOTAdditives) * (1 + SumDebuff) * (1 + SumAdditives) * IncinerateBaseDOTDur * (1 + IncinerateDOTDur) * (1 + skill4PEffectDur + skill5PEffectDur)).ToString() + "\r\n";
 
 
                         break;
@@ -7238,13 +7239,15 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
 
 
                         txtBox.Text += "DOT duration : " + FlamerBaseDOTDur.ToString() + " * ( 1";
+                        if (FlamerDOTDur != 0) txtBox.Text += " + EffectDuration from evo 5b " + FlamerDOTDur.ToString();
+                        txtBox.Text += " ) * ( 1 ";
                         if (skill4PEffectDur != 0) txtBox.Text += " + EffectDuration from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4PEffectDur.ToString();
                         if (skill5PEffectDur != 0) txtBox.Text += " + EffectDuration from '" + playingCharactersArray[SelectedCharIndex].Skill5Name + "' skill" + skill5PEffectDur.ToString();
-                        if (FlamerDOTDur != 0) txtBox.Text += " + EffectDuration from evo 5b " + FlamerDOTDur.ToString();
-                        txtBox.Text += " ) = " + (FlamerBaseDOTDur * (1 + skill4PEffectDur + skill5PEffectDur + FlamerDOTDur)).ToString() + " seconds \r\n";
 
-                        txtBox.Text += "Maximum Total Flamer DOT vs Health = " + (FlamerBaseDOTDPS * (1 + SumFlamerDOTAdditives) * (1 + SumDebuff) * FlamerBaseDOTDur * (1 + skill4PEffectDur + skill5PEffectDur + FlamerDOTDur)).ToString() + "\r\n";
-                        txtBox.Text += "Maximum Total Flamer DOT vs Armor = " + (FlamerBaseDOTDPS * (1 + SumFlamerDOTAdditives) * (1 + SumDebuff) * (1 + SumAdditives) * FlamerBaseDOTDur * (1 + skill4PEffectDur + skill5PEffectDur + FlamerDOTDur)).ToString() + "\r\n";
+                        txtBox.Text += " ) = " + (FlamerBaseDOTDur * (1 + FlamerDOTDur) * (1 + skill4PEffectDur + skill5PEffectDur)).ToString() + " seconds \r\n";
+
+                        txtBox.Text += "Maximum Total Flamer DOT vs Health = " + (FlamerBaseDOTDPS * (1 + SumFlamerDOTAdditives) * (1 + SumDebuff) * FlamerBaseDOTDur * (1 + FlamerDOTDur) * (1 + skill4PEffectDur + skill5PEffectDur)).ToString() + "\r\n";
+                        txtBox.Text += "Maximum Total Flamer DOT vs Armor = " + (FlamerBaseDOTDPS * (1 + SumFlamerDOTAdditives) * (1 + SumDebuff) * (1 + SumAdditives) * FlamerBaseDOTDur * (1 + FlamerDOTDur) * (1 + skill4PEffectDur + skill5PEffectDur)).ToString() + "\r\n";
                         //txtBox.Text+= SumAdditives.ToString() ;
 
                         break;
@@ -7921,11 +7924,12 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                         // DO HOT Maximum total
 
                         txtBox.Text += "HOT duration : " + ShieldBoostBaseHOTDur.ToString() + " * ( 1";
+                        if (ShieldBoostHOTDur != 0) txtBox.Text += " + EffectDuration from evo 6b " + ShieldBoostHOTDur.ToString();
+                        txtBox.Text += " ) * ( 1 ";
                         if (skill4PEffectDur != 0) txtBox.Text += " + EffectDuration from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4PEffectDur.ToString();
                         if (skill5PEffectDur != 0) txtBox.Text += " + EffectDuration from '" + playingCharactersArray[SelectedCharIndex].Skill5Name + "' skill" + skill5PEffectDur.ToString();
-                        if (ShieldBoostHOTDur != 0) txtBox.Text += " + EffectDuration from evo 6b " + ShieldBoostHOTDur.ToString();
-                        txtBox.Text += " ) = " + (ShieldBoostBaseHOTDur * (1 + skill4PEffectDur + skill5PEffectDur + ShieldBoostHOTDur)).ToString() + " seconds   ";
-                        txtBox.Text += "Maximum Total HOT amount = " + (ShieldBoostBaseHOT * (1 + SumHOTAdditives + skill5SupportSum) * ShieldBoostBaseHOTDur * (1 + skill4PEffectDur + skill5PEffectDur + ShieldBoostHOTDur)).ToString() + "\r\n";
+                        txtBox.Text += " ) = " + (ShieldBoostBaseHOTDur * (1 + ShieldBoostHOTDur) * (1 + skill4PEffectDur + skill5PEffectDur)).ToString() + " seconds   ";
+                        txtBox.Text += "Maximum Total HOT amount = " + (ShieldBoostBaseHOT * (1 + SumHOTAdditives + skill5SupportSum) * ShieldBoostBaseHOTDur * (1 + ShieldBoostHOTDur) * (1 + skill4PEffectDur + skill5PEffectDur)).ToString() + "\r\n";
                         break;
 
                     case "Nova":
@@ -12658,15 +12662,17 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                             if (s.StartsWith("vsSynth=")) BarricadevsSynth = float.Parse(s.Substring(8, s.Length - 8));
                         }
 
-
                         txtBox.Text += "Max Duration =  base max duration" + BarricadeDuration.ToString() + " * (1 ";
                         if (BarricadeDuration1 != 0) txtBox.Text += " + Duration evo 3 " + BarricadeDuration1.ToString();
                         if (BarricadeDuration2 != 0) txtBox.Text += " + Duration evo 4a " + BarricadeDuration2.ToString();
-                        txtBox.Text += " ) = " + (BarricadeDuration * (1 + BarricadeDuration1 + BarricadeDuration2)).ToString() + "\r\n\r\n";
+                        txtBox.Text += " ) * ( 1 ";
+                        if (skill4PEffectDur != 0) txtBox.Text += " + EffectDuration from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4PEffectDur.ToString();
+                        if (skill5PEffectDur != 0) txtBox.Text += " + EffectDuration from '" + playingCharactersArray[SelectedCharIndex].Skill5Name + "' skill" + skill5PEffectDur.ToString();
+                        txtBox.Text += " ) = " + (BarricadeDuration * (1 + BarricadeDuration1 + BarricadeDuration2) * (1 + skill4PEffectDur + skill5PEffectDur)).ToString() + "\r\n\r\n";
 
 
-                        
-                       txtBox.Text += "Fixed Cooldown = 1 \r\n\r\n";
+
+                        txtBox.Text += "Fixed Cooldown = 1 \r\n\r\n";
                         /*
                         txtBox.Text += "Cooldown FORMULA: (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP )  \r\n";
                         txtBox.Text += "In the interest of developement speed this app ignores the WeaponWeight minigame - as long as you don't go over capacity AS YOU SHOULD! - the related term will be Zero \r\n\r\n";
@@ -12719,9 +12725,9 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                             txtBox.Text += "some debuffs, ex Pull's expose cannot be activated vs Armor or Shields - I don't account for that here - but you can tick that debuff off in UI if you want numbers without it and RE-Calculate) \r\n";
                             txtBox.Text += "BARRICADE BENEFITS Elemental Tech DEBUFF  (on the chars that have ET) \r\n\r\n";
 
-                            tempString1 = "DOT tick Damage vs Health = (BaseDOTDPS/2) Damage " + (BarricadeBaseDOTDPS / 2).ToString() + " * ( 1";
-                            tempString2 = "DOT tick Damage vs Shields = (BaseDOTDPS/2) Damage " + (BarricadeBaseDOTDPS / 2).ToString() + " * ( 1";
-                            tempString3 = "DOT tick Damage vs Armor = (BaseDOTDPS/2) Damage " + (BarricadeBaseDOTDPS / 2).ToString() + " * ( 1";
+                            tempString1 = "DOT tick Damage vs Health = (BaseDOTDPS/2) " + (BarricadeBaseDOTDPS / 2).ToString() + " * ( 1";
+                            tempString2 = "DOT tick Damage vs Shields = (BaseDOTDPS/2) " + (BarricadeBaseDOTDPS / 2).ToString() + " * ( 1";
+                            tempString3 = "DOT tick Damage vs Armor = (BaseDOTDPS/2) " + (BarricadeBaseDOTDPS / 2).ToString() + " * ( 1";
 
 
                             // Will need to accumulate the strings and print at the end since I want to print 9 at once .. 
@@ -12777,7 +12783,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                                 tempString1 += " + debuffvsAll from Elemental Tech 0.35";
                                 tempString2 += " + debuffvsAll from Elemental Tech 0.35"; //No self proc vs shields
                                 tempString3 += " + debuffvsAll from Elemental Tech 0.35";
-                              
+
                             }
 
                             if (float.Parse(textBoxSumSquadDebuffsOnTarget.Text) != 0)
@@ -12786,7 +12792,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                                 tempString1 += " + debuffvsAll from Squad " + textBoxSumSquadDebuffsOnTarget.Text;
                                 tempString2 += " + debuffvsAll from Squad " + textBoxSumSquadDebuffsOnTarget.Text;
                                 tempString3 += " + debuffvsAll from Squad " + textBoxSumSquadDebuffsOnTarget.Text;
-                                                         }
+                            }
 
                             //    if (SumArmorDebuff != 0)
                             //    {
@@ -12798,28 +12804,28 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                             SumDebuff = SumAdditives;
 
                             tempString1 += " ) * ( 1 "; tempString2 += " ) * ( 1 "; tempString3 += " ) * ( 1 ";
-                       
-                       
+
+
                             tempString1 += " ) = " + ((BarricadeBaseDOTDPS / 2) * (1 + SumDebuff)).ToString();
 
-                          
-                        
+
+
                             if (BarricadevsShields != 0)
                             {
-                              tempString2 += " + vsShields evo 6b " + BarricadevsShields.ToString();
-                                                    }
+                                tempString2 += " + vsShields evo 6b " + BarricadevsShields.ToString();
+                            }
 
                             if (skill4vsShields != 0)
                             {
-                                 tempString2 += " + Passive vsShields " + skill4vsShields.ToString();
-              
+                                tempString2 += " + Passive vsShields " + skill4vsShields.ToString();
+
                             }
 
 
                             if (skill4vsArmor != 0)
                             {
-                              tempString3 += " + Passive vsArmor " + skill4vsArmor.ToString();
-                               }
+                                tempString3 += " + Passive vsArmor " + skill4vsArmor.ToString();
+                            }
 
 
                             tempString2 += " ) = " + ((BarricadeBaseDOTDPS / 2) * (1 + SumDebuff) * (1 + BarricadevsShields + skill4vsShields)).ToString();
@@ -12828,23 +12834,23 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                             txtBox.Text += tempString1 + "\r\n";
                             txtBox.Text += tempString2 + "\r\n";
                             txtBox.Text += tempString3 + "\r\n\r\n";
-              
+
                             // need max total DOT 
 
+                            txtBox.Text += "MAX DOT duration = MAX Barricade duration : " + BarricadeDuration.ToString() + " * ( 1";
+                            if (BarricadeDuration1 != 0) txtBox.Text += " + EffectDuration from evo 3 " + BarricadeDuration1.ToString();
+                            if (BarricadeDuration2 != 0) txtBox.Text += " + EffectDuration from evo 4a " + BarricadeDuration2.ToString();
+                            txtBox.Text += " ) * ( 1 ";
+                            if (skill4PEffectDur != 0) txtBox.Text += " + EffectDuration from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4PEffectDur.ToString();
+                            if (skill5PEffectDur != 0) txtBox.Text += " + EffectDuration from '" + playingCharactersArray[SelectedCharIndex].Skill5Name + "' skill" + skill5PEffectDur.ToString();
 
-                          txtBox.Text += "MAX DOT duration = MAX Barricade duration : " + BarricadeDuration.ToString() + " * ( 1";
-                       //    if (skill4PEffectDur != 0) txtBox.Text += " + EffectDuration from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4PEffectDur.ToString();
-                       //    if (skill5PEffectDur != 0) txtBox.Text += " + EffectDuration from '" + playingCharactersArray[SelectedCharIndex].Skill5Name + "' skill" + skill5PEffectDur.ToString();
-                           if (BarricadeDuration1 != 0) txtBox.Text += " + EffectDuration from evo 3 " + BarricadeDuration1.ToString();
-                           if (BarricadeDuration2 != 0) txtBox.Text += " + EffectDuration from evo 4a " + BarricadeDuration2.ToString();
+                            txtBox.Text += " ) = " + (BarricadeDuration * (1 + BarricadeDuration1 + BarricadeDuration2) * (1 + skill4PEffectDur + skill5PEffectDur)).ToString() + " seconds \r\n\r\n";
 
-                                txtBox.Text += " ) = " + (BarricadeDuration * (1 + BarricadeDuration1 + BarricadeDuration2)).ToString() + " seconds \r\n\r\n";
+                            txtBox.Text += "Maximum Total Barricade DOT vs Health = " + (BarricadeBaseDOTDPS * (1 + SumDebuff) * BarricadeDuration * (1 + BarricadeDuration1 + BarricadeDuration2) * (1 + skill4PEffectDur + skill5PEffectDur)).ToString() + "\r\n";
+                            txtBox.Text += "Maximum Total Barricade DOT vs Shields = " + (BarricadeBaseDOTDPS * (1 + SumDebuff) * (1 + skill4vsShields + BarricadevsShields) * BarricadeDuration * (1 + BarricadeDuration1 + BarricadeDuration2) * (1 + skill4PEffectDur + skill5PEffectDur)).ToString() + "\r\n";
+                            txtBox.Text += "Maximum Total Barricade DOT vs Armor = " + (BarricadeBaseDOTDPS * (1 + SumDebuff) * (1 + skill4vsArmor) * BarricadeDuration * (1 + BarricadeDuration1 + BarricadeDuration2) * (1 + skill4PEffectDur + skill5PEffectDur)).ToString() + "\r\n";
+                        }
 
-                            txtBox.Text += "Maximum Total Barricade DOT vs Health = " + (BarricadeBaseDOTDPS *  (1 + SumDebuff) * BarricadeDuration * (1 + BarricadeDuration1 + BarricadeDuration2)).ToString() + "\r\n";
-                            txtBox.Text += "Maximum Total Barricade DOT vs Shields = " + (BarricadeBaseDOTDPS * (1 + SumDebuff) * (1 + skill4vsShields + BarricadevsShields) * BarricadeDuration * (1 + BarricadeDuration1 + BarricadeDuration2)).ToString() + "\r\n";
-                            txtBox.Text += "Maximum Total Barricade DOT vs Armor = " + (BarricadeBaseDOTDPS * (1 + SumDebuff) * (1 + skill4vsArmor) * BarricadeDuration * (1 + BarricadeDuration1 + BarricadeDuration2)).ToString() + "\r\n";
-                                                    }
-    
                         break;
                     case "Tactical Cloak":
                         // "Tactical Cloak", "tactical cloak description", true, "Duration=6.5;Recharge=12", "WD=0.5;PD=0.5;MD=0.75", "Recharge=0.15", "Duration=0.25", "Recharge=0.3", "WD=0.4;PD=0.5;MD=0.5", "Duration=0.5", "5b", "6a","6b",
@@ -12857,12 +12863,12 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
 
                         //  txtBox.Text += TCooldownMaxDurationPassiveTempEtc;
 
-                        float TacticalCloakRecharge, TacticalCloakDuration;  TacticalCloakRecharge = TacticalCloakDuration = 0;
+                        float TacticalCloakRecharge, TacticalCloakDuration; TacticalCloakRecharge = TacticalCloakDuration = 0;
 
                         foreach (string s in TCooldownMaxDurationPassiveTempEtc.Split(';'))
                         {
                             //  "BaseDam="
-                             if (s.StartsWith("Recharge=")) TacticalCloakRecharge = float.Parse(s.Substring(9, s.Length - 9));
+                            if (s.StartsWith("Recharge=")) TacticalCloakRecharge = float.Parse(s.Substring(9, s.Length - 9));
                             if (s.StartsWith("Duration=")) TacticalCloakDuration = float.Parse(s.Substring(9, s.Length - 9));
                         }
 
@@ -12933,20 +12939,23 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                         }
 
 
-                     //   controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_6", true);
-                    //    comboBox = controls[0] as ComboBox;
+                        //   controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_6", true);
+                        //    comboBox = controls[0] as ComboBox;
                         //  txtBox.Text += comboBox.Text + "\r\n";
-                      //  float TacticalCloakBaseDamage; TacticalCloakBaseDamage = 0;
-                      //  foreach (string s in comboBox.Text.Split(';'))
-                       // {
-                      //      if (s.StartsWith("BaseDamage=")) TacticalCloakBaseDamage += float.Parse(s.Substring(11, s.Length - 11));
-                      //  }
+                        //  float TacticalCloakBaseDamage; TacticalCloakBaseDamage = 0;
+                        //  foreach (string s in comboBox.Text.Split(';'))
+                        // {
+                        //      if (s.StartsWith("BaseDamage=")) TacticalCloakBaseDamage += float.Parse(s.Substring(11, s.Length - 11));
+                        //  }
 
 
-                        txtBox.Text += "Max Duration (can be canceled anytime) base max duration" + TacticalCloakDuration.ToString() +  " * ( 1 ";
+                        txtBox.Text += "Max Duration (can be canceled anytime) base max duration" + TacticalCloakDuration.ToString() + " * ( 1 ";
                         if (TacticalCloakDuration1 != 0) txtBox.Text += " + Duration evo 3 " + TacticalCloakDuration1.ToString();
                         if (TacticalCloakDuration2 != 0) txtBox.Text += " + Duration evo 5b " + TacticalCloakDuration2.ToString();
-                        txtBox.Text += " ) = " + (TacticalCloakDuration * (1 + TacticalCloakDuration1 + TacticalCloakDuration2)).ToString() + "\r\n\r\n";
+                        txtBox.Text += " ) * ( 1 ";
+                        if (skill4PEffectDur != 0) txtBox.Text += " + EffectDuration from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4PEffectDur.ToString();
+                        if (skill5PEffectDur != 0) txtBox.Text += " + EffectDuration from '" + playingCharactersArray[SelectedCharIndex].Skill5Name + "' skill" + skill5PEffectDur.ToString();
+                        txtBox.Text += " ) = " + (TacticalCloakDuration * (1 + TacticalCloakDuration1 + TacticalCloakDuration2) * (1 + skill4PEffectDur + skill5PEffectDur)).ToString() + "\r\n\r\n";
 
 
                         txtBox.Text += "Cooldown FORMULA: (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 )  \r\n";
@@ -12977,8 +12986,8 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                         if (skill5PRS != 0) { SumAdditives += skill5PRS; txtBox.Text += " + PRS from '" + playingCharactersArray[SelectedCharIndex].Skill5Name + "' skill" + skill5PRS.ToString(); }
                         txtBox.Text += " ) * ( 1";
 
-                        PRP = 0; 
-                                 // NO CHAR CURRENTLY HAS TacticalCloak AND Annihilation
+                        PRP = 0;
+                        // NO CHAR CURRENTLY HAS TacticalCloak AND Annihilation
                         if (skill1PRPSum != 0) { PRP = skill1PRPSum; txtBox.Text += " + 'TacticalCloak PRP'" + skill1PRPSum.ToString(); }
                         if (skill2PRPSum != 0) { PRP = skill2PRPSum; txtBox.Text += " + 'TacticalCloak PRP'" + skill2PRPSum.ToString(); }
                         if (skill3PRPSum != 0) { PRP = skill3PRPSum; txtBox.Text += " + 'TacticalCloak PRP'" + skill3PRPSum.ToString(); }
@@ -12991,7 +13000,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                     case "Recon Visor":
                         //"Recon Visor", "recon visor description", true, "Duration=12;Recharge=12", "PEN=0.6", "2", "PEN=0.25", "Recharge=0.3", "4b", "5a", "Duration=0.5", "6a","TArmorDebuff=0.25;EnableTCheck",
                         // Turian Agent
-                        /*
+
                         TCooldownMaxDurationPassiveTempEtc = "";
                         if (playingCharactersArray[SelectedCharIndex].Skill1Name.Equals(ActiveSkillList[ASkillIndex])) TCooldownMaxDurationPassiveTempEtc = playingCharactersArray[SelectedCharIndex].Skill1CooldownMaxDurationPassiveTempEtc;
                         if (playingCharactersArray[SelectedCharIndex].Skill2Name.Equals(ActiveSkillList[ASkillIndex])) TCooldownMaxDurationPassiveTempEtc = playingCharactersArray[SelectedCharIndex].Skill2CooldownMaxDurationPassiveTempEtc;
@@ -12999,51 +13008,49 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
 
                         //  txtBox.Text += TCooldownMaxDurationPassiveTempEtc;
 
-                        float ReconVisorRecharge, ReconVisorDuration;  ReconVisorRecharge = ReconVisorDuration = 0;
+                        float ReconVisorRecharge, ReconVisorDuration; ReconVisorRecharge = ReconVisorDuration = 0;
 
                         foreach (string s in TCooldownMaxDurationPassiveTempEtc.Split(';'))
                         {
                             //  "BaseDam="
-                             if (s.StartsWith("Recharge=")) ReconVisorRecharge = float.Parse(s.Substring(9, s.Length - 9));
+                            if (s.StartsWith("Recharge=")) ReconVisorRecharge = float.Parse(s.Substring(9, s.Length - 9));
                             if (s.StartsWith("Duration=")) ReconVisorDuration = float.Parse(s.Substring(9, s.Length - 9));
                         }
 
 
                         //we will need to Find the right comboboxes by name .. 
-                        //                         controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_1", true);
-                        //                          comboBox = controls[0] as ComboBox;
+                        controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_1", true);
+                        comboBox = controls[0] as ComboBox;
                         //  txtBox.Text += comboBox.Text + "\r\n";
 
-                        //                        float ReconVisorvsShields; ReconVisorvsShields = 0;
-                        //                        foreach (string s in comboBox.Text.Split(';'))
-                        //                       {
-                        // check for Dam
-                        //                           if (s.StartsWith("vsShields=")) ReconVisorvsShields1 += float.Parse(s.Substring(10, s.Length - 10));
-                        //                            if (s.StartsWith("vsSynth=")) ReconVisorvsSynth1 += float.Parse(s.Substring(8, s.Length - 8));
+                        float ReconVisorPEN1; ReconVisorPEN1 = 0;
+                        foreach (string s in comboBox.Text.Split(';'))
+                        {
 
-                        //                       }
+                            if (s.StartsWith("PEN=")) ReconVisorPEN1 += float.Parse(s.Substring(4, s.Length - 4));
+                        }
 
-                        controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_2", true);
-                        comboBox = controls[0] as ComboBox;
+                        //    controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_2", true);
+                        //    comboBox = controls[0] as ComboBox;
                         //   txtBox.Text += comboBox.Text + "\r\n";
 
 
-                        float ReconVisorRecharge1; ReconVisorRecharge1 = 0;
-                        foreach (string s in comboBox.Text.Split(';'))
-                        {
-                            if (s.StartsWith("Recharge=")) ReconVisorRecharge1 += float.Parse(s.Substring(9, s.Length - 9));
-                        }
+                        //  float ReconVisorRecharge1; ReconVisorRecharge1 = 0;
+                        //  foreach (string s in comboBox.Text.Split(';'))
+                        //  {
+                        //     if (s.StartsWith("Recharge=")) ReconVisorRecharge1 += float.Parse(s.Substring(9, s.Length - 9));
+                        // }
 
                         controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_3", true);
                         comboBox = controls[0] as ComboBox;
                         //txtBox.Text += comboBox.Text + "\r\n";
 
-                        float ReconVisorDuration1; ReconVisorDuration1 = 0;
+                        float ReconVisorPEN2; ReconVisorPEN2 = 0;
                         foreach (string s in comboBox.Text.Split(';'))
                         {
                             // check for Dam
-                            if (s.StartsWith("Duration=")) ReconVisorDuration1 += float.Parse(s.Substring(9, s.Length - 9));
 
+                            if (s.StartsWith("PEN=")) ReconVisorPEN2 += float.Parse(s.Substring(4, s.Length - 4));
                         }
 
 
@@ -13051,11 +13058,11 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                         comboBox = controls[0] as ComboBox;
                         //txtBox.Text += comboBox.Text + "\r\n";
 
-                        float ReconVisorRecharge2; ReconVisorRecharge2 = 0;
+                        float ReconVisorRecharge1; ReconVisorRecharge1 = 0;
                         foreach (string s in comboBox.Text.Split(';'))
                         {
                             // check for Dam
-                            if (s.StartsWith("Recharge=")) ReconVisorRecharge2 += float.Parse(s.Substring(9, s.Length - 9));
+                            if (s.StartsWith("Recharge=")) ReconVisorRecharge1 += float.Parse(s.Substring(9, s.Length - 9));
 
                         }
 
@@ -13066,30 +13073,31 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                         comboBox = controls[0] as ComboBox;
                         //txtBox.Text += comboBox.Text + "\r\n";
 
-                        float ReconVisorDuration2; ReconVisorDuration2 = 0;
+                        float ReconVisorDuration1; ReconVisorDuration1 = 0;
 
                         foreach (string s in comboBox.Text.Split(';'))
                         {
-                            if (s.StartsWith("Duration=")) ReconVisorDuration2 += float.Parse(s.Substring(9, s.Length - 9));
+                            if (s.StartsWith("Duration=")) ReconVisorDuration1 += float.Parse(s.Substring(9, s.Length - 9));
 
                         }
 
 
-                     //   controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_6", true);
-                    //    comboBox = controls[0] as ComboBox;
+                        //   controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_6", true);
+                        //    comboBox = controls[0] as ComboBox;
                         //  txtBox.Text += comboBox.Text + "\r\n";
-                      //  float ReconVisorBaseDamage; ReconVisorBaseDamage = 0;
-                      //  foreach (string s in comboBox.Text.Split(';'))
-                       // {
-                      //      if (s.StartsWith("BaseDamage=")) ReconVisorBaseDamage += float.Parse(s.Substring(11, s.Length - 11));
-                      //  }
+                        //  float ReconVisorBaseDamage; ReconVisorBaseDamage = 0;
+                        //  foreach (string s in comboBox.Text.Split(';'))
+                        // {
+                        //      if (s.StartsWith("BaseDamage=")) ReconVisorBaseDamage += float.Parse(s.Substring(11, s.Length - 11));
+                        //  }
 
 
-                        txtBox.Text += "Max Duration (can be canceled anytime) base max duration" + ReconVisorDuration.ToString() +  " * ( 1 ";
+                        txtBox.Text += "Max Duration (can be canceled anytime) base max duration" + ReconVisorDuration.ToString() + " * ( 1 ";
                         if (ReconVisorDuration1 != 0) txtBox.Text += " + Duration evo 3 " + ReconVisorDuration1.ToString();
-                        if (ReconVisorDuration2 != 0) txtBox.Text += " + Duration evo 5b " + ReconVisorDuration2.ToString();
-                        txtBox.Text += " ) = " + (ReconVisorDuration * (1 + ReconVisorDuration1 + ReconVisorDuration2)).ToString() + "\r\n\r\n";
-
+                        txtBox.Text += " ) * ( 1 ";
+                        if (skill4PEffectDur != 0) txtBox.Text += " + EffectDuration from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4PEffectDur.ToString();
+                        if (skill5PEffectDur != 0) txtBox.Text += " + EffectDuration from '" + playingCharactersArray[SelectedCharIndex].Skill5Name + "' skill" + skill5PEffectDur.ToString();
+                        txtBox.Text += " ) = " + (ReconVisorDuration * (1 + ReconVisorDuration1) * (1 + skill4PEffectDur + skill5PEffectDur)).ToString() + "\r\n\r\n";
 
                         txtBox.Text += "Cooldown FORMULA: (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 )  \r\n";
                         txtBox.Text += "In the interest of developement speed this app ignores the WeaponWeight minigame - as long as you don't go over capacity AS YOU SHOULD! - the related term will be Zero \r\n\r\n";
@@ -13108,7 +13116,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                         SumAdditives = 0;
                         if (float.Parse(comboBoxBonusPRS.Text) != 0) { SumAdditives += float.Parse(comboBoxBonusPRS.Text) / 100; txtBox.Text += " + Bonus 'Power ReconVisor' Stat" + float.Parse(comboBoxBonusPRS.Text) / 100; }
                         if (ReconVisorRecharge1 != 0) { SumAdditives += ReconVisorRecharge1; txtBox.Text += " + 'ReconVisor Recharge Evo 4a' " + ReconVisorRecharge1.ToString(); }
-                        if (ReconVisorRecharge2 != 0) { SumAdditives += ReconVisorRecharge2; txtBox.Text += " + 'ReconVisor Recharge Evo 5a' " + ReconVisorRecharge2.ToString(); }
+                        //   if (ReconVisorRecharge2 != 0) { SumAdditives += ReconVisorRecharge2; txtBox.Text += " + 'ReconVisor Recharge Evo 5a' " + ReconVisorRecharge2.ToString(); }
                         if (gearPRS != 0) { SumAdditives += gearPRS; txtBox.Text += " +  gear '" + comboBoxSelectGear.Text.Split('*')[0] + "' " + gearPRS.ToString(); }
                         if (booster1PRS != 0) { SumAdditives += booster1PRS; txtBox.Text += " +  booster '" + comboBoxSelectBooster1.Text.Split('*')[0] + "' " + booster1PRS.ToString(); }
                         if (booster2PRS != 0) { SumAdditives += booster2PRS; txtBox.Text += " +  booster '" + comboBoxSelectBooster2.Text.Split('*')[0] + "' " + booster2PRS.ToString(); }
@@ -13119,8 +13127,8 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                         if (skill5PRS != 0) { SumAdditives += skill5PRS; txtBox.Text += " + PRS from '" + playingCharactersArray[SelectedCharIndex].Skill5Name + "' skill" + skill5PRS.ToString(); }
                         txtBox.Text += " ) * ( 1";
 
-                        PRP = 0; 
-                                 // NO CHAR CURRENTLY HAS ReconVisor AND Annihilation
+                        PRP = 0;
+                        // NO CHAR CURRENTLY HAS ReconVisor AND Annihilation
                         if (skill1PRPSum != 0) { PRP = skill1PRPSum; txtBox.Text += " + 'ReconVisor PRP'" + skill1PRPSum.ToString(); }
                         if (skill2PRPSum != 0) { PRP = skill2PRPSum; txtBox.Text += " + 'ReconVisor PRP'" + skill2PRPSum.ToString(); }
                         if (skill3PRPSum != 0) { PRP = skill3PRPSum; txtBox.Text += " + 'ReconVisor PRP'" + skill3PRPSum.ToString(); }
@@ -13128,7 +13136,20 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                         txtBox.Text += " ) = " + ((ReconVisorRecharge / (1 + SumAdditives) * (1 + PRP))).ToString() + "\r\n";
                         //if (skill4PRTR != 0) { txtBox.Text += " Detonation Feedback" + (1-skill4PRTR).ToString() + " multiplier to remaining cooldown amount \r\n"; }
                         txtBox.Text += "\r\n\r\n";
-                         **/
+
+                        CheckBox checkBox; 
+                        controls = this.Controls.Find("checkBoxOnOffSkill" + (ASkillIndex + 1).ToString(), true);
+                        checkBox  = controls[0] as CheckBox ;
+
+                        
+                              if (checkBox.Checked ) {
+                              txtBox.Text += "Weapon Penetration Multiplier = Built in Pen " + (ReconVisorPEN1 * 100).ToString();
+                              if (ReconVisorPEN2 != 0) txtBox.Text += " + evo 3 " + (ReconVisorPEN2 * 100).ToString();
+                              if (addon1PenMul != 0) txtBox.Text += " + 'addon1' " + (addon1PenMul * 100).ToString();
+                              if (addon2PenMul != 0) txtBox.Text += " + 'addon2' " + (addon2PenMul * 100).ToString();
+                              txtBox.Text += " = " + Math.Min(100,((100*(ReconVisorPEN1 + ReconVisorPEN2 + addon1PenMul + addon2PenMul)))).ToString()+  " %";
+                                }
+
                         break; 
 
                 }
