@@ -518,7 +518,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
              };
 
 
-        const int constNrGear = 18;
+        const int constNrGear = 20;
         private GearPiece[] myGearArray = new GearPiece[constNrGear]
       {
                    new GearPiece("Commando Package" , "WD=0.1;BPD=0.2"),
@@ -538,7 +538,9 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                    new GearPiece("Pistol / SMG AMP", "PWD=0.2"),
                    new GearPiece("Shield Enhacer", "Shields=0.3"),
                    new GearPiece("Vulnerability VI", "Weak=0.4"),
-                   new GearPiece("Densified Ammunition", "WD=0.125")
+                   new GearPiece("Densified Ammunition", "WD=0.125"),
+                   new GearPiece("Survivor Loadout", "Shields=0.2;CPD=0.2"),
+                   new GearPiece("Combatives Upgrade", "PWD=0.15;ARWD=0.15")
                 };
 
 
@@ -661,7 +663,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
 
          };
 
-        const int constNrAPEXMods = 15;
+        const int constNrAPEXMods = 16;
         private APEXModifiers[] myAPEXModsArray = new APEXModifiers[constNrAPEXMods]
       {
                    new APEXModifiers("Pistol Skirmish" , "PDWD=0.5;SRWD=-0.5;SGWD=-0.5;ARWD=-0.5"),
@@ -678,7 +680,8 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                    new APEXModifiers("Dampened Powers", "BPD=-0.25;TPD=-0.25;CPD=-0.25"),
                    new APEXModifiers("Dampened Weapons", "PDWD=-0.25;SRWD=-0.25;SGWD=-0.25;ARWD=-0.25;MAG=-0.25"),
                    new APEXModifiers("Go for the eyes", "PDWD=-0.5;SRWD=-0.5;SGWD=-0.5;ARWD=-0.5;Weak=6;WeakL=6"),
-                   new APEXModifiers("Combotastic", "Combo=1")
+                   new APEXModifiers("Combotastic", "Combo=1"),
+                   new APEXModifiers("Jammed Weapons", "ROF=-0.25;PRP=0.5")
                //    new APEXModifiers("Glass Jaw", "??")
           // 
          };
@@ -1538,11 +1541,12 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
             //APEX1 variables
             //APEX2 variables
 
-            float apex1ARWD, apex1SRWD, apex1PWD, apex1SGWD, apex1MD, apex1Weak, apex1WeakL, apex1BPD, apex1CPD, apex1TPD, apex1Shields, apex1Health, apex1Combo, apex1MAG;
-            float apex2ARWD, apex2SRWD, apex2PWD, apex2SGWD, apex2MD, apex2Weak, apex2WeakL, apex2BPD, apex2CPD, apex2TPD, apex2Shields, apex2Health, apex2Combo, apex2MAG;
+            float apex1ARWD, apex1SRWD, apex1PWD, apex1SGWD, apex1MD, apex1Weak, apex1WeakL, apex1BPD, apex1CPD, apex1TPD, apex1Shields, apex1Health, apex1Combo, apex1MAG, apex1ROF, apex1PRP;
+            float apex2ARWD, apex2SRWD, apex2PWD, apex2SGWD, apex2MD, apex2Weak, apex2WeakL, apex2BPD, apex2CPD, apex2TPD, apex2Shields, apex2Health, apex2Combo, apex2MAG, apex2ROF, apex2PRP;
 
             apex1ARWD = apex1SRWD = apex1PWD = apex1SGWD = apex1MD = apex1Weak = apex1WeakL = apex1BPD = apex1CPD = apex1TPD = apex1Shields = apex1Health = apex1Combo = apex2ARWD =
-                apex2SRWD = apex2PWD = apex2SGWD = apex2MD = apex2Weak = apex2WeakL = apex2BPD = apex2CPD = apex2TPD = apex2Shields = apex2Health = apex2Combo = apex1MAG = apex2MAG = 0;
+                apex2SRWD = apex2PWD = apex2SGWD = apex2MD = apex2Weak = apex2WeakL = apex2BPD = apex2CPD = apex2TPD = apex2Shields = apex2Health = apex2Combo = apex1MAG = apex2MAG =
+              apex1ROF = apex1PRP = apex2ROF = apex2PRP = 0;
 
             //Skill variables (gazzilons :( )  
             //skill1 
@@ -1631,9 +1635,15 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                     case "Densified Ammunition": // "WD=0.125"
                         gearSRWD = gearSGWD = gearPWD = gearARWD = 0.125f;
                         break;
+                    case "Survivor Loadout":
+                        gearShields = 0.2f; gearCPD = 0.2f;
+                        break;
+                    case "Combatives Upgrade": // "WD=0.125"
+                        gearPWD = gearARWD = 0.15f;
+                        break;
 
                 }
-
+  
 
             // temp PRint all gear variable somewhere to VERIFY
             textBoxDebug.Text = "Debug: ";
@@ -2441,6 +2451,10 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                     case "Hyper Shields":
                         apex1Health = -0.75f; apex1Shields = 1f;
                         break;
+                    case "Jammed Weapons":
+                        apex1ROF = -0.25f; apex1PRP = 0.5f;
+                        break;
+  
                 }
 
 
@@ -2502,6 +2516,9 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                     case "Hyper Shields":
                         apex2Health = -0.75f; apex2Shields = 1f;
                         break;
+                    case "Jammed Weapons":
+                        apex2ROF = -0.25f; apex2PRP = 0.5f;
+                        break;
                 }
 
 
@@ -2521,6 +2538,8 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
             if (apex1TPD != 0) textBoxDebug.Text += "apex1TPD = " + apex1TPD.ToString() + " ";
             if (apex1CPD != 0) textBoxDebug.Text += "apex1CPD = " + apex1CPD.ToString() + " ";
             if (apex1Combo != 0) textBoxDebug.Text += "apex1Combo = " + apex1Combo.ToString() + " ";
+            if (apex1ROF != 0) textBoxDebug.Text += "apex1ROF = " + apex1ROF.ToString() + " ";
+            if (apex1PRP != 0) textBoxDebug.Text += "apex1PRP = " + apex1PRP.ToString() + " ";
 
             if (apex2ARWD != 0) textBoxDebug.Text += "apex2ARWD = " + apex2ARWD.ToString() + " ";
             if (apex2SRWD != 0) textBoxDebug.Text += "apex2SRWD = " + apex2SRWD.ToString() + " ";
@@ -2537,6 +2556,8 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
             if (apex2TPD != 0) textBoxDebug.Text += "apex2TPD = " + apex2TPD.ToString() + " ";
             if (apex2CPD != 0) textBoxDebug.Text += "apex2CPD = " + apex2CPD.ToString() + " ";
             if (apex2Combo != 0) textBoxDebug.Text += "apex2Combo = " + apex2Combo.ToString() + " ";
+            if (apex2ROF != 0) textBoxDebug.Text += "apex2ROF = " + apex2ROF.ToString() + " ";
+            if (apex2PRP != 0) textBoxDebug.Text += "apex2PRP = " + apex2PRP.ToString() + " ";
 
 
             string[] PassiveActiveSkillList = { "Rage", "Biotic Ascension" };
@@ -4746,7 +4767,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                         // duration don't care 
                         txtBox.Text += "Duration irrelevant ..no sustained effect \r\n\r\n";
 
-                        txtBox.Text += "Cooldown FORMULA: (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP )  \r\n";
+                        txtBox.Text += "Cooldown FORMULA: (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP + APEXPRP)  \r\n";
                         txtBox.Text += "In the interest of developement speed this app ignores the WeaponWeight minigame - as long as you don't go over capacity AS YOU SHOULD! - the related term will be Zero \r\n\r\n";
                         txtBox.Text += "Cooldown = ( BaseOverloadCooldown " + OverloadRecharge + " / ( 1 ";
 
@@ -4839,7 +4860,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                         /// 
 
                         /// still at cooldown
-                        /// (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP )  \r\n";
+                        /// (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP + APEXPRP )  \r\n";
 
                         SumAdditives = 0;
                         if (float.Parse(comboBoxBonusPRS.Text) != 0) { SumAdditives += float.Parse(comboBoxBonusPRS.Text) / 100; txtBox.Text += " + Bonus 'Power Recharge' Stat" + float.Parse(comboBoxBonusPRS.Text) / 100; }
@@ -4857,11 +4878,12 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
 
                         float PRP; PRP = 0;
                         // NO CHAR CURRENTLY HAS OVERLOAD AND ANNIHILATION
-                        if (skill1PRPSum != 0) { PRP = skill1PRPSum; txtBox.Text += " + 'Annihilation PRP' )" + skill1PRPSum.ToString(); }
-                        if (skill2PRPSum != 0) { PRP = skill2PRPSum; txtBox.Text += " + 'Annihilation PRP' )" + skill2PRPSum.ToString(); }
-                        if (skill3PRPSum != 0) { PRP = skill3PRPSum; txtBox.Text += " + 'Annihilation PRP' )" + skill3PRPSum.ToString(); }
-
-                        txtBox.Text += " ) = " + ((OverloadRecharge / (1 + SumAdditives)) * (1 + PRP)).ToString() + "\r\n";
+                        if (skill1PRPSum != 0) { PRP = skill1PRPSum; txtBox.Text += " + 'Annihilation PRP'" + skill1PRPSum.ToString(); }
+                        if (skill2PRPSum != 0) { PRP = skill2PRPSum; txtBox.Text += " + 'Annihilation PRP'" + skill2PRPSum.ToString(); }
+                        if (skill3PRPSum != 0) { PRP = skill3PRPSum; txtBox.Text += " + 'Annihilation PRP'" + skill3PRPSum.ToString(); }
+                        if (apex1PRP != 0) { txtBox.Text += " + 'Apex PRP'" + apex1PRP.ToString(); }
+                        if (apex2PRP != 0) { txtBox.Text += " + 'Apex PRP'" + apex2PRP.ToString(); }
+                        txtBox.Text += " ) = " + ((OverloadRecharge / (1 + SumAdditives)) * (1 + PRP + apex1PRP + apex2PRP)).ToString() + "\r\n";
                         //if (skill4PRTR != 0) { txtBox.Text += " Detonation Feedback" + (1-skill4PRTR).ToString() + " multiplier to remaining cooldown amount \r\n"; }
                         txtBox.Text += "\r\n";
 
@@ -5858,7 +5880,6 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
 
 
 
-
                         //we will need to Find the right comboboxes by name .. 
                         //                         controls = this.Controls.Find("comboBoxSkill" + (ASkillIndex + 1).ToString() + "_1", true);
                         //                          comboBox = controls[0] as ComboBox;
@@ -5960,7 +5981,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                         else
                         {
 
-                            txtBox.Text += "Cooldown FORMULA: (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP )  \r\n";
+                            txtBox.Text += "Cooldown FORMULA: (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP + APEXPRP )  \r\n";
                             txtBox.Text += "In the interest of developement speed this app ignores the WeaponWeight minigame - as long as you don't go over capacity AS YOU SHOULD! - the related term will be Zero \r\n\r\n";
                             txtBox.Text += "Cooldown = ( BaseLanceCooldown " + LanceRecharge + " / ( 1 ";
 
@@ -5971,7 +5992,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                             /// 
 
                             /// still at cooldown
-                            /// (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP )  \r\n";
+                            /// (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP + APEXPRP )  \r\n";
 
 
                             SumAdditives = 0;
@@ -5992,8 +6013,10 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                             if (skill1PRPSum != 0) { PRP = skill1PRPSum; txtBox.Text += " + 'Annihilation PRP'" + skill1PRPSum.ToString(); }
                             if (skill2PRPSum != 0) { PRP = skill2PRPSum; txtBox.Text += " + 'Annihilation PRP'" + skill2PRPSum.ToString(); }
                             if (skill3PRPSum != 0) { PRP = skill3PRPSum; txtBox.Text += " + 'Annihilation PRP'" + skill3PRPSum.ToString(); }
+                            if (apex1PRP != 0) { txtBox.Text += " + 'Apex PRP'" + apex1PRP.ToString(); }
+                            if (apex2PRP != 0) { txtBox.Text += " + 'Apex PRP'" + apex2PRP.ToString(); }
 
-                            txtBox.Text += " ) = " + ((LanceRecharge / (1 + SumAdditives)) * (1 + PRP)).ToString() + "\r\n";
+                            txtBox.Text += " ) = " + ((LanceRecharge / (1 + SumAdditives)) * (1 + PRP + apex1PRP + apex2PRP)).ToString() + "\r\n";
                             //if (skill4PRTR != 0) { txtBox.Text += " Detonation Feedback" + (1-skill4PRTR).ToString() + " multiplier to remaining cooldown amount \r\n"; }
                             txtBox.Text += "\r\n\r\n";
                         }
@@ -6422,7 +6445,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                         // duration we'll care at the DOT section
                         //txtBox.Text += "Duration irrelevant ..no sustained effect \r\n\r\n";
 
-                        txtBox.Text += "Cooldown FORMULA: (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP )  \r\n";
+                        txtBox.Text += "Cooldown FORMULA: (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP + APEXPRP )  \r\n";
                         txtBox.Text += "In the interest of developement speed this app ignores the WeaponWeight minigame - as long as you don't go over capacity AS YOU SHOULD! - the related term will be Zero \r\n\r\n";
                         txtBox.Text += "Cooldown = ( BaseIncinerateCooldown " + IncinerateRecharge + " / ( 1 ";
 
@@ -6434,7 +6457,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                         /// 
 
                         /// still at cooldown
-                        /// (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP )  \r\n";
+                        /// (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP + APEXPRP )  \r\n";
 
                         SumAdditives = 0;
                         if (float.Parse(comboBoxBonusPRS.Text) != 0) { SumAdditives += float.Parse(comboBoxBonusPRS.Text) / 100; txtBox.Text += " + Bonus 'Power Recharge' Stat" + float.Parse(comboBoxBonusPRS.Text) / 100; }
@@ -6451,11 +6474,13 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
 
                         PRP = 0;
                         // NO CHAR CURRENTLY HAS Incinerate AND ANNIHILATION
-                        if (skill1PRPSum != 0) { PRP = skill1PRPSum; txtBox.Text += " + 'Annihilation PRP' )" + skill1PRPSum.ToString(); }
-                        if (skill2PRPSum != 0) { PRP = skill2PRPSum; txtBox.Text += " + 'Annihilation PRP' )" + skill2PRPSum.ToString(); }
-                        if (skill3PRPSum != 0) { PRP = skill3PRPSum; txtBox.Text += " + 'Annihilation PRP' )" + skill3PRPSum.ToString(); }
+                        if (skill1PRPSum != 0) { PRP = skill1PRPSum; txtBox.Text += " + 'Annihilation PRP'" + skill1PRPSum.ToString(); }
+                        if (skill2PRPSum != 0) { PRP = skill2PRPSum; txtBox.Text += " + 'Annihilation PRP'" + skill2PRPSum.ToString(); }
+                        if (skill3PRPSum != 0) { PRP = skill3PRPSum; txtBox.Text += " + 'Annihilation PRP'" + skill3PRPSum.ToString(); }
+                        if (apex1PRP != 0) { txtBox.Text += " + 'Apex PRP'" + apex1PRP.ToString(); }
+                        if (apex2PRP != 0) { txtBox.Text += " + 'Apex PRP' " + apex2PRP.ToString(); }
 
-                        txtBox.Text += " ) = " + ((IncinerateRecharge / (1 + SumAdditives)) * (1 + PRP)).ToString() + "\r\n";
+                        txtBox.Text += " ) = " + ((IncinerateRecharge / (1 + SumAdditives)) * (1 + PRP + apex1PRP + apex2PRP)).ToString() + "\r\n";
                         //if (skill4PRTR != 0) { txtBox.Text += " Detonation Feedback" + (1-skill4PRTR).ToString() + " multiplier to remaining cooldown amount \r\n"; }
                         txtBox.Text += "\r\n";
 
@@ -6895,7 +6920,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                         // duration we'll care at the DOT section
                         txtBox.Text += "Maximum Sustained Duration is FIXED 5 seconds - 16 damage ticks \r\n\r\n";
 
-                        txtBox.Text += "Cooldown FORMULA: (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP )  \r\n";
+                        txtBox.Text += "Cooldown FORMULA: (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP + APEXPRP )  \r\n";
                         txtBox.Text += "In the interest of developement speed this app ignores the WeaponWeight minigame - as long as you don't go over capacity AS YOU SHOULD! - the related term will be Zero \r\n";
                         txtBox.Text += "(scaling cooldown) Minimum cooldown from canceling early ~35% of max lenght cooldown \r\n\r\n";
                         txtBox.Text += "Maximum Cooldown = ( BaseFlamerCooldown " + FlamerRecharge + " / ( 1 ";
@@ -6908,7 +6933,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                         /// 
 
                         /// still at cooldown
-                        /// (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP )  \r\n";
+                        /// (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP + APEXPRP )  \r\n";
 
                         SumAdditives = 0;
                         if (float.Parse(comboBoxBonusPRS.Text) != 0) { SumAdditives += float.Parse(comboBoxBonusPRS.Text) / 100; txtBox.Text += " + Bonus 'Power Recharge' Stat" + float.Parse(comboBoxBonusPRS.Text) / 100; }
@@ -6926,11 +6951,13 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
 
                         PRP = 0;
                         // NO CHAR CURRENTLY HAS Flamer AND ANNIHILATION
-                        if (skill1PRPSum != 0) { PRP = skill1PRPSum; txtBox.Text += " + 'Annihilation PRP' )" + skill1PRPSum.ToString(); }
-                        if (skill2PRPSum != 0) { PRP = skill2PRPSum; txtBox.Text += " + 'Annihilation PRP' )" + skill2PRPSum.ToString(); }
-                        if (skill3PRPSum != 0) { PRP = skill3PRPSum; txtBox.Text += " + 'Annihilation PRP' )" + skill3PRPSum.ToString(); }
+                        if (skill1PRPSum != 0) { PRP = skill1PRPSum; txtBox.Text += " + 'Annihilation PRP'" + skill1PRPSum.ToString(); }
+                        if (skill2PRPSum != 0) { PRP = skill2PRPSum; txtBox.Text += " + 'Annihilation PRP'" + skill2PRPSum.ToString(); }
+                        if (skill3PRPSum != 0) { PRP = skill3PRPSum; txtBox.Text += " + 'Annihilation PRP'" + skill3PRPSum.ToString(); }
+                        if (apex1PRP != 0) { txtBox.Text += " + 'Apex PRP'" + apex1PRP.ToString(); }
+                        if (apex2PRP != 0) { txtBox.Text += " + 'Apex PRP'" + apex2PRP.ToString(); }
 
-                        txtBox.Text += " ) = " + ((FlamerRecharge / (1 + SumAdditives)) * (1 + PRP)).ToString() + "\r\n";
+                        txtBox.Text += " ) = " + ((FlamerRecharge / (1 + SumAdditives)) * (1 + PRP + apex1PRP + apex2PRP)).ToString() + "\r\n";
                         //if (skill4PRTR != 0) { txtBox.Text += " Detonation Feedback" + (1-skill4PRTR).ToString() + " multiplier to remaining cooldown amount \r\n"; }
                         txtBox.Text += "\r\n";
                         txtBox.Text += "Takes 3 sustained stacks to RAMP the DOT to the maximum damage value ~1 second - Douse as many mooks as you can (jumping around) during the sustained period !! \r\n";
@@ -7373,12 +7400,12 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                         /// 
 
 
-                        txtBox.Text += "Cooldown FORMULA: (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP )  \r\n";
+                        txtBox.Text += "Cooldown FORMULA: (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP + APEXPRP )  \r\n";
                         txtBox.Text += "In the interest of developement speed this app ignores the WeaponWeight minigame - as long as you don't go over capacity AS YOU SHOULD! - the related term will be Zero \r\n\r\n";
                         txtBox.Text += "Cooldown = ( BaseEnergyDrainCooldown " + EnergyDrainRecharge + " / ( 1 ";
 
                         /// still at cooldown
-                        /// (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP )  \r\n";
+                        /// (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP + APEXPRP )  \r\n";
 
                         SumAdditives = 0;
                         if (float.Parse(comboBoxBonusPRS.Text) != 0) { SumAdditives += float.Parse(comboBoxBonusPRS.Text) / 100; txtBox.Text += " + Bonus 'Power Recharge' Stat" + float.Parse(comboBoxBonusPRS.Text) / 100; }
@@ -7399,8 +7426,10 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                         if (skill1PRPSum != 0) { PRP = skill1PRPSum; txtBox.Text += " + 'Annihilation PRP' )" + skill1PRPSum.ToString(); }
                         if (skill2PRPSum != 0) { PRP = skill2PRPSum; txtBox.Text += " + 'Annihilation PRP' )" + skill2PRPSum.ToString(); }
                         if (skill3PRPSum != 0) { PRP = skill3PRPSum; txtBox.Text += " + 'Annihilation PRP' )" + skill3PRPSum.ToString(); }
+                        if (apex1PRP != 0) { txtBox.Text += " + 'Apex PRP'" + apex1PRP.ToString(); }
+                        if (apex2PRP != 0) { txtBox.Text += " + 'Apex PRP'" + apex2PRP.ToString(); }
 
-                        txtBox.Text += " ) = " + ((EnergyDrainRecharge / (1 + SumAdditives)) * (1 + PRP)).ToString() + "\r\n";
+                        txtBox.Text += " ) = " + ((EnergyDrainRecharge / (1 + SumAdditives)) * (1 + PRP + apex1PRP + apex2PRP)).ToString() + "\r\n";
                         //if (skill4PRTR != 0) { txtBox.Text += " Detonation Feedback" + (1-skill4PRTR).ToString() + " multiplier to remaining cooldown amount \r\n"; }
                         txtBox.Text += "\r\n";
 
@@ -7856,12 +7885,12 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                         /// 
 
 
-                        txtBox.Text += "Cooldown FORMULA: (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP )  \r\n";
+                        txtBox.Text += "Cooldown FORMULA: (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP + APEXPRP )  \r\n";
                         txtBox.Text += "In the interest of developement speed this app ignores the WeaponWeight minigame - as long as you don't go over capacity AS YOU SHOULD! - the related term will be Zero \r\n\r\n";
                         txtBox.Text += "Cooldown = ( BaseShieldBoostCooldown " + ShieldBoostRecharge + " / ( 1 ";
 
                         /// still at cooldown
-                        /// (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP )  \r\n";
+                        /// (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP + APEXPRP )  \r\n";
 
                         SumAdditives = 0;
                         if (float.Parse(comboBoxBonusPRS.Text) != 0) { SumAdditives += float.Parse(comboBoxBonusPRS.Text) / 100; txtBox.Text += " + Bonus 'Power Recharge' Stat" + float.Parse(comboBoxBonusPRS.Text) / 100; }
@@ -7879,11 +7908,13 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
 
                         PRP = 0;
                         // NO CHAR CURRENTLY HAS ShieldBoost AND ANNIHILATION
-                        if (skill1PRPSum != 0) { PRP = skill1PRPSum; txtBox.Text += " + 'Annihilation PRP' )" + skill1PRPSum.ToString(); }
-                        if (skill2PRPSum != 0) { PRP = skill2PRPSum; txtBox.Text += " + 'Annihilation PRP' )" + skill2PRPSum.ToString(); }
-                        if (skill3PRPSum != 0) { PRP = skill3PRPSum; txtBox.Text += " + 'Annihilation PRP' )" + skill3PRPSum.ToString(); }
+                        if (skill1PRPSum != 0) { PRP = skill1PRPSum; txtBox.Text += " + 'Annihilation PRP'" + skill1PRPSum.ToString(); }
+                        if (skill2PRPSum != 0) { PRP = skill2PRPSum; txtBox.Text += " + 'Annihilation PRP'" + skill2PRPSum.ToString(); }
+                        if (skill3PRPSum != 0) { PRP = skill3PRPSum; txtBox.Text += " + 'Annihilation PRP'" + skill3PRPSum.ToString(); }
+                        if (apex1PRP != 0) { txtBox.Text += " + 'Apex PRP'" + apex1PRP.ToString(); }
+                        if (apex2PRP != 0) { txtBox.Text += " + 'Apex PRP'" + apex2PRP.ToString(); }
 
-                        txtBox.Text += " ) = " + ((ShieldBoostRecharge / (1 + SumAdditives)) * (1 + PRP)).ToString() + "\r\n";
+                        txtBox.Text += " ) = " + ((ShieldBoostRecharge / (1 + SumAdditives)) * (1 + PRP + apex1PRP + apex2PRP)).ToString() + "\r\n";
                         //if (skill4PRTR != 0) { txtBox.Text += " Detonation Feedback" + (1-skill4PRTR).ToString() + " multiplier to remaining cooldown amount \r\n"; }
                         txtBox.Text += "\r\n";
 
@@ -8051,7 +8082,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                         }
                         else
                         {
-                            txtBox.Text += "Cooldown FORMULA: (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP )  \r\n";
+                            txtBox.Text += "Cooldown FORMULA: (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP + APEXPRP )  \r\n";
                             txtBox.Text += "In the interest of developement speed this app ignores the WeaponWeight minigame - as long as you don't go over capacity AS YOU SHOULD! - the related term will be Zero \r\n\r\n";
                             txtBox.Text += "Cooldown = ( BaseNovaCooldown " + NovaRecharge + " / ( 1 ";
 
@@ -8062,7 +8093,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                             /// 
 
                             /// still at cooldown
-                            /// (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP )  \r\n";
+                            /// (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP + APEXPRP )  \r\n";
 
                             SumAdditives = 0;
                             if (float.Parse(comboBoxBonusPRS.Text) != 0) { SumAdditives += float.Parse(comboBoxBonusPRS.Text) / 100; txtBox.Text += " + Bonus 'Power Recharge' Stat" + float.Parse(comboBoxBonusPRS.Text) / 100; }
@@ -8082,8 +8113,10 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                             if (skill1PRPSum != 0) { PRP = skill1PRPSum; txtBox.Text += " + 'Annihilation PRP'" + skill1PRPSum.ToString(); }
                             if (skill2PRPSum != 0) { PRP = skill2PRPSum; txtBox.Text += " + 'Annihilation PRP'" + skill2PRPSum.ToString(); }
                             if (skill3PRPSum != 0) { PRP = skill3PRPSum; txtBox.Text += " + 'Annihilation PRP'" + skill3PRPSum.ToString(); }
+                            if (apex1PRP != 0) { txtBox.Text += " + 'Apex PRP'" + apex1PRP.ToString(); }
+                            if (apex2PRP != 0) { txtBox.Text += " + 'Apex PRP'" + apex2PRP.ToString(); }
 
-                            txtBox.Text += " ) = " + ((NovaRecharge / (1 + SumAdditives)) * (1 + PRP)).ToString() + "\r\n";
+                            txtBox.Text += " ) = " + ((NovaRecharge / (1 + SumAdditives)) * (1 + PRP + apex1PRP + apex2PRP)).ToString() + "\r\n";
                             //if (skill4PRTR != 0) { txtBox.Text += " Detonation Feedback" + (1-skill4PRTR).ToString() + " multiplier to remaining cooldown amount \r\n"; }
                             txtBox.Text += "\r\n\r\n";
                         }
@@ -8436,7 +8469,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                         txtBox.Text += "Duration irrelevant ..no sustained effect \r\n\r\n";
 
 
-                        txtBox.Text += "Cooldown FORMULA: (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP )  \r\n";
+                        txtBox.Text += "Cooldown FORMULA: (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP + APEXPRP )  \r\n";
                         txtBox.Text += "In the interest of developement speed this app ignores the WeaponWeight minigame - as long as you don't go over capacity AS YOU SHOULD! - the related term will be Zero \r\n\r\n";
                         txtBox.Text += "Cooldown = ( BaseChargeCooldown " + ChargeRecharge + " / ( 1 ";
 
@@ -8447,7 +8480,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                         /// 
 
                         /// still at cooldown
-                        /// (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP )  \r\n";
+                        /// (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP + APEXPRP )  \r\n";
 
                         SumAdditives = 0;
                         if (float.Parse(comboBoxBonusPRS.Text) != 0) { SumAdditives += float.Parse(comboBoxBonusPRS.Text) / 100; txtBox.Text += " + Bonus 'Power Recharge' Stat" + float.Parse(comboBoxBonusPRS.Text) / 100; }
@@ -8468,8 +8501,10 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                         if (skill1PRPSum != 0) { PRP = skill1PRPSum; txtBox.Text += " + 'Annihilation PRP'" + skill1PRPSum.ToString(); }
                         if (skill2PRPSum != 0) { PRP = skill2PRPSum; txtBox.Text += " + 'Annihilation PRP'" + skill2PRPSum.ToString(); }
                         if (skill3PRPSum != 0) { PRP = skill3PRPSum; txtBox.Text += " + 'Annihilation PRP'" + skill3PRPSum.ToString(); }
+                        if (apex1PRP != 0) { txtBox.Text += " + 'Apex PRP'" + apex1PRP.ToString(); }
+                        if (apex2PRP != 0) { txtBox.Text += " + 'Apex PRP'" + apex2PRP.ToString(); }
 
-                        txtBox.Text += " ) = " + ((ChargeRecharge / (1 + SumAdditives)) * (1 + PRP)).ToString() + "\r\n";
+                        txtBox.Text += " ) = " + ((ChargeRecharge / (1 + SumAdditives)) * (1 + PRP + apex1PRP + apex2PRP)).ToString() + "\r\n";
                         //if (skill4PRTR != 0) { txtBox.Text += " Detonation Feedback" + (1-skill4PRTR).ToString() + " multiplier to remaining cooldown amount \r\n"; }
                         txtBox.Text += "\r\n\r\n";
 
@@ -8770,7 +8805,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
 
                         txtBox.Text += "Duration irrelevant ..no sustained effect \r\n\r\n";
 
-                        txtBox.Text += "Cooldown FORMULA: (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP )  \r\n";
+                        txtBox.Text += "Cooldown FORMULA: (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP + APEXPRP )  \r\n";
                         txtBox.Text += "In the interest of developement speed this app ignores the WeaponWeight minigame - as long as you don't go over capacity AS YOU SHOULD! - the related term will be Zero \r\n\r\n";
                         txtBox.Text += "Cooldown = ( BaseShockwaveCooldown " + ShockwaveRecharge + " / ( 1 ";
 
@@ -8781,7 +8816,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                         /// 
 
                         /// still at cooldown
-                        /// (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP )  \r\n";
+                        /// (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP + APEXPRP )  \r\n";
 
                         SumAdditives = 0;
                         if (float.Parse(comboBoxBonusPRS.Text) != 0) { SumAdditives += float.Parse(comboBoxBonusPRS.Text) / 100; txtBox.Text += " + Bonus 'Power Recharge' Stat" + float.Parse(comboBoxBonusPRS.Text) / 100; }
@@ -8802,8 +8837,10 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                         if (skill1PRPSum != 0) { PRP = skill1PRPSum; txtBox.Text += " + 'Annihilation PRP'" + skill1PRPSum.ToString(); }
                         if (skill2PRPSum != 0) { PRP = skill2PRPSum; txtBox.Text += " + 'Annihilation PRP'" + skill2PRPSum.ToString(); }
                         if (skill3PRPSum != 0) { PRP = skill3PRPSum; txtBox.Text += " + 'Annihilation PRP'" + skill3PRPSum.ToString(); }
+                        if (apex1PRP != 0) { txtBox.Text += " + 'Apex PRP'" + apex1PRP.ToString(); }
+                        if (apex2PRP != 0) { txtBox.Text += " + 'Apex PRP'" + apex2PRP.ToString(); }
 
-                        txtBox.Text += " ) = " + ((ShockwaveRecharge / (1 + SumAdditives)) * (1 + PRP)).ToString() + "\r\n";
+                        txtBox.Text += " ) = " + ((ShockwaveRecharge / (1 + SumAdditives)) * (1 + PRP + apex1PRP + apex2PRP)).ToString() + "\r\n";
                         //if (skill4PRTR != 0) { txtBox.Text += " Detonation Feedback" + (1-skill4PRTR).ToString() + " multiplier to remaining cooldown amount \r\n"; }
                         txtBox.Text += "\r\n\r\n";
 
@@ -9385,7 +9422,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                         txtBox.Text += "Duration irrelevant ..no sustained effect \r\n\r\n";
 
 
-                        txtBox.Text += "Cooldown FORMULA: (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 )  \r\n";
+                        txtBox.Text += "Cooldown FORMULA: (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + APEXPRP)  \r\n";
                         txtBox.Text += "In the interest of developement speed this app ignores the WeaponWeight minigame - as long as you don't go over capacity AS YOU SHOULD! - the related term will be Zero \r\n\r\n";
                         txtBox.Text += "Annihilation Has SCALING cooldown - minimum ~2 seconds ";
                         txtBox.Text += "MAX duration Cooldown = ( BaseAnnihilationCooldown " + AnnihilationRecharge + " / ( 1 ";
@@ -9397,7 +9434,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                         /// 
 
                         /// still at cooldown
-                        /// (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP )  \r\n";
+                        /// (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP + APEXPRP )  \r\n";
 
                         SumAdditives = 0;
                         if (float.Parse(comboBoxBonusPRS.Text) != 0) { SumAdditives += float.Parse(comboBoxBonusPRS.Text) / 100; txtBox.Text += " + Bonus 'Power Recharge' Stat" + float.Parse(comboBoxBonusPRS.Text) / 100; }
@@ -9411,15 +9448,17 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                         if (skill3PRS != 0) { SumAdditives += skill3PRS; txtBox.Text += " + PRS from '" + playingCharactersArray[SelectedCharIndex].Skill3Name + "' skill" + skill3PRS.ToString(); }
                         if (skill4PRS != 0) { SumAdditives += skill4PRS; txtBox.Text += " + PRS from '" + playingCharactersArray[SelectedCharIndex].Skill4Name + "' skill" + skill4PRS.ToString(); }
                         if (skill5PRS != 0) { SumAdditives += skill5PRS; txtBox.Text += " + PRS from '" + playingCharactersArray[SelectedCharIndex].Skill5Name + "' skill" + skill5PRS.ToString(); }
-                        //     txtBox.Text += " ) * ( 1";
+                            txtBox.Text += " ) * ( 1";
 
                         //    PRP = 0; ANNIHILATION WON"T Penalize ANNI recharge
                         // NO CHAR CURRENTLY HAS Annihilation AND ANNIHILATION
                         //    if (skill1PRPSum != 0) { PRP = skill1PRPSum; txtBox.Text += " + 'Annihilation PRP'" + skill1PRPSum.ToString(); }
                         //    if (skill2PRPSum != 0) { PRP = skill2PRPSum; txtBox.Text += " + 'Annihilation PRP'" + skill2PRPSum.ToString(); }
                         //    if (skill3PRPSum != 0) { PRP = skill3PRPSum; txtBox.Text += " + 'Annihilation PRP'" + skill3PRPSum.ToString(); }
+                        if (apex1PRP != 0) { txtBox.Text += " + 'Apex PRP'" + apex1PRP.ToString(); }
+                        if (apex2PRP != 0) { txtBox.Text += " + 'Apex PRP'" + apex2PRP.ToString(); }
 
-                        txtBox.Text += " ) = " + ((AnnihilationRecharge / (1 + SumAdditives))).ToString() + "\r\n";
+                        txtBox.Text += " ) = " + ((AnnihilationRecharge / (1 + SumAdditives)*(1 + apex1PRP + apex2PRP))).ToString() + "\r\n";
                         //if (skill4PRTR != 0) { txtBox.Text += " Detonation Feedback" + (1-skill4PRTR).ToString() + " multiplier to remaining cooldown amount \r\n"; }
                         txtBox.Text += "\r\n\r\n";
 
@@ -9707,7 +9746,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                         txtBox.Text += " ) = " + (SingularityDuration * (1 + SingularityDuration1)).ToString() + "\r\n\r\n";
 
 
-                        txtBox.Text += "Cooldown FORMULA: (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 )  \r\n";
+                        txtBox.Text += "Cooldown FORMULA: (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + APEXPRP)  \r\n";
                         txtBox.Text += "In the interest of developement speed this app ignores the WeaponWeight minigame - as long as you don't go over capacity AS YOU SHOULD! - the related term will be Zero \r\n\r\n";
                         txtBox.Text += "Singularity DOES NOT HAVE SCALING cooldown \r\n";
                         txtBox.Text += "(ALWAYS) MAX duration Cooldown = ( BaseSingularityCooldown " + SingularityRecharge + " / ( 1 ";
@@ -9740,8 +9779,10 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                         if (skill1PRPSum != 0) { PRP = skill1PRPSum; txtBox.Text += " + 'Singularity PRP'" + skill1PRPSum.ToString(); }
                         if (skill2PRPSum != 0) { PRP = skill2PRPSum; txtBox.Text += " + 'Singularity PRP'" + skill2PRPSum.ToString(); }
                         if (skill3PRPSum != 0) { PRP = skill3PRPSum; txtBox.Text += " + 'Singularity PRP'" + skill3PRPSum.ToString(); }
+                        if (apex1PRP != 0) { txtBox.Text += " + 'Apex PRP'" + apex1PRP.ToString(); }
+                        if (apex2PRP != 0) { txtBox.Text += " + 'Apex PRP'" + apex2PRP.ToString(); }
 
-                        txtBox.Text += " ) = " + ((SingularityRecharge / (1 + SumAdditives) * (1 + PRP))).ToString() + "\r\n";
+                        txtBox.Text += " ) = " + ((SingularityRecharge / (1 + SumAdditives) * (1 + PRP + apex1PRP + apex2PRP))).ToString() + "\r\n";
                         //if (skill4PRTR != 0) { txtBox.Text += " Detonation Feedback" + (1-skill4PRTR).ToString() + " multiplier to remaining cooldown amount \r\n"; }
                         txtBox.Text += "\r\n\r\n";
 
@@ -10122,7 +10163,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                         // duration we'll care at the DOT section
                         txtBox.Text += "Maximum Sustained Duration is FIXED 2.6 seconds - 14 damage ticks \r\n\r\n";
 
-                        txtBox.Text += "Cooldown FORMULA: (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP )  \r\n";
+                        txtBox.Text += "Cooldown FORMULA: (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP + APEXPRP )  \r\n";
                         txtBox.Text += "In the interest of developement speed this app ignores the WeaponWeight minigame - as long as you don't go over capacity AS YOU SHOULD! - the related term will be Zero \r\n";
                         txtBox.Text += "(scaling cooldown) Minimum cooldown from canceling early ~35% of max lenght cooldown \r\n\r\n";
                         txtBox.Text += "Maximum Cooldown = ( BaseCryoBeamCooldown " + CryoBeamRecharge + " / ( 1 ";
@@ -10135,7 +10176,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                         /// 
 
                         /// still at cooldown
-                        /// (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP )  \r\n";
+                        /// (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP + APEXPRP )  \r\n";
 
                         SumAdditives = 0;
                         if (float.Parse(comboBoxBonusPRS.Text) != 0) { SumAdditives += float.Parse(comboBoxBonusPRS.Text) / 100; txtBox.Text += " + Bonus 'Power Recharge' Stat" + float.Parse(comboBoxBonusPRS.Text) / 100; }
@@ -10153,11 +10194,13 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
 
                         PRP = 0;
                         // NO CHAR CURRENTLY HAS CryoBeam AND ANNIHILATION
-                        if (skill1PRPSum != 0) { PRP = skill1PRPSum; txtBox.Text += " + 'Annihilation PRP' )" + skill1PRPSum.ToString(); }
-                        if (skill2PRPSum != 0) { PRP = skill2PRPSum; txtBox.Text += " + 'Annihilation PRP' )" + skill2PRPSum.ToString(); }
-                        if (skill3PRPSum != 0) { PRP = skill3PRPSum; txtBox.Text += " + 'Annihilation PRP' )" + skill3PRPSum.ToString(); }
+                        if (skill1PRPSum != 0) { PRP = skill1PRPSum; txtBox.Text += " + 'Annihilation PRP'" + skill1PRPSum.ToString(); }
+                        if (skill2PRPSum != 0) { PRP = skill2PRPSum; txtBox.Text += " + 'Annihilation PRP'" + skill2PRPSum.ToString(); }
+                        if (skill3PRPSum != 0) { PRP = skill3PRPSum; txtBox.Text += " + 'Annihilation PRP'" + skill3PRPSum.ToString(); }
+                        if (apex1PRP != 0) { txtBox.Text += " + 'Apex PRP'" + apex1PRP.ToString(); }
+                        if (apex2PRP != 0) { txtBox.Text += " + 'Apex PRP'" + apex2PRP.ToString(); }
 
-                        txtBox.Text += " ) = " + ((CryoBeamRecharge / (1 + SumAdditives)) * (1 + PRP)).ToString() + "\r\n";
+                        txtBox.Text += " ) = " + ((CryoBeamRecharge / (1 + SumAdditives)) * (1 + PRP + apex1PRP + apex2PRP)).ToString() + "\r\n";
                         //if (skill4PRTR != 0) { txtBox.Text += " Detonation Feedback" + (1-skill4PRTR).ToString() + " multiplier to remaining cooldown amount \r\n"; }
                         txtBox.Text += "\r\n";
 
@@ -10520,7 +10563,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
 
                         txtBox.Text += "Maximum Sustained Duration is FIXED .8 seconds - 4 damage ticks \r\n\r\n";
 
-                        txtBox.Text += "Cooldown FORMULA: (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP )  \r\n";
+                        txtBox.Text += "Cooldown FORMULA: (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP + APEXPRP )  \r\n";
                         txtBox.Text += "In the interest of developement speed this app ignores the WeaponWeight minigame - as long as you don't go over capacity AS YOU SHOULD! - the related term will be Zero \r\n";
                         txtBox.Text += "Cooldown = ( BaseSnapFreezeCooldown " + SnapFreezeRecharge + " / ( 1 ";
 
@@ -10532,7 +10575,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                         /// 
 
                         /// still at cooldown
-                        /// (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP )  \r\n";
+                        /// (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP + APEXPRP )  \r\n";
 
                         SumAdditives = 0;
                         if (float.Parse(comboBoxBonusPRS.Text) != 0) { SumAdditives += float.Parse(comboBoxBonusPRS.Text) / 100; txtBox.Text += " + Bonus 'Power Recharge' Stat" + float.Parse(comboBoxBonusPRS.Text) / 100; }
@@ -10549,11 +10592,13 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
 
                         PRP = 0;
                         // NO CHAR CURRENTLY HAS SnapFreeze AND ANNIHILATION
-                        if (skill1PRPSum != 0) { PRP = skill1PRPSum; txtBox.Text += " + 'Annihilation PRP' )" + skill1PRPSum.ToString(); }
-                        if (skill2PRPSum != 0) { PRP = skill2PRPSum; txtBox.Text += " + 'Annihilation PRP' )" + skill2PRPSum.ToString(); }
-                        if (skill3PRPSum != 0) { PRP = skill3PRPSum; txtBox.Text += " + 'Annihilation PRP' )" + skill3PRPSum.ToString(); }
+                        if (skill1PRPSum != 0) { PRP = skill1PRPSum; txtBox.Text += " + 'Annihilation PRP'" + skill1PRPSum.ToString(); }
+                        if (skill2PRPSum != 0) { PRP = skill2PRPSum; txtBox.Text += " + 'Annihilation PRP'" + skill2PRPSum.ToString(); }
+                        if (skill3PRPSum != 0) { PRP = skill3PRPSum; txtBox.Text += " + 'Annihilation PRP'" + skill3PRPSum.ToString(); }
+                        if (apex1PRP != 0) { txtBox.Text += " + 'Apex PRP'" + apex1PRP.ToString(); }
+                        if (apex2PRP != 0) { txtBox.Text += " + 'Apex PRP'" + apex2PRP.ToString(); }
 
-                        txtBox.Text += " ) = " + ((SnapFreezeRecharge / (1 + SumAdditives)) * (1 + PRP)).ToString() + "\r\n";
+                        txtBox.Text += " ) = " + ((SnapFreezeRecharge / (1 + SumAdditives)) * (1 + PRP + apex1PRP + apex2PRP)).ToString() + "\r\n";
                         //if (skill4PRTR != 0) { txtBox.Text += " Detonation Feedback" + (1-skill4PRTR).ToString() + " multiplier to remaining cooldown amount \r\n"; }
                         txtBox.Text += "\r\n";
 
@@ -10857,7 +10902,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                         // duration we'll care at the DOT section
                         //txtBox.Text += "Duration irrelevant ..no sustained effect \r\n\r\n";
 
-                        txtBox.Text += "Cooldown FORMULA: (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP )  \r\n";
+                        txtBox.Text += "Cooldown FORMULA: (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP + APEXPRP )  \r\n";
                         txtBox.Text += "In the interest of developement speed this app ignores the WeaponWeight minigame - as long as you don't go over capacity AS YOU SHOULD! - the related term will be Zero \r\n\r\n";
                         txtBox.Text += "Cooldown = ( BaseAvengerStrikeCooldown " + AvengerStrikeRecharge + " / ( 1 ";
 
@@ -10869,7 +10914,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                         /// 
 
                         /// still at cooldown
-                        /// (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP )  \r\n";
+                        /// (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP + APEXPRP )  \r\n";
 
                         SumAdditives = 0;
                         if (float.Parse(comboBoxBonusPRS.Text) != 0) { SumAdditives += float.Parse(comboBoxBonusPRS.Text) / 100; txtBox.Text += " + Bonus 'Power Recharge' Stat" + float.Parse(comboBoxBonusPRS.Text) / 100; }
@@ -10887,11 +10932,13 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
 
                         PRP = 0;
                         // NO CHAR CURRENTLY HAS AvengerStrike AND ANNIHILATION
-                        if (skill1PRPSum != 0) { PRP = skill1PRPSum; txtBox.Text += " + 'Annihilation PRP' )" + skill1PRPSum.ToString(); }
-                        if (skill2PRPSum != 0) { PRP = skill2PRPSum; txtBox.Text += " + 'Annihilation PRP' )" + skill2PRPSum.ToString(); }
-                        if (skill3PRPSum != 0) { PRP = skill3PRPSum; txtBox.Text += " + 'Annihilation PRP' )" + skill3PRPSum.ToString(); }
+                        if (skill1PRPSum != 0) { PRP = skill1PRPSum; txtBox.Text += " + 'Annihilation PRP'" + skill1PRPSum.ToString(); }
+                        if (skill2PRPSum != 0) { PRP = skill2PRPSum; txtBox.Text += " + 'Annihilation PRP'" + skill2PRPSum.ToString(); }
+                        if (skill3PRPSum != 0) { PRP = skill3PRPSum; txtBox.Text += " + 'Annihilation PRP'" + skill3PRPSum.ToString(); }
+                        if (apex1PRP != 0) { txtBox.Text += " + 'Apex PRP'" + apex1PRP.ToString(); }
+                        if (apex2PRP != 0) { txtBox.Text += " + 'Apex PRP'" + apex2PRP.ToString(); }
 
-                        txtBox.Text += " ) = " + ((AvengerStrikeRecharge / (1 + SumAdditives)) * (1 + PRP)).ToString() + "\r\n";
+                        txtBox.Text += " ) = " + ((AvengerStrikeRecharge / (1 + SumAdditives)) * (1 + PRP + apex1PRP + apex2PRP)).ToString() + "\r\n";
                         //if (skill4PRTR != 0) { txtBox.Text += " Detonation Feedback" + (1-skill4PRTR).ToString() + " multiplier to remaining cooldown amount \r\n"; }
                         txtBox.Text += "\r\n";
 
@@ -11429,7 +11476,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                         else
                         {
 
-                            txtBox.Text += "Cooldown FORMULA: (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP )  \r\n";
+                            txtBox.Text += "Cooldown FORMULA: (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP + APEXPRP )  \r\n";
                             txtBox.Text += "In the interest of developement speed this app ignores the WeaponWeight minigame - as long as you don't go over capacity AS YOU SHOULD! - the related term will be Zero \r\n\r\n";
                             txtBox.Text += "Cooldown = ( BaseThrowCooldown " + ThrowRecharge + " / ( 1 ";
 
@@ -11440,7 +11487,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                             /// 
 
                             /// still at cooldown
-                            /// (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP )  \r\n";
+                            /// (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP + APEXPRP )  \r\n";
 
 
                             SumAdditives = 0;
@@ -11463,8 +11510,10 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                             if (skill1PRPSum != 0) { PRP = skill1PRPSum; txtBox.Text += " + 'Annihilation PRP'" + skill1PRPSum.ToString(); }
                             if (skill2PRPSum != 0) { PRP = skill2PRPSum; txtBox.Text += " + 'Annihilation PRP'" + skill2PRPSum.ToString(); }
                             if (skill3PRPSum != 0) { PRP = skill3PRPSum; txtBox.Text += " + 'Annihilation PRP'" + skill3PRPSum.ToString(); }
+                            if (apex1PRP != 0) { txtBox.Text += " + 'Apex PRP'" + apex1PRP.ToString(); }
+                            if (apex2PRP != 0) { txtBox.Text += " + 'Apex PRP'" + apex2PRP.ToString(); }
 
-                            txtBox.Text += " ) = " + ((ThrowRecharge / (1 + SumAdditives)) * (1 + PRP)).ToString() + "\r\n";
+                            txtBox.Text += " ) = " + ((ThrowRecharge / (1 + SumAdditives)) * (1 + PRP + apex1PRP + apex2PRP)).ToString() + "\r\n";
                             //if (skill4PRTR != 0) { txtBox.Text += " Detonation Feedback" + (1-skill4PRTR).ToString() + " multiplier to remaining cooldown amount \r\n"; }
                             txtBox.Text += "\r\n\r\n";
                         }
@@ -11795,7 +11844,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                         else
                         {
 
-                            txtBox.Text += "Cooldown FORMULA: (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP )  \r\n";
+                            txtBox.Text += "Cooldown FORMULA: (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP + APEXPRP )  \r\n";
                             txtBox.Text += "In the interest of developement speed this app ignores the WeaponWeight minigame - as long as you don't go over capacity AS YOU SHOULD! - the related term will be Zero \r\n\r\n";
                             txtBox.Text += "Cooldown = ( BasePullCooldown " + PullRecharge + " / ( 1 ";
 
@@ -11806,7 +11855,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                             /// 
 
                             /// still at cooldown
-                            /// (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP )  \r\n";
+                            /// (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP + APEXPRP )  \r\n";
 
 
                             SumAdditives = 0;
@@ -11825,12 +11874,14 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                             txtBox.Text += " ) * ( 1";
 
                             PRP = 0;
-                            // AA CURRENTLY HAS Pull AND ANNIHILATION
+                           //gladiator has Pull AND ANNIHILATION
                             if (skill1PRPSum != 0) { PRP = skill1PRPSum; txtBox.Text += " + 'Annihilation PRP'" + skill1PRPSum.ToString(); }
                             if (skill2PRPSum != 0) { PRP = skill2PRPSum; txtBox.Text += " + 'Annihilation PRP'" + skill2PRPSum.ToString(); }
                             if (skill3PRPSum != 0) { PRP = skill3PRPSum; txtBox.Text += " + 'Annihilation PRP'" + skill3PRPSum.ToString(); }
+                            if (apex1PRP != 0) { txtBox.Text += " + 'Apex PRP'" + apex1PRP.ToString(); }
+                            if (apex2PRP != 0) { txtBox.Text += " + 'Apex PRP'" + apex2PRP.ToString(); }
 
-                            txtBox.Text += " ) = " + ((PullRecharge / (1 + SumAdditives)) * (1 + PRP)).ToString() + "\r\n";
+                            txtBox.Text += " ) = " + ((PullRecharge / (1 + SumAdditives)) * (1 + PRP + apex1PRP + apex2PRP)).ToString() + "\r\n";
                             //if (skill4PRTR != 0) { txtBox.Text += " Detonation Feedback" + (1-skill4PRTR).ToString() + " multiplier to remaining cooldown amount \r\n"; }
                             txtBox.Text += "\r\n\r\n";
                         }
@@ -12091,7 +12142,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                         if (!ConcussiveShotRepeat)
                         {
 
-                            txtBox.Text += "Cooldown FORMULA: (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP )  \r\n";
+                            txtBox.Text += "Cooldown FORMULA: (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP + APEXPRP )  \r\n";
                             txtBox.Text += "In the interest of developement speed this app ignores the WeaponWeight minigame - as long as you don't go over capacity AS YOU SHOULD! - the related term will be Zero \r\n\r\n";
                             txtBox.Text += "Cooldown = ( BaseConcussiveShotCooldown " + ConcussiveShotRecharge + " / ( 1 ";
 
@@ -12103,7 +12154,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                             /// 
 
                             /// still at cooldown
-                            /// (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP )  \r\n";
+                            /// (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP + APEXPRP )  \r\n";
 
                             SumAdditives = 0;
                             if (float.Parse(comboBoxBonusPRS.Text) != 0) { SumAdditives += float.Parse(comboBoxBonusPRS.Text) / 100; txtBox.Text += " + Bonus 'Power Recharge' Stat" + float.Parse(comboBoxBonusPRS.Text) / 100; }
@@ -12121,11 +12172,13 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
 
                             PRP = 0;
                             // NO CHAR CURRENTLY HAS ConcussiveShot AND ANNIHILATION
-                            if (skill1PRPSum != 0) { PRP = skill1PRPSum; txtBox.Text += " + 'Annihilation PRP' )" + skill1PRPSum.ToString(); }
-                            if (skill2PRPSum != 0) { PRP = skill2PRPSum; txtBox.Text += " + 'Annihilation PRP' )" + skill2PRPSum.ToString(); }
-                            if (skill3PRPSum != 0) { PRP = skill3PRPSum; txtBox.Text += " + 'Annihilation PRP' )" + skill3PRPSum.ToString(); }
+                            if (skill1PRPSum != 0) { PRP = skill1PRPSum; txtBox.Text += " + 'Annihilation PRP'" + skill1PRPSum.ToString(); }
+                            if (skill2PRPSum != 0) { PRP = skill2PRPSum; txtBox.Text += " + 'Annihilation PRP'" + skill2PRPSum.ToString(); }
+                            if (skill3PRPSum != 0) { PRP = skill3PRPSum; txtBox.Text += " + 'Annihilation PRP'" + skill3PRPSum.ToString(); }
+                            if (apex1PRP != 0) { txtBox.Text += " + 'Apex PRP'" + apex1PRP.ToString(); }
+                            if (apex2PRP != 0) { txtBox.Text += " + 'Apex PRP'" + apex2PRP.ToString(); }
 
-                            txtBox.Text += " ) = " + ((ConcussiveShotRecharge / (1 + SumAdditives)) * (1 + PRP)).ToString() + "\r\n";
+                            txtBox.Text += " ) = " + ((ConcussiveShotRecharge / (1 + SumAdditives)) * (1 + PRP + apex1PRP + apex2PRP)).ToString() + "\r\n";
                             //if (skill4PRTR != 0) { txtBox.Text += " Detonation Feedback" + (1-skill4PRTR).ToString() + " multiplier to remaining cooldown amount \r\n"; }
                             txtBox.Text += "\r\n";
                         }
@@ -12446,7 +12499,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                         txtBox.Text += "Duration permanent until toggled off \r\n\r\n";
 
 
-                        txtBox.Text += "Cooldown FORMULA: (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP )  \r\n";
+                        txtBox.Text += "Cooldown FORMULA: (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP + APEXPRP )  \r\n";
                         txtBox.Text += "In the interest of developement speed this app ignores the WeaponWeight minigame - as long as you don't go over capacity AS YOU SHOULD! - the related term will be Zero \r\n\r\n";
                         txtBox.Text += "Cooldown = ( BaseFortifyCooldown " + FortifyRecharge + " / ( 1 ";
 
@@ -12457,7 +12510,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                         /// 
 
                         /// still at cooldown
-                        /// (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP )  \r\n";
+                        /// (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP + APEXPRP )  \r\n";
 
                         SumAdditives = 0;
                         if (float.Parse(comboBoxBonusPRS.Text) != 0) { SumAdditives += float.Parse(comboBoxBonusPRS.Text) / 100; txtBox.Text += " + Bonus 'Power Recharge' Stat" + float.Parse(comboBoxBonusPRS.Text) / 100; }
@@ -12478,8 +12531,9 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                         if (skill1PRPSum != 0) { PRP = skill1PRPSum; txtBox.Text += " + 'Annihilation PRP'" + skill1PRPSum.ToString(); }
                         if (skill2PRPSum != 0) { PRP = skill2PRPSum; txtBox.Text += " + 'Annihilation PRP'" + skill2PRPSum.ToString(); }
                         if (skill3PRPSum != 0) { PRP = skill3PRPSum; txtBox.Text += " + 'Annihilation PRP'" + skill3PRPSum.ToString(); }
-
-                        txtBox.Text += " ) = " + ((FortifyRecharge / (1 + SumAdditives)) * (1 + PRP)).ToString() + "\r\n";
+                        if (apex1PRP != 0) { txtBox.Text += " + 'Apex PRP'" + apex1PRP.ToString(); }
+                        if (apex2PRP != 0) { txtBox.Text += " + 'Apex PRP'" + apex2PRP.ToString(); }
+                        txtBox.Text += " ) = " + ((FortifyRecharge / (1 + SumAdditives)) * (1 + PRP + apex1PRP + apex2PRP)).ToString() + "\r\n";
                         //if (skill4PRTR != 0) { txtBox.Text += " Detonation Feedback" + (1-skill4PRTR).ToString() + " multiplier to remaining cooldown amount \r\n"; }
                         txtBox.Text += "\r\n\r\n";
 
@@ -12674,7 +12728,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
 
                         txtBox.Text += "Fixed Cooldown = 1 \r\n\r\n";
                         /*
-                        txtBox.Text += "Cooldown FORMULA: (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP )  \r\n";
+                        txtBox.Text += "Cooldown FORMULA: (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP + APEXPRP )  \r\n";
                         txtBox.Text += "In the interest of developement speed this app ignores the WeaponWeight minigame - as long as you don't go over capacity AS YOU SHOULD! - the related term will be Zero \r\n\r\n";
                         txtBox.Text += "Cooldown = ( BaseBarricadeCooldown " + BarricadeRecharge + " / ( 1 ";
 
@@ -12686,7 +12740,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                         /// 
 
                         /// still at cooldown
-                        /// (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP )  \r\n";
+                        /// (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + SumAnnihilationPRP + APEXPRP )  \r\n";
 
                         SumAdditives = 0;
                         if (float.Parse(comboBoxBonusPRS.Text) != 0) { SumAdditives += float.Parse(comboBoxBonusPRS.Text) / 100; txtBox.Text += " + Bonus 'Power Recharge' Stat" + float.Parse(comboBoxBonusPRS.Text) / 100; }
@@ -12958,7 +13012,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                         txtBox.Text += " ) = " + (TacticalCloakDuration * (1 + TacticalCloakDuration1 + TacticalCloakDuration2) * (1 + skill4PEffectDur + skill5PEffectDur)).ToString() + "\r\n\r\n";
 
 
-                        txtBox.Text += "Cooldown FORMULA: (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 )  \r\n";
+                        txtBox.Text += "Cooldown FORMULA: (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + APEXPRP)  \r\n";
                         txtBox.Text += "In the interest of developement speed this app ignores the WeaponWeight minigame - as long as you don't go over capacity AS YOU SHOULD! - the related term will be Zero \r\n\r\n";
                         txtBox.Text += "TacticalCloak DOES HAVE SCALING cooldown \r\n";
                         txtBox.Text += "MAX duration Cooldown = ( BaseTacticalCloakCooldown " + TacticalCloakRecharge + " / ( 1 ";
@@ -12991,8 +13045,9 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                         if (skill1PRPSum != 0) { PRP = skill1PRPSum; txtBox.Text += " + 'TacticalCloak PRP'" + skill1PRPSum.ToString(); }
                         if (skill2PRPSum != 0) { PRP = skill2PRPSum; txtBox.Text += " + 'TacticalCloak PRP'" + skill2PRPSum.ToString(); }
                         if (skill3PRPSum != 0) { PRP = skill3PRPSum; txtBox.Text += " + 'TacticalCloak PRP'" + skill3PRPSum.ToString(); }
-
-                        txtBox.Text += " ) = " + ((TacticalCloakRecharge / (1 + SumAdditives) * (1 + PRP))).ToString() + "\r\n";
+                        if (apex1PRP != 0) { txtBox.Text += " + 'Apex PRP'" + apex1PRP.ToString(); }
+                        if (apex2PRP != 0) { txtBox.Text += " + 'Apex PRP'" + apex2PRP.ToString(); }
+                        txtBox.Text += " ) = " + ((TacticalCloakRecharge / (1 + SumAdditives) * (1 + PRP + apex1PRP + apex2PRP))).ToString() + "\r\n";
                         //if (skill4PRTR != 0) { txtBox.Text += " Detonation Feedback" + (1-skill4PRTR).ToString() + " multiplier to remaining cooldown amount \r\n"; }
                         txtBox.Text += "\r\n\r\n";
 
@@ -13099,7 +13154,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                         if (skill5PEffectDur != 0) txtBox.Text += " + EffectDuration from '" + playingCharactersArray[SelectedCharIndex].Skill5Name + "' skill" + skill5PEffectDur.ToString();
                         txtBox.Text += " ) = " + (ReconVisorDuration * (1 + ReconVisorDuration1) * (1 + skill4PEffectDur + skill5PEffectDur)).ToString() + "\r\n\r\n";
 
-                        txtBox.Text += "Cooldown FORMULA: (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 )  \r\n";
+                        txtBox.Text += "Cooldown FORMULA: (BaseCooldown / (1 + SumPRS)) * (1 + Max(0,(SumWeaponsWeight-SumWeightCapacity))*2 + APEXPRP)  \r\n";
                         txtBox.Text += "In the interest of developement speed this app ignores the WeaponWeight minigame - as long as you don't go over capacity AS YOU SHOULD! - the related term will be Zero \r\n\r\n";
                         txtBox.Text += "ReconVisor DOES HAVE SCALING cooldown \r\n";
                         txtBox.Text += "MAX duration Cooldown = ( BaseReconVisorCooldown " + ReconVisorRecharge + " / ( 1 ";
@@ -13132,8 +13187,9 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                         if (skill1PRPSum != 0) { PRP = skill1PRPSum; txtBox.Text += " + 'ReconVisor PRP'" + skill1PRPSum.ToString(); }
                         if (skill2PRPSum != 0) { PRP = skill2PRPSum; txtBox.Text += " + 'ReconVisor PRP'" + skill2PRPSum.ToString(); }
                         if (skill3PRPSum != 0) { PRP = skill3PRPSum; txtBox.Text += " + 'ReconVisor PRP'" + skill3PRPSum.ToString(); }
-
-                        txtBox.Text += " ) = " + ((ReconVisorRecharge / (1 + SumAdditives) * (1 + PRP))).ToString() + "\r\n";
+                        if (apex1PRP != 0) { txtBox.Text += " + 'Apex PRP'" + apex1PRP.ToString(); }
+                        if (apex2PRP != 0) { txtBox.Text += " + 'Apex PRP'" + apex2PRP.ToString(); }
+                        txtBox.Text += " ) = " + ((ReconVisorRecharge / (1 + SumAdditives) * (1 + PRP + apex1PRP + apex2PRP))).ToString() + "\r\n";
                         //if (skill4PRTR != 0) { txtBox.Text += " Detonation Feedback" + (1-skill4PRTR).ToString() + " multiplier to remaining cooldown amount \r\n"; }
                         txtBox.Text += "\r\n\r\n";
 
