@@ -361,7 +361,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                 };
 
         // init char struct array
-        const int constNumberChars = 25; // number of playable characters
+        const int constNumberChars = 26; // number of playable characters
         private playingCharacter[] playingCharactersArray = new playingCharacter[constNumberChars]
              {
                   new playingCharacter("Human Soldier", 500f, 250f, 400f, 0f, 0f, 0f, "" ,
@@ -513,12 +513,18 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                      "Energy Drain", "energy drain description", false, "BaseDamage=175;RShields=0.35;Recharge=12;Detonator=1", "vsShields=1;vsSynth=0.15", "Recharge=0.1", "Dam=0.25;RShields=0.15", "Dam=0.3;RShields=0.2", "Recharge=0.3", "RSHOT=0.06;RSHOTDur=4;TechPrimer=HSA", "5b","Dam=0.35;vsShields=0.75;vsSynth=0", "RShields=0.25;AllyRShields=0.5",
                      "Bioelectric Focus", "bioelectric focus description", false, "", "PD=0.15", "PEffectDur=0.3", "3", "PD=0.35", "PRS=0.25", "PEffectDur=0.5", "vsShields=0.25;Combo=0.5", "BaseDamage=150;RvsShields=100;RvsSynth=0.5;TechPrimer=HSA","TPRTR=0.35;EnableTCheck",  // PRTR mechanics ???
                      "Bioelectric Defence", "bioelectric defense description", false, "", "Shields=0.15;Health=0.15", "MD=0.3", "Shields=0.15;Health=0.15", "4a", "4b", "Reload=0.15", "PRS=0.2;Support=0.3;ConDam=0.25;ConHealth=0.3", "TDR=0.8;EnableTCheck","TMD=0.65;EnableTCheck"),
+                     new playingCharacter("Batarian Vanguard", 585f, 310f, 750f, 0f, 0f, 0f , "Detonator=0.7" ,
+                     "Charge", "charge description", false, "BaseDam=275;Recharge=8", "1", "Recharge=0.35", "Dam=0.3", "Dam=0.4", "4b", "TWD=0.15;TMD=0.3;EnableTCheck", "TPD=0.25;EnableTCheck", "Recharge=0.75","TDR=0.75;Dam=0.4;EnableTCheck",
+                     "Annihilation", "annihilation description", true, "BaseDOTDam=50;Recharge=8;BioticPrimer=HSA", "PRP=0.75", "PRP=-0.1", "Dam=0.15", "4a", "PRP=-0.3", "TDebuff=0.2;EnableTCheck", "5b", "6a","6b",   // DO POWER RECHARGE SPEED AND  ANNI PENALTY STACK ADDITIVELY ?? Toggle recharge pen
+                     "Flak Cannon", "Flak description", false, "BaseDamage=250;SBase=85;Cooldown=1", "SvsArmor=-0.3", "2", "Dam=0.4", "Dam=0.5", "4b", "vsArmor=0.75", "5b", "NrSrapnel=0.5","BaseDOTDam=100;BaseDOTDur=8",
+                     "Munitions Training", "munitions training description", false, "", "WD=0.05", "PD=0.2", "WD=0.05;MD=0.2", "WD=0.08", "PD=0.2;MD=0.2", "TWD=0.2;TMD=0.3;EnableTCheck", "Reload=0.15;MAG=0.25", "TDebuff=0.24;EnableTCheck", "Weak=0.2",
+                     "Combat Fitness", "combat fitness description", false, "", "Shields=0.1;Health=0.1", "MD=0.3", "Shields=0.15;Health=0.15", "Shields=0.25;Health=0.25", "MD=0.5", "TDR=0.5;EnableTCheck", "TDR=1;EnableTCheck", "TDR=2;EnableTCheck","TMD=0.65;EnableTCheck")
 
                      ///(base_cooldown/cooldownreduction) * (1 + Min(0,(currentweight - weightcapacity)) * 2 + encumbrancecooldownincrease)
              };
 
 
-        const int constNrGear = 20;
+        const int constNrGear = 21;
         private GearPiece[] myGearArray = new GearPiece[constNrGear]
       {
                    new GearPiece("Commando Package" , "WD=0.1;BPD=0.2"),
@@ -540,7 +546,8 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                    new GearPiece("Vulnerability VI", "Weak=0.4"),
                    new GearPiece("Densified Ammunition", "WD=0.125"),
                    new GearPiece("Survivor Loadout", "Shields=0.2;CPD=0.2"),
-                   new GearPiece("Combatives Upgrade", "PWD=0.15;ARWD=0.15")
+                   new GearPiece("Combatives Upgrade", "PWD=0.15;ARWD=0.15"),
+                   new GearPiece("Assault Loadout", "SGWD=0.15;ARWD=0.15")
                 };
 
 
@@ -1638,12 +1645,15 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                     case "Survivor Loadout":
                         gearShields = 0.2f; gearCPD = 0.2f;
                         break;
-                    case "Combatives Upgrade": // "WD=0.125"
+                    case "Combatives Upgrade": 
                         gearPWD = gearARWD = 0.15f;
                         break;
-
+                    case "Assault Loadout": 
+                        gearSGWD = gearARWD = 0.15f;
+                        break;
+                    
                 }
-  
+
 
             // temp PRint all gear variable somewhere to VERIFY
             textBoxDebug.Text = "Debug: ";
@@ -13453,6 +13463,11 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                         txtBox.Text += "Fixed Cooldown 1";
 
                         break;
+                    case "Assault Turret":
+// "Assault Turret", "assault turret description", false,  "BaseDam=36;Recharge=0.3;DeathDam=400;CastDam=100;BaseHealth=400", "1", "ConHealth=0.5", "Dam=0.4", "ConHealth=0.75", "Recharge=2", "Dam=0.6", "TPRS=0.35;EnableTCheck", "Dam=0.6;TArmorDebuff=0.5;EnableTCheck;CryoPrimer=HA","BaseDam=275;BaseDOTDam=35;FlamevsArmor=0.6;DOTDuration=4;FirePrimer=HA",
+//human engineer, krogan engineer, anagaran insurgent
+
+                        break; 
 
 
                 }
