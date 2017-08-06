@@ -517,7 +517,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                      "Charge", "charge description", false, "BaseDam=275;Recharge=8", "1", "Recharge=0.35", "Dam=0.3", "Dam=0.4", "4b", "TWD=0.15;TMD=0.3;EnableTCheck", "TPD=0.25;EnableTCheck", "Recharge=0.75","TDR=0.75;Dam=0.4;EnableTCheck",
                      "Annihilation", "annihilation description", true, "BaseDOTDam=50;Recharge=8;BioticPrimer=HSA", "PRP=0.75", "PRP=-0.1", "Dam=0.15", "4a", "PRP=-0.3", "TDebuff=0.2;EnableTCheck", "5b", "6a","6b",   // DO POWER RECHARGE SPEED AND  ANNI PENALTY STACK ADDITIVELY ?? Toggle recharge pen
                      "Flak Cannon", "Flak description", false, "BaseDamage=250;SBase=85;Cooldown=1", "SvsArmor=-0.3", "2", "Dam=0.4", "Dam=0.5", "4b", "vsArmor=0.75", "5b", "NrSrapnel=0.5","BaseDOTDam=100;BaseDOTDur=8",
-                     "Munitions Training", "munitions training description", false, "", "WD=0.05", "PD=0.2", "WD=0.05;MD=0.2", "WD=0.08", "PD=0.2;MD=0.2", "TWD=0.2;TMD=0.3;EnableTCheck", "Reload=0.15;MAG=0.25", "TDebuff=0.24;EnableTCheck", "Weak=0.2",
+                     "Weapon Training", "apex description", false, "", "WD=0.05", "PD=0.15", "WD=0.05;MD=0.2", "WD=0.08", "PD=0.2;MD=0.2", "Weak=0.2", "Combo=0.5", "WD=0.1","PD=0.15",
                      "Combat Fitness", "combat fitness description", false, "", "Shields=0.1;Health=0.1", "MD=0.3", "Shields=0.15;Health=0.15", "Shields=0.25;Health=0.25", "MD=0.5", "TDR=0.5;EnableTCheck", "TDR=1;EnableTCheck", "TDR=2;EnableTCheck","TMD=0.65;EnableTCheck")
 
                      ///(base_cooldown/cooldownreduction) * (1 + Min(0,(currentweight - weightcapacity)) * 2 + encumbrancecooldownincrease)
