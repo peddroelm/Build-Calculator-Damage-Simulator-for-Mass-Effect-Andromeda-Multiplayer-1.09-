@@ -524,7 +524,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
              };
 
 
-        const int constNrGear = 21;
+        const int constNrGear = 22;
         private GearPiece[] myGearArray = new GearPiece[constNrGear]
       {
                    new GearPiece("Commando Package" , "WD=0.1;BPD=0.2"),
@@ -547,7 +547,8 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                    new GearPiece("Densified Ammunition", "WD=0.125"),
                    new GearPiece("Survivor Loadout", "Shields=0.2;CPD=0.2"),
                    new GearPiece("Combatives Upgrade", "PWD=0.15;ARWD=0.15"),
-                   new GearPiece("Assault Loadout", "SGWD=0.15;ARWD=0.15")
+                   new GearPiece("Assault Loadout", "SGWD=0.15;ARWD=0.15"),
+                   new GearPiece("Omni-Capacitors", "TPD=0.2;PRS=0.15")
                 };
 
 
@@ -1651,7 +1652,10 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                     case "Assault Loadout": 
                         gearSGWD = gearARWD = 0.15f;
                         break;
-                    
+                    case "Omni-Capacitors":
+                        gearTPD = 0.2f; gearPRS = 0.15f;
+                        break;
+                      
                 }
 
 
