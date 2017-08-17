@@ -524,7 +524,7 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
              };
 
 
-        const int constNrGear = 22;
+        const int constNrGear = 23;
         private GearPiece[] myGearArray = new GearPiece[constNrGear]
       {
                    new GearPiece("Commando Package" , "WD=0.1;BPD=0.2"),
@@ -548,7 +548,8 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                    new GearPiece("Survivor Loadout", "Shields=0.2;CPD=0.2"),
                    new GearPiece("Combatives Upgrade", "PWD=0.15;ARWD=0.15"),
                    new GearPiece("Assault Loadout", "SGWD=0.15;ARWD=0.15"),
-                   new GearPiece("Omni-Capacitors", "TPD=0.2;PRS=0.15")
+                   new GearPiece("Omni-Capacitors", "TPD=0.2;PRS=0.15"),
+                   new GearPiece("Berserker Package", "SGWD=0.15;MD=0.15")    
                 };
 
 
@@ -1655,7 +1656,9 @@ namespace Mass_Effect_Andromeda_Damage_Calculator
                     case "Omni-Capacitors":
                         gearTPD = 0.2f; gearPRS = 0.15f;
                         break;
-                      
+                    case "Berserker Package":
+                        gearSGWD = 0.15f; gearMD = 0.15f;
+                        break;
                 }
 
 
